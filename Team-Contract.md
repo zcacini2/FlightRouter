@@ -45,6 +45,6 @@ Our primary course staff mentor is Linda Chang (lindac2@illinois.edu).
 
 Typing your name below means that you agree to the statements in the above team contract.
 
-Zach Cacini 
+Zach Cacini (zcacini2)
 Giwon jung (gjung10)
 Krystyna Madel (madel3)
