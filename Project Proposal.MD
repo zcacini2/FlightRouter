@@ -1,6 +1,8 @@
-CS225 Data Structures Final Project
+CS225 Data Structures Final Project 
 
 Project Proposal (madel3-zcacini2-gjung10)
+
+Google Doc Link: https://docs.google.com/document/d/1cuo78FzsqoF4lvTw05_gfvHy_nqAWimyw_5TowVx7Z0/edit?usp=sharing
 
 Leading Question: 
 
