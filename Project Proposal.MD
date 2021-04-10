@@ -44,10 +44,15 @@ Timeline:
 Tasks: Data Acquisition, Data Processing, Traversal, Shortest Path Algorithm, Graphical Visualization, and Final Deliverables
 
 Week 1 (April 7-14): Data Acquisition and Processing, beginning graph constructor
-Week 3 (April 14-21): Traversal and Begin Shortest Path Algorithm
+
+Week 2 (April 14-21): Traversal and Begin Shortest Path Algorithm
+
 (Mid-Semester Check-In Apr 19-23)
+
 Week 3 (April 21-28): Finish Shortest Path and Begin Graphical Representation
+
 Week 4 (April 28 - May 5): Finish Graphical Representation and Polish off Code
+
 Week 5 (May 5-12): Final Deliverables (Record Presentation)
 
 
