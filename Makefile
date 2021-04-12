@@ -2,7 +2,7 @@
 EXENAME = finalproj
 
 # Object Types
-OBJS = readFromFile.o main.o
+OBJS = readFromFile.o main.o Graph.o Node.o Edge.o
 
 # Compilation Flags
 CXX = clang++
@@ -23,8 +23,8 @@ output_msg: ; $(CLANG_VERSION_MSG)
 $(EXENAME): output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-readFromFile.o: main.cpp readFromFile.cpp
-	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp
+readFromFile.o: main.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp
+	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp
 
 test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp
 	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp $(LDFLAGS) -o test
