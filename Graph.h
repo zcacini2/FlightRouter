@@ -8,6 +8,8 @@ using namespace std;
 
 class Graph {
     public:
+        
+
         //inserts node into graph
         void insertNode(Node);
 
