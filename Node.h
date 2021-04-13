@@ -1,5 +1,6 @@
 #pragma once
 
+using namespace std;
 
 /**
  * The Node class represents an Airport in the graph linked-memory structure. 
