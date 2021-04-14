@@ -46,7 +46,10 @@ Timeline:
 Tasks: Data Acquisition, Data Processing, Traversal, Shortest Path Algorithm, Graphical Visualization, and Final Deliverables
 
 Week 1 (April 7-14): Data Acquisition and Processing, beginning graph constructor
-
+ - Data Acquisition and Processing: Zach 
+ - Implementing graph class: Giwon
+ - Implementing node and edge class: Krystyna
+ 
 Week 2 (April 14-21): Traversal and Begin Shortest Path Algorithm
 
 (Mid-Semester Check-In Apr 19-23)
