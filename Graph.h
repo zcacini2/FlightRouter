@@ -17,7 +17,7 @@ class Graph {
         Node removeNode(Node);
 
         //inserts an edge between two nodes into the graph structure
-        void insertEdge(Node, Node, K key);
+        void insertEdge(Node, Node);
 
         /*removes edge between two given nodes from graph structure. this
         function should also make sure to adjust the adjacencies/neighbors of the

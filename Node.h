@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 using namespace std;
 
 /**
@@ -11,6 +13,13 @@ class Node {
         /**
          * Put Node public members here.
          */
+        Node();
+
+        Node(string, double, double);
+
+        string airportCode();
+        double latitude();
+        double longitude();
 
     private:
         /**
@@ -18,9 +27,9 @@ class Node {
          */
 
         //The beginning/necessary components
-        string airportCode;
-        double latitude;
-        double longitude;
+        string airportCode_;
+        double latitude_;
+        double longitude_;
 
         /*
         Necessary for advanced input methods
