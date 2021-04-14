@@ -21,6 +21,6 @@ class Edge {
         double calculateDistance(Node, Node);
 
 
-        void placeholder();
+        //void placeholder();
 
 };

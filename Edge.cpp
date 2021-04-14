@@ -11,12 +11,6 @@ Edge::Edge(Node start, Node end) {
     distance_ = calculateDistance(start, end);
 }
 
-void Edge::placeholder() {
-    /*double a = start_.longitude() + 1;
-    double b = end_.longitude() + 1;
-    distance_++;*/
-}
-
 double Edge::calculateDistance(Node node1, Node node2) {
     double earthRadius = 6371;
     double lat1 = node1.latitude();

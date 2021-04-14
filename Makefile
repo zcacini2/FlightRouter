@@ -27,7 +27,7 @@ readFromFile.o: main.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp
 	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp
 
 test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp
-	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp $(LDFLAGS) -o test
+	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test
