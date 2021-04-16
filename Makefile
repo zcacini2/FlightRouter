@@ -1,8 +1,11 @@
 # Executable Name
 EXENAME = finalproj
+TEST = test
 
 # Object Types
-OBJS = readFromFile.o main.o Graph.o Node.o Edge.o
+EXE_OBJ = main.o
+OBJS = main.o readFromFile.o Node.o Edge.o 
+
 
 # Compilation Flags
 CXX = clang++
@@ -16,18 +19,20 @@ include make/customClangEnforcement.mk
 # Define Makefile Rules
 .PHONY: all test clean output_msg
 
-all : $(EXENAME)
+all : $(EXENAME) 
 
 output_msg: ; $(CLANG_VERSION_MSG)
 
-$(EXENAME): output_msg $(OBJS)
-	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
+$(EXENAME): output_msg $(OBJS) 
+	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME) 
 
-readFromFile.o: main.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp
-	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp
+main.o: readFromFile.cpp Node.cpp Edge.cpp Graph.cpp
+	$(CXX) $(CXXFLAGS) readFromFile.cpp Node.cpp Edge.cpp Graph.cpp
 
 test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp
-	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Graph.cpp Node.cpp Edge.cpp $(LDFLAGS) -o test
+	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test
+
+#include cs225/make/cs225.mk

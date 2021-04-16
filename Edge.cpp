@@ -1,7 +1,8 @@
+#include <math.h>
+
 #include "Edge.h"
 #include "Node.h"
 
-#include <math.h>
 
 Edge::Edge() { }
 

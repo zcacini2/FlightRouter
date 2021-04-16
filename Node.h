@@ -1,6 +1,12 @@
 #pragma once
 
+#ifndef NODE_H
+#define NODE_H
+
 #include <string>
+#include <list>
+
+//#include "Edge.h"
 
 using namespace std;
 
@@ -20,6 +26,7 @@ class Node {
         string airportCode();
         double latitude();
         double longitude();
+        //void addIncidentEdge(Edge edge);
 
     private:
         /**
@@ -30,6 +37,8 @@ class Node {
         string airportCode_;
         double latitude_;
         double longitude_;
+        //list<Edge> incidentEdges_;
+        
 
         /*
         Necessary for advanced input methods
@@ -40,3 +49,4 @@ class Node {
         
 
 };
+#endif

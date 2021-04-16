@@ -1,6 +1,7 @@
-#include "Node.h"
-
 #include <string>
+
+#include "Node.h"
+//#include "Edge.h"
 
 using namespace std;
 
@@ -23,3 +24,10 @@ double Node::latitude() {
 double Node::longitude() {
     return longitude_;
 }
+
+/*void Node::addIncidentEdge(Edge edge) {
+    if (edge.start() == *this || edge.end() == *this) {
+        incidentEdges_.push_back(edge);
+    }
+    incidentEdges_.push_back(edge);
+}*/
