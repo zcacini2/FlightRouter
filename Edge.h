@@ -1,18 +1,27 @@
 #pragma once
 
-/**
- * The Edge class represents a connection between two airports in the graph linked-memory structure. 
- */
+//#ifndef EDGE_H
+//#define EDGE_H
+
+#include "Node.h"
+
+using namespace std;
+
 class Edge {
-
     public:
-        /**
-         * Put Edge public members here.
-         */
+        Edge();
+        Edge(Node start, Node end);
 
+        Node start();
+        Node end();
+        double distance();
     private:
-        /**
-         * Put Node private members here.
-         */
+        Node start_; 
+        Node end_;
+        double distance_; //the edge should store the distance between the two airports
 
-}
+        double calculateDistance(Node node1, Node node2);
+};
+
+//#endif
+
