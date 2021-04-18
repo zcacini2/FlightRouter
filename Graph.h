@@ -5,12 +5,15 @@
 #include "Node.h"
 //#include "Edge.h"
 #include <vector>
+#include <unordered_map>
+
 
 using namespace std;
+using std::unordered_map;
 
 class Graph {
     public:
-        
+
 
         //inserts node into graph
         void insertNode(Node toAdd);
@@ -28,8 +31,10 @@ class Graph {
 
         //returns true if two nodes are adjacent (have an edge), false otherwise
         bool areAdjacent(Node node1, Node node2);
-        
+
     private:
+
+        unordered_map<Node, unordered_map<Node, Edge>> adjacent_list;
         vector<Node> nodes_;
         vector<Edge> edges_;
 };
