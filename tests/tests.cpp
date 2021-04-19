@@ -5,6 +5,7 @@
 #include "../readFromFile.hpp"
 #include "../Node.h"
 #include "../Edge.h"
+#include "../Airports.h"
 
 using namespace std;
 
@@ -54,9 +55,10 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) CMItoORD.distance() == expected2);
 }
 
-
+/*
 TEST_CASE("Determine output from file to vector") {
-	Airport one(smallSample.txt);
+	Airports::Airports one();
 	// always check "expected" == "actual" --> be consistent
 	//REQUIRE("hello\nstudents\nof\ncs\n225\n!!!\n" == res);
 }
+*/
