@@ -53,3 +53,10 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) ORDtoORD.distance() == expected4);
 	REQUIRE((int) CMItoORD.distance() == expected2);
 }
+
+
+TEST_CASE("Determine output from file to vector") {
+	Airport one(smallSample.txt);
+	// always check "expected" == "actual" --> be consistent
+	//REQUIRE("hello\nstudents\nof\ncs\n225\n!!!\n" == res);
+}

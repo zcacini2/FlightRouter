@@ -1,23 +1,11 @@
 
 #include <Airports.h>
+#include <readFromFile.cpp>
 
-Airports::Airports() {
+Airports::Airports(const std::string & filename) {
     
-    fstream file;
-    file.open("airports.dat.txt", ios::in);
-
-    std::vector<string> line;
-
-    string row, word, name, city;
-    double latitude, longitude;
-
-    while (file >> longitude) {
-        getline(file, row);
-
-        string stream ss(row);
-
-        while(getline(ss, word, ',')) {
-            
-        }
+    std::vector<string> file = file_to_vector(filename);
+    for (int i = 0; i < file.size(); i++) {
+        std::cout << file[i] << std::endl;
     }
 }
