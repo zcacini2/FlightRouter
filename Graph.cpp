@@ -82,7 +82,7 @@ Graph::Graph(const std::string & filename) {
 
     //Add edge if not there
 
-
+    if ()
 
 
     // Check if edge exists using are adjacent
@@ -98,17 +98,29 @@ Graph::Graph(const std::string & filename) {
   
 }
 
-/*
+/**
+ * This method will insert a node into the nodes_ array maintained by the graph.
+ * @param toAdd the Node to add to the nodes_ array 
+ */
+/*void Graph::insertNode(Node toAdd) {
 
-void Graph:: insertNode(Node toAdd){
- if (toAdd == NULL){
-    Node node = new Node
-  }
-  //if there already exists toAdd node, remove it
-    removeNode(toAdd)
-    //add empty node
-    adjacent_list(toAdd) = unordered_map<Node,Edge>()
-}
+  nodes_.emplace(nodes_.begin() + toAdd.airportCode(), toAdd);
+
+}*/
+
+/**
+ * This method will remove a node from the nodes_ array maintained by the graph. Also, must remove all edges associated with that node.
+ * To remove the edges, parse throgh all edges maintained by the node, go to 
+ */
+/*void Graph::removeNode(Node toRemove) {
+  
+  nodes_.emplace(nodes_.begin() + toRemove.airportCode(), Node());
+  
+  
+  
+}*/
+
+/*
 
 void Graph::removeNode(Node toRemove){
   //if the node is not at the end of the graph,

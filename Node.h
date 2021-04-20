@@ -27,6 +27,7 @@ class Node {
         double latitude();
         double longitude();
         void addNeighbor();
+        bool areNeighbors();
         //void addIncidentEdge(Edge edge);
 
     private:

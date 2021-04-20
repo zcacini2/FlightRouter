@@ -38,12 +38,9 @@ class Graph {
         Graph(const string & filename);
 
         /*
-
-        //inserts node into graph
         void insertNode(Node toAdd);
 
-        //removes nodes from graph and returns the removed node
-        Node removeNode(Node toRemove);
+        void removeNode(Node toRemove);
 
         //inserts an edge between two nodes into the graph structure
         void insertEdge(Node start, Node goal);
