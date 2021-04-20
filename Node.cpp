@@ -7,13 +7,13 @@ using namespace std;
 
 Node::Node() { }
 
-Node::Node(string code, double latitude, double longitude) {
+Node::Node(int code, double latitude, double longitude) {
     airportCode_ = code;
     latitude_ = latitude;
     longitude_ = longitude;
 }
 
-string Node::airportCode() {
+int Node::airportCode() {
     return airportCode_;
 }
 

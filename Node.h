@@ -21,9 +21,9 @@ class Node {
          */
         Node();
 
-        Node(string, double, double);
+        Node(int, double, double);
 
-        string airportCode();
+        int airportCode();
         double latitude();
         double longitude();
         //void addIncidentEdge(Edge edge);
@@ -34,7 +34,7 @@ class Node {
          */
 
         //The beginning/necessary components
-        string airportCode_;
+        int airportCode_;
         double latitude_;
         double longitude_;
         //list<Edge> incidentEdges_;

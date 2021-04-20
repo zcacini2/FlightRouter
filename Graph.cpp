@@ -29,7 +29,49 @@ Graph::Graph() {
  */
 Graph::Graph(const std::string & filename) {
 
-  std::vector<string> file = file_to_vector(filename);
+  std::string str = file_to_string(filename);
+
+  Airports airports("tests/airportsDataSmall.txt");
+
+  std::vector<string> line;  //create line vector
+  stringstream s_stream(str); //create string stream from the string
+  int sourceID, destID; 
+
+  while(s_stream.good()) {
+    string row, substr;
+    getline(s_stream, row, '\n'); //get first string delimited by comma
+    stringstream row_stream(row);
+
+    while (row_stream.good()) {
+      getline(row_stream, substr, ',');
+      substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
+      line.push_back(substr);
+      std::cout << line.back() << std::endl;
+    }
+    
+    sourceID = stoi(line[3]); //OpenFlights ID of the source airport
+    destID = stoi(line[5]); //OpenFlights ID of the destination airport
+
+    if (nodes[sourceID] ==  NULL && nodes[destID] == NULL) {
+      double sourceLat = airports[sourceID][0];
+      double sourceLng = airports[sourceID][1];
+      double destLat = airports[destID][0];
+      double destLng = airports[destID][1];
+
+      Node source(sourceID, sourceLat, sourceLng);
+      Node dest(destID, destLat, destLng);
+
+    }
+
+    // Check if edge exists using are adjacent
+      // But how will we use that with just two airport codes
+    // Check that both nodes exist
+    // Perform necessary logic
+
+  
+    line.clear();
+
+  }
   
   
 }
