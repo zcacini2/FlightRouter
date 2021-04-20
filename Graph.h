@@ -5,13 +5,13 @@
 #include "Node.h"
 //#include "Edge.h"
 #include <vector>
-#include <unordered_map>
+//#include <unordered_map>
 #include <string>
 #include <sstream>
 
 
 using namespace std;
-using std::unordered_map;
+//using std::unordered_map;
 
 class Graph {
     public:
@@ -43,6 +43,8 @@ class Graph {
          */
         Graph(const std::string & filename);
 
+        /*
+
         //inserts node into graph
         void insertNode(Node toAdd);
 
@@ -52,13 +54,15 @@ class Graph {
         //inserts an edge between two nodes into the graph structure
         void insertEdge(Node start, Node goal);
 
-        /*removes edge between two given nodes from graph structure. this
+        removes edge between two given nodes from graph structure. this
         function should also make sure to adjust the adjacencies/neighbors of the
-        nodes that are losing an edge*/
+        nodes that are losing an edge
+        /*
         void removeEdge(Node start, Node goal);
 
         //returns true if two nodes are adjacent (have an edge), false otherwise
         bool areAdjacent(Node node1, Node node2);
+        */
 
     private:
 
