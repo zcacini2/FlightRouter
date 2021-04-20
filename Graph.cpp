@@ -2,12 +2,8 @@
 #include <vector>
 #include "Edge.h"
 #include "readFromFile.hpp"
-
-/**
- * Default Graph Constructor
- */
-Graph::Graph() {
-}
+#include "Airports.h"
+//#include <unordered_map>
 
 
 /**
@@ -37,6 +33,11 @@ Graph::Graph(const std::string & filename) {
 
   Airports airports("tests/airportsDataSmall.txt");
 
+  nodes_.resize(airports.size() + 1);
+  for (unsigned i = 0; i <= airports.size(); i++) {
+    nodes_[i] = Node();
+  }
+
   std::vector<string> line;  //create line vector
   stringstream s_stream(str); //create string stream from the string
   int sourceID, destID; 
@@ -55,38 +56,34 @@ Graph::Graph(const std::string & filename) {
     sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
-    // updatef for nodes_[sourceID] could be out of range
-    if (size < sourceID) || nodes_[sourceID] ==  0) {
-      double sourceLat = airports[sourceID][0];
-      double sourceLng = airports[sourceID][1];
+    // If source node doesnt exist create, else set source equal to already built node
+    if (nodes_[sourceID].airportCode() == -1) {
+      double sourceLat = airports.latitude(sourceID);
+      double sourceLng = airports.longitude(sourceID);
 
       Node source(sourceID, sourceLat, sourceLng);
-
-      if (nodes_.size() < sourceID || nodes_.size() < destID) {
-        nodes_.resize(std::max(sourceID, destID));
-      }
-    } 
-      //If neither node exists, build both nodes and add to list of edges
-
-      
-      double destLat = airports[destID][0];
-      double destLng = airports[destID][1];
-
-      Node source(sourceID, sourceLat, sourceLng);
-      Node dest(destID, destLat, destLng);
-
-      if (nodes_.size() < sourceID || nodes_.size() < destID) {
-        nodes_.resize(std::max(sourceID, destID));
-      }
-
       nodes_.emplace(nodes_.begin() + sourceID, source);
-      nodes_.emplace(nodes_.begin() + destID, dest);
-
-      //Add edge
-
+    } else {
+      Node source;
+      source = nodes_[sourceID];
     }
 
-    && nodes_[destID] == NULL) {
+    //If dest node doesnt exist create, else set dest equal to already built node
+    if (nodes_[destID].airportCode() == -1) {
+      double destLat = airports.latitude(destID);;
+      double destLng = airports.longitude(destID);
+
+      Node dest(destID, destLat, destLng);
+      nodes_.emplace(nodes_.begin() + destID, dest);
+    } else {
+      Node dest;
+      dest = nodes_[destID];
+    }
+
+    //Add edge if not there
+
+
+
 
     // Check if edge exists using are adjacent
       // But how will we use that with just two airport codes
@@ -100,7 +97,6 @@ Graph::Graph(const std::string & filename) {
   
   
 }
-
 
 /*
 

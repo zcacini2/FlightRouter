@@ -5,7 +5,11 @@
 
 using namespace std;
 
-Node::Node() { }
+Node::Node() { 
+    airportCode_ = -1;
+    latitude_ = 0.0;
+    longitude_ = 0.0;
+}
 
 Node::Node(int code, double latitude, double longitude) {
     airportCode_ = code;
@@ -23,6 +27,10 @@ double Node::latitude() {
 
 double Node::longitude() {
     return longitude_;
+}
+
+void Node::addNeighbor() {
+    return;
 }
 
 /*void Node::addIncidentEdge(Edge edge) {

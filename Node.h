@@ -26,6 +26,7 @@ class Node {
         int airportCode();
         double latitude();
         double longitude();
+        void addNeighbor();
         //void addIncidentEdge(Edge edge);
 
     private:
@@ -37,6 +38,7 @@ class Node {
         int airportCode_;
         double latitude_;
         double longitude_;
+        list<Node> neighbors_;
         //list<Edge> incidentEdges_;
         
 

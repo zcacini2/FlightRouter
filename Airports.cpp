@@ -4,7 +4,6 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-#include <string>
 
 #include "readFromFile.hpp"
 
@@ -27,11 +26,16 @@ Airports::Airports(const std::string & filename) {
 
   std::string str = file_to_string(filename);
 
+  std::vector<double> tmp;
+  tmp.push_back(0);
+  tmp.push_back(0);
+  lat_long.push_back(tmp);
+  tmp.clear();
+
   std::vector<std::string> line;  //create line vector
   std::stringstream s_stream(str); //create string stream from the string
-  int airportID;
   double lat, lng;
-  std::vector<double> tmp;
+  
 
   while(s_stream.good()) {
     std::string row, substr;
@@ -44,13 +48,11 @@ Airports::Airports(const std::string & filename) {
       line.push_back(substr);
     }
     
-    //airportID = stoi(line[0]);
     lat = stod(line[6]);
     lng = stod(line[7]);
     //name = line[1];
     //city = line[2];
 
-    
     tmp.push_back(lat);
     tmp.push_back(lng);
     lat_long.push_back(tmp);
@@ -81,4 +83,8 @@ double Airports::latitude(int code) {
  */
 double Airports::longitude(int code) {
     return lat_long[code][1];
+}
+
+unsigned Airports::size() {
+  return lat_long.size();
 }

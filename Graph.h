@@ -3,12 +3,11 @@
 
 #include "Edge.h"
 #include "Node.h"
-//#include "Edge.h"
 #include <vector>
 //#include <unordered_map>
 #include <string>
 #include <sstream>
-
+#include "Airports.h"
 
 
 using namespace std;
@@ -16,15 +15,7 @@ using namespace std;
 
 class Graph {
     public:
-
-        /**
-         * Default Constructor
-         */
-        /*
-        Graph();
-        */
         
-
         /**
          * Graph constructor. The constructor will take in the routes file. The routes file is a CSV containing the 
          * following elements in order: Airline, Airline ID, Source airport, Source Airport (OpenFlights ID), Destination
@@ -44,7 +35,7 @@ class Graph {
          *
          * @param filename name of the file to create the graph from
          */
-        Graph(const std::string & filename);
+        Graph(const string & filename);
 
         /*
 

@@ -44,6 +44,13 @@ class Airports {
          */
         double longitude(int code);
 
+        /**
+         * Gets the number of airports.
+         *
+         * @return number of airports stored
+         */
+        unsigned size();
+
     private:
 
         /** 
