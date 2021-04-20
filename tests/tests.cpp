@@ -82,11 +82,11 @@ TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
 
 TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)") {
 	//sample lat long coordinates from google
-	Node ORD("ORD", 41.9773, -87.8369); //chicago
-	Node JFK("JFK", 40.6413, -73.5581); //NY
-	Node ICN("ICN", 37.4602, 126.4407); //icheon
-	Node HND("HND", 35.5494, 139.7798); //tokyo
-	Node CMI("CMI", 40.0365, -88.2640); //champaign
+	Node ORD(3830, 41.9773, -87.8369); //chicago
+	Node JFK(3797, 40.6413, -73.5581); //NY
+	Node ICN(3930, 37.4602, 126.4407); //icheon
+	Node HND(2359, 35.5494, 139.7798); //tokyo
+	Node CMI(4049, 40.0365, -88.2640); //champaign
 
 	Edge ORDtoJFK(ORD, JFK);
 	Edge ORDtoICN(ORD, ICN);
