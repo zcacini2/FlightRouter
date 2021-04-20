@@ -53,6 +53,8 @@ Graph::Graph(const std::string & filename) {
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
     if (nodes[sourceID] ==  NULL && nodes[destID] == NULL) {
+      //If neither node exists, build both nodes and add to list of edges
+
       double sourceLat = airports[sourceID][0];
       double sourceLng = airports[sourceID][1];
       double destLat = airports[destID][0];
@@ -60,6 +62,15 @@ Graph::Graph(const std::string & filename) {
 
       Node source(sourceID, sourceLat, sourceLng);
       Node dest(destID, destLat, destLng);
+
+      if (nodes.size() < sourceID || nodes.size() < destID) {
+        nodes.resize(std::max(sourceID, destID));
+      }
+
+      nodes.emplace(nodes.begin() + sourceID, source);
+      nodes.emplace(nodes.begin() + destID, dest);
+
+      //Add edge
 
     }
 
