@@ -19,7 +19,9 @@ class Graph {
         /**
          * Default Constructor
          */
+        /*
         Graph();
+        */
         
 
         /**
@@ -57,7 +59,7 @@ class Graph {
         removes edge between two given nodes from graph structure. this
         function should also make sure to adjust the adjacencies/neighbors of the
         nodes that are losing an edge
-        /*
+        
         void removeEdge(Node start, Node goal);
 
         //returns true if two nodes are adjacent (have an edge), false otherwise
@@ -66,7 +68,7 @@ class Graph {
 
     private:
 
-        unordered_map<Node, unordered_map<Node, Edge>> adjacent_list;
+        //unordered_map<Node, unordered_map<Node, Edge>> adjacent_list;
         vector<Node> nodes_;
         vector<Edge> edges_;
 };

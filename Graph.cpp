@@ -49,6 +49,7 @@ Graph::Graph(const std::string & filename) {
     sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
+    // updatef for nodes_[sourceID] could be out of range
     if (nodes_[sourceID] ==  NULL && nodes_[destID] == NULL) {
       //If neither node exists, build both nodes and add to list of edges
 
@@ -83,6 +84,7 @@ Graph::Graph(const std::string & filename) {
   
   
 }
+
 
 /*
 
