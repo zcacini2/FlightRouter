@@ -1,7 +1,7 @@
 #include "Airports.h"
 
 /** 
- * This method will handle the airport coder/decoder. This will be maintained as 2 vectors. The vectos'
+ * This method will handle the airport coder/decoder. This will be maintained as 2 vectors. The vector's
  * indices correspond to the OpenFlights ID. This will aid the creation of nodes by matching airport ID
  * to the lat/long found in the airports file. 
  * 
