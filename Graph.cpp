@@ -50,33 +50,43 @@ Graph::Graph(const std::string & filename) {
       getline(row_stream, substr, ',');
       substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
       line.push_back(substr);
-      std::cout << line.back() << std::endl;
     }
     
     sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
-    if (nodes[sourceID] ==  NULL && nodes[destID] == NULL) {
-      //If neither node exists, build both nodes and add to list of edges
-
+    // updatef for nodes_[sourceID] could be out of range
+    if (size < sourceID) || nodes_[sourceID] ==  0) {
       double sourceLat = airports[sourceID][0];
       double sourceLng = airports[sourceID][1];
+
+      Node source(sourceID, sourceLat, sourceLng);
+
+      if (nodes_.size() < sourceID || nodes_.size() < destID) {
+        nodes_.resize(std::max(sourceID, destID));
+      }
+    } 
+      //If neither node exists, build both nodes and add to list of edges
+
+      
       double destLat = airports[destID][0];
       double destLng = airports[destID][1];
 
       Node source(sourceID, sourceLat, sourceLng);
       Node dest(destID, destLat, destLng);
 
-      if (nodes.size() < sourceID || nodes.size() < destID) {
-        nodes.resize(std::max(sourceID, destID));
+      if (nodes_.size() < sourceID || nodes_.size() < destID) {
+        nodes_.resize(std::max(sourceID, destID));
       }
 
-      nodes.emplace(nodes.begin() + sourceID, source);
-      nodes.emplace(nodes.begin() + destID, dest);
+      nodes_.emplace(nodes_.begin() + sourceID, source);
+      nodes_.emplace(nodes_.begin() + destID, dest);
 
       //Add edge
 
     }
+
+    && nodes_[destID] == NULL) {
 
     // Check if edge exists using are adjacent
       // But how will we use that with just two airport codes
@@ -92,10 +102,12 @@ Graph::Graph(const std::string & filename) {
 }
 
 
+/*
+
 void Graph:: insertNode(Node toAdd){
-/*  if (toAdd == NULL){
+ if (toAdd == NULL){
     Node node = new Node
-  }*/
+  }
   //if there already exists toAdd node, remove it
     removeNode(toAdd)
     //add empty node
@@ -145,5 +157,7 @@ void Graph::removeEdge(Node start, Node goal){
 bool Graph::areAdjacent(Node node1, Node node2){
   auto list_1 = adjacent_list.find(node1);
   auto list_2 = adjacent_list.find(node2);
-  if ()
+  //if ()
 }
+
+*/

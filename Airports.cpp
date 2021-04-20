@@ -42,7 +42,6 @@ Airports::Airports(const std::string & filename) {
       getline(row_stream, substr, ',');
       substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
       line.push_back(substr);
-      std::cout << line.back() << std::endl;
     }
     
     //airportID = stoi(line[0]);
