@@ -1,5 +1,16 @@
 #include "Airports.h"
 
+#include <vector>
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <string>
+
+#include "readFromFile.hpp"
+
+
+
+
 /** 
  * This method will handle the airport coder/decoder. This will be maintained as 2 vectors. The vector's
  * indices correspond to the OpenFlights ID. This will aid the creation of nodes by matching airport ID
@@ -13,20 +24,20 @@
  * 
  * @param filename name of file to parse to fill airport information.
  */
-void Airports::Airports(const std::string & filename) {
+Airports::Airports(const std::string & filename) {
 
   std::string str = file_to_string(filename);
 
-  std::vector<string> line;  //create line vector
-  stringstream s_stream(str); //create string stream from the string
+  std::vector<std::string> line;  //create line vector
+  std::stringstream s_stream(str); //create string stream from the string
   int airportID;
   double lat, lng;
   std::vector<double> tmp;
 
   while(s_stream.good()) {
-    string row, substr;
+    std::string row, substr;
     getline(s_stream, row, '\n'); //get first string delimited by comma
-    stringstream row_stream(row);
+    std::stringstream row_stream(row);
 
     while (row_stream.good()) {
       getline(row_stream, substr, ',');

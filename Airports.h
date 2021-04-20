@@ -3,6 +3,10 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <string>
+
+#include "readFromFile.hpp"
 
 class Airports {
     public:
@@ -47,7 +51,7 @@ class Airports {
          * Index corresponds to the OpenFlights identifier.
          * Data stored: Airport Name and City of Airport.
          */
-        std::vector<std::vector<string>> airports;
+        std::vector<std::vector<std::string>> airports;
 
         /**
          * Index corresponds to the OpenFlights identifier.

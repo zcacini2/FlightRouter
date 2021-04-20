@@ -80,6 +80,7 @@ TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
 	REQUIRE(airports.longitude(3) == 144.29600524902344);
 }
 
+/*
 TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)") {
 	//sample lat long coordinates from google
 	Node ORD("ORD", 41.9773, -87.8369); //chicago
@@ -107,6 +108,7 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) ORDtoORD.distance() == expected4);
 	REQUIRE((int) CMItoORD.distance() == expected2);
 }
+*/
 
 
 

@@ -8,6 +8,7 @@
 Graph::Graph() {
 }
 
+
 /**
  * Graph constructor. The constructor will take in the routes file. The routes file is a CSV containing the 
  * following elements in order: Airline, Airline ID, Source airport, Source Airport (OpenFlights ID), Destination
@@ -27,6 +28,8 @@ Graph::Graph() {
  *
  * @param filename name of the file to create the graph from
  */
+
+
 Graph::Graph(const std::string & filename) {
 
   std::string str = file_to_string(filename);
@@ -86,6 +89,7 @@ Graph::Graph(const std::string & filename) {
   
   
 }
+
 
 void Graph:: insertNode(Node toAdd){
 /*  if (toAdd == NULL){
