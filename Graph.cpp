@@ -43,18 +43,25 @@ Graph::Graph(const std::string & filename) {
       getline(row_stream, substr, ',');
       substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
       line.push_back(substr);
-      std::cout << line.back() << std::endl;
     }
     
     sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
     // updatef for nodes_[sourceID] could be out of range
-    if (nodes_[sourceID] ==  NULL && nodes_[destID] == NULL) {
-      //If neither node exists, build both nodes and add to list of edges
-
+    if (size < sourceID) || nodes_[sourceID] ==  0) {
       double sourceLat = airports[sourceID][0];
       double sourceLng = airports[sourceID][1];
+
+      Node source(sourceID, sourceLat, sourceLng);
+
+      if (nodes_.size() < sourceID || nodes_.size() < destID) {
+        nodes_.resize(std::max(sourceID, destID));
+      }
+    } 
+      //If neither node exists, build both nodes and add to list of edges
+
+      
       double destLat = airports[destID][0];
       double destLng = airports[destID][1];
 
@@ -71,6 +78,8 @@ Graph::Graph(const std::string & filename) {
       //Add edge
 
     }
+
+    && nodes_[destID] == NULL) {
 
     // Check if edge exists using are adjacent
       // But how will we use that with just two airport codes
