@@ -1,7 +1,7 @@
 #include "Graph.h"
 #include <vector>
 #include "Edge.h"
-#include "readFromFile.h"
+#include "readFromFile.hpp"
 
 /**
  * Default Graph Constructor
