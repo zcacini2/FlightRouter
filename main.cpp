@@ -8,7 +8,9 @@ int main() {
     //const int& testint = 5;
     const std::string& filename1 = "tests/routesDataSmall.txt";
     Graph graph1(filename1);
-    BFS test(graph1, Node(1, -6.081689834590001, 145.391998291));
+    //Node testNode = Node(1, -6.081689834590001, 145.391998291);
+    //testNode.addNeighbor()
+    BFS test(graph1, graph1.getFirstNode());
     test.traverse();
 
     return 0;

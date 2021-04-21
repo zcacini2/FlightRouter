@@ -87,7 +87,7 @@ Graph::Graph(const std::string & filename) {
 
     //Add edge if not there
 
-    if (!source.areNeighbors(dest)) {
+    if (!(source.areNeighbors(dest))) {
       Edge route(source, dest);
       edges_.push_back(route);
 
@@ -116,6 +116,9 @@ vector<Edge> Graph::getEdges() {
   return edges_;
 }
 
+Node Graph::getFirstNode() {
+  return (nodes_.at(1));
+}
 
 /*
 
