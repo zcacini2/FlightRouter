@@ -73,12 +73,12 @@ TEST_CASE("Test behavior of CSV file parsing", "[part=1]") {
 TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
 	Airports airports("tests/airportsDataSmall.txt");
 
-	REQUIRE(airports.latitude(0) == -6.081689834590001);
-	REQUIRE(airports.latitude(1) == -5.20707988739);
-	REQUIRE(airports.latitude(2) == -5.826789855957031);
-	REQUIRE(airports.longitude(0) == 145.391998291);
-	REQUIRE(airports.longitude(1) == 145.789001465);
-	REQUIRE(airports.longitude(2) == 144.29600524902344);
+	REQUIRE(airports.latitude(1) == -6.081689834590001);
+	REQUIRE(airports.latitude(2) == -5.20707988739);
+	REQUIRE(airports.latitude(3) == -5.826789855957031);
+	REQUIRE(airports.longitude(1) == 145.391998291);
+	REQUIRE(airports.longitude(2) == 145.789001465);
+	REQUIRE(airports.longitude(3) == 144.29600524902344);
 }
 
 
@@ -113,7 +113,7 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 TEST_CASE("Test sample data on Graph Ctor") {
 	Graph graph("tests/routesDataSmall.txt");
 	vector<Node> nodes = graph.getNodes();
-	vector<Edge> edges = graph.getEdges();
+	vector<Edge> edges = graph.getEdges(); 
 
 	vector<double> nodesLats{-6.081689834590001, -5.20707988739, -5.826789855957031, -6.569803};
 
