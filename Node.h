@@ -27,7 +27,9 @@ class Node {
         double latitude();
         double longitude();
         void addNeighbor(Node neighbor);
+        Node removeNeighbor(Node toRemove);
         bool areNeighbors(Node check);
+        list<Node> neighbors();
         //void addIncidentEdge(Edge edge);
 
         /**
@@ -35,7 +37,7 @@ class Node {
         * @param other The other point
         * @return True for smaller, false for otherwise
         */
-        //bool operator==(const Node &other) const;
+        bool operator==(const Node &other) const;
 
     private:
         /**

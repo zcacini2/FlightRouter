@@ -7,47 +7,25 @@
 
 class BFS {
     public:
+        BFS();
+        /** 
+         *  Constructs a BFS traversal object using the given graph to be traversed and an
+         *  arbitrary starting node
+         *  @param graph graph to be traversed
+         *  @param start starting node/center for the traversal
+         */
         BFS(Graph graph, Node start);
-        /*{
-            queue_.push(start);
-            graph_ = graph;
-            visited_.resize(1000000);
-            for (unsigned long i = 0; i < visited_.size(); i++) {
-                visited_[i] = false;
-            }
-        }*/
-        traverse();
-        /*{
-            while (queue not empty) 
-                Node curr = queue_.front();
-
-                *do stuff here to node* (depth? predecessor? print?)
-
-                queue.pop();
-                
-
-                for (every adjacent node) 
-                    if (adj node not visited) 
-                        visited[adj node] = true;
-                        enqueue(adj node)
-        }*/
+        /**
+         *  This function traverses the entire graph passed into the constructor. The
+         *  traversal itself currently does no work.
+         */
+        void traverse();
     private:
+        //queue used for BFS traversal of the graph
         queue<Node> queue_;
+
+        //vector keeping track of visited nodes
         vector<bool> visited_;
         Graph graph_;
 };
 
-
-
-/*
-class BFS {
-    public:
-        class Iterator : std::iterator<std::forward_iterator_tag, Node> {
-            public:
-                Iterator();
-                Iterator()
-            private:
-        }
-        BFS(Graph graph, Node start);
-
-};*/

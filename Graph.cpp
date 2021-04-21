@@ -5,6 +5,7 @@
 #include "Airports.h"
 //#include <unordered_map>
 
+Graph::Graph() { }
 
 /**
  * Graph constructor. The constructor will take in the routes file. The routes file is a CSV containing the 
