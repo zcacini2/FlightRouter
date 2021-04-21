@@ -60,21 +60,21 @@ class Graph {
         /**
          * Method returning all nodes of a graph.
          */
-        vector<Node> getNodes();
+        vector<Node*> getNodes();
 
         /**
          * Mathod returning all edgs of a graph.
          */
         vector<Edge> getEdges();
 
-        Node getFirstNode();
+        Node* getFirstNode();
 
     private:
 
         /**
          * Vector of Nodes stored by the OpenFlights ID of the airport
          */
-        vector<Node> nodes_;
+        vector<Node*> nodes_;
 
         /**
          * Vector of edges. Each edge starts at the airport with the 

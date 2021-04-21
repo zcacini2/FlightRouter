@@ -26,10 +26,10 @@ class Node {
         int airportCode();
         double latitude();
         double longitude();
-        void addNeighbor(Node neighbor);
-        Node removeNeighbor(Node toRemove);
-        bool areNeighbors(Node check);
-        list<Node> neighbors();
+        void addNeighbor(Node* neighbor);
+        Node* removeNeighbor(Node* toRemove);
+        bool areNeighbors(Node* check);
+        list<Node*> neighbors();
         //void addIncidentEdge(Edge edge);
 
         /**
@@ -48,7 +48,7 @@ class Node {
         int airportCode_;
         double latitude_;
         double longitude_;
-        list<Node> neighbors_;
+        list<Node*> neighbors_;
         //list<Edge> incidentEdges_;
         
 

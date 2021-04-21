@@ -14,7 +14,7 @@ class BFS {
          *  @param graph graph to be traversed
          *  @param start starting node/center for the traversal
          */
-        BFS(Graph graph, Node start);
+        BFS(Graph graph, Node* start);
         /**
          *  This function traverses the entire graph passed into the constructor. The
          *  traversal itself currently does no work.
@@ -22,7 +22,7 @@ class BFS {
         void traverse();
     private:
         //queue used for BFS traversal of the graph
-        queue<Node> queue_;
+        queue<Node*> queue_;
 
         //vector keeping track of visited nodes
         vector<bool> visited_;

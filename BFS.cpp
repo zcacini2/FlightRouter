@@ -5,7 +5,7 @@
 
 BFS::BFS() { }
 
-BFS::BFS(Graph graph, Node start)
+BFS::BFS(Graph graph, Node* start)
 {
     queue_.push(start);
     graph_ = graph;
@@ -19,20 +19,21 @@ BFS::BFS(Graph graph, Node start)
 void BFS::traverse()
 {
     while (!(queue_.empty())) {
-        Node curr = queue_.front();
+        Node* curr = queue_.front();
+        visited_[curr->airportCode()] = true;
         //curr.addNeighbor(Node(4, -1, -1));
         
         //work
-        std::cout << curr.airportCode() << std::endl;
+        std::cout << "Airport Code:" << curr->airportCode() << std::endl;
         //work
 
         queue_.pop();
-        list<Node> currNeighbors = curr.neighbors();
+        list<Node*> currNeighbors = curr->neighbors();
 
-        for (list<Node>::iterator it = currNeighbors.begin(); it != currNeighbors.end(); ++it) {
-            std::cout << "TRAVERSAL FOR LOOP:" << (*it).airportCode() << std::endl;
-            if (!(visited_[(*it).airportCode()])) {
-                visited_[(*it).airportCode()] = true;
+        for (list<Node*>::iterator it = currNeighbors.begin(); it != currNeighbors.end(); ++it) {
+            //std::cout << "TRAVERSAL FOR LOOP:" << (*it)->airportCode() << std::endl;
+            if (!(visited_[(*it)->airportCode()])) {
+                visited_[(*it)->airportCode()] = true;
                 queue_.push(*it);
             }
         }

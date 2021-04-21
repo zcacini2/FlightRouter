@@ -10,17 +10,17 @@ using namespace std;
 class Edge {
     public:
         Edge();
-        Edge(Node start, Node end);
+        Edge(Node * start, Node * end);
 
-        Node start();
-        Node end();
+        Node * start();
+        Node * end();
         double distance();
     private:
-        Node start_; 
-        Node end_;
+        Node * start_; 
+        Node * end_;
         double distance_; //the edge should store the distance between the two airports
 
-        double calculateDistance(Node node1, Node node2);
+        double calculateDistance(Node * node1, Node * node2);
 };
 
 //#endif

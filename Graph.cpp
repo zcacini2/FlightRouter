@@ -34,7 +34,7 @@ Graph::Graph(const std::string & filename) {
 
   nodes_.resize(airports.size());
   for (unsigned i = 0; i < airports.size(); i++) {
-    nodes_[i] = Node();
+    nodes_[i] = new Node();
   }
 
   std::vector<string> line;  //create line vector
@@ -55,63 +55,52 @@ Graph::Graph(const std::string & filename) {
     sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
-    Node source, dest;
+    Node* source;
+    Node* dest;
 
     // If source node doesnt exist create, else set source equal to already built node
-    if (nodes_[sourceID].airportCode() == -1) {
+    if (nodes_[sourceID]->airportCode() == -1) {
       double sourceLat = airports.latitude(sourceID);
       double sourceLng = airports.longitude(sourceID);
 
-      Node _source(sourceID, sourceLat, sourceLng);
+      Node* _source = new Node(sourceID, sourceLat, sourceLng);
       source = _source;
 
       nodes_[sourceID] = source;
 
     } else {
       source = nodes_[sourceID];
-      std::cout << "Found " << source.airportCode() << " in nodes_" << std::endl;
+      std::cout << "Found " << source->airportCode() << " in nodes_" << std::endl;
     }
 
     //If dest node doesnt exist create, else set dest equal to already built node
-    if (nodes_[destID].airportCode() == -1) {
+    if (nodes_[destID]->airportCode() == -1) {
       double destLat = airports.latitude(destID);;
       double destLng = airports.longitude(destID);
 
-      Node _dest(destID, destLat, destLng);
+      Node* _dest = new Node(destID, destLat, destLng);
       dest = _dest;
 
       nodes_[destID] = dest;
 
     } else {
       dest = nodes_[destID];
-      std::cout << "Found " << dest.airportCode() << " in nodes_" << std::endl;
+      std::cout << "Found " << dest->airportCode() << " in nodes_" << std::endl;
     }
 
     //Add edge if not there
 
-<<<<<<< HEAD
-    //if (!source.areNeighbors(dest)) {
+    //if (!source.areNeighbors(&dest)) {
     Edge route(source, dest);
     edges_.push_back(route);
 
-    source.addNeighbor(dest);
-    std::cout << "Added " << dest.airportCode() << " as neighbor to " << source.airportCode() << std::endl;
-    std::cout << source.airportCode() << " now has " << source.neighbors().size() << " neighbors." << std::endl;
-    dest.addNeighbor(source);
-    std::cout << "Added " << source.airportCode() << " as neighbor to " << dest.airportCode() << std::endl;
-    std::cout << dest.airportCode() << " now has " << dest.neighbors().size() << " neighbors." << std::endl;
+    source->addNeighbor(dest);
+    std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
+    std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
+    dest->addNeighbor(source);
+    std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
+    std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
     //}
-=======
-    if (!(source.areNeighbors(dest))) {
-      Edge route(source, dest);
-      edges_.push_back(route);
-      
-      //Node tmp1 = Node(dest.airportCode(), dest.latitude(), dest.longitude());
-      //Node tmp2 = Node(source.airportCode(), source.latitude(), source.longitude());
-      source.addNeighbor(dest);
-      dest.addNeighbor(source);
-    }
->>>>>>> 57b7d6742764828d80086558dc7eb606e522d648
 
     line.clear();
 
@@ -123,7 +112,7 @@ Graph::Graph(const std::string & filename) {
 /**
  * Method returning all nodes of a graph.
  */
-vector<Node> Graph::getNodes() {
+vector<Node*> Graph::getNodes() {
   return nodes_;
 }
 
@@ -134,7 +123,7 @@ vector<Edge> Graph::getEdges() {
   return edges_;
 }
 
-Node Graph::getFirstNode() {
+Node* Graph::getFirstNode() {
   return (nodes_.at(1));
 }
 
