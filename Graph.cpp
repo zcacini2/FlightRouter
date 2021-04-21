@@ -89,6 +89,7 @@ Graph::Graph(const std::string & filename) {
 
     //Add edge if not there
 
+<<<<<<< HEAD
     //if (!source.areNeighbors(dest)) {
     Edge route(source, dest);
     edges_.push_back(route);
@@ -100,6 +101,17 @@ Graph::Graph(const std::string & filename) {
     std::cout << "Added " << source.airportCode() << " as neighbor to " << dest.airportCode() << std::endl;
     std::cout << dest.airportCode() << " now has " << dest.neighbors().size() << " neighbors." << std::endl;
     //}
+=======
+    if (!(source.areNeighbors(dest))) {
+      Edge route(source, dest);
+      edges_.push_back(route);
+      
+      //Node tmp1 = Node(dest.airportCode(), dest.latitude(), dest.longitude());
+      //Node tmp2 = Node(source.airportCode(), source.latitude(), source.longitude());
+      source.addNeighbor(dest);
+      dest.addNeighbor(source);
+    }
+>>>>>>> 57b7d6742764828d80086558dc7eb606e522d648
 
     line.clear();
 
@@ -122,6 +134,9 @@ vector<Edge> Graph::getEdges() {
   return edges_;
 }
 
+Node Graph::getFirstNode() {
+  return (nodes_.at(1));
+}
 
 /*
 

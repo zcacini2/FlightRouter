@@ -76,8 +76,8 @@ bool Node::operator==(const Node &other) const {
 
 
 bool Node::areNeighbors(Node check) {
-    for (Node neighbor : neighbors_) {
-        if (neighbor.airportCode() == check.airportCode()) {
+    for (list<Node>::iterator it = neighbors_.begin(); it != neighbors_.end(); ++it) {
+        if ((*it).airportCode() == check.airportCode()) {
             return true;
         }
     }
