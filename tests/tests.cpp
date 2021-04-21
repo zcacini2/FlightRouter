@@ -128,5 +128,44 @@ TEST_CASE("Test sample data on Graph Ctor") {
 	REQUIRE(edges[2].start().latitude() == expectedLat3);
 }
 
+TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=2]") {
 
+	Graph graph("tests/routesDataSmall.txt");
+	vector<Node> nodes = graph.getNodes();
 
+	list<Node> neigh1 = nodes[1].neighbors();
+	list<Node> neigh2 = nodes[2].neighbors();
+	list<Node> neigh3 = nodes[3].neighbors();
+
+	std::cout << "Printed1" << std::endl;
+
+	for (Node node : nodes) {
+		std::cout << node.latitude() << ", " << node.neighbors().size() << " Printed" << std::endl;
+		
+	}
+
+	double lat1 = -6.081689834590001;
+	double lat2 = -5.20707988739;
+	double lat3 = -5.826789855957031;
+	//vector<Node> expLats2 {-6.081689834590001, -5.826789855957031};
+	//vector<Node> expLat3 {-5.20707988739, -6.081689834590001};
+
+	auto it = neigh1.begin();
+ 	REQUIRE((*it).latitude() == lat2);
+	++it;
+	//REQUIRE((*it).latitude() == lat3);
+
+	auto it2 = neigh2.begin();
+	//REQUIRE((*it2).latitude() == lat1);
+	++it2;
+	//REQUIRE((*it2).latitude() == lat3);
+
+	auto it3 = neigh3.begin();
+	//REQUIRE((*it3).latitude() == lat2);
+	++it3;
+	//REQUIRE((*it3).latitude() == lat1);
+}
+
+TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
+
+TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
