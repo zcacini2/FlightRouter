@@ -67,6 +67,7 @@ bool Graph::areAdjacent(Node node1, Node node2){
 #include "Airports.h"
 //#include <unordered_map>
 
+Graph::Graph() { }
 
 /**
  * Graph constructor. The constructor will take in the routes file. The routes file is a CSV containing the 
