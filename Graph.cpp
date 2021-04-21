@@ -35,7 +35,7 @@ void Graph::insertEdge(Node start, Node goal){
     }
 
   // if start nod does not exists, add it
-  if(adjacent_list.find(start)==adjacent_list.end()){
+  if(adjacent_list.find(start)==adjacent_list.end()) {
     adjacent_list[start] = unordered_map<Node, Edge>();
   }
 
@@ -54,5 +54,7 @@ void Graph::removeEdge(Node start, Node goal){
 }
 
 bool Graph::areAdjacent(Node node1, Node node2){
-  
+  auto list_1 = adjacent_list.find(node1);
+  auto list_2 = adjacent_list.find(node2);
+  if ()
 }
