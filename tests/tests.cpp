@@ -54,7 +54,7 @@ TEST_CASE("Test behavior of CSV file parsing", "[part=1]") {
 			getline(row_stream, substr, ',');
 			substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
 			line.push_back(substr);
-			std::cout << line.back() << std::endl;
+			//std::cout << line.back() << std::endl;
 		}
 		
 		airportID = line[0];
@@ -62,7 +62,7 @@ TEST_CASE("Test behavior of CSV file parsing", "[part=1]") {
 		lng = line[7];
 		
 		line.clear();
-		std::cout << airportID << ", " << lat << ", " << lng << std::endl;
+		//std::cout << airportID << ", " << lat << ", " << lng << std::endl;
 
   	}
 
@@ -115,15 +115,17 @@ TEST_CASE("Test sample data on Graph Ctor") {
 	vector<Node> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges(); 
 
-	vector<double> nodesLats{-6.081689834590001, -5.20707988739, -5.826789855957031, -6.569803};
+	double expectedLat1 = -6.081689834590001;
+	double expectedLat2 = -5.20707988739; 
+	double expectedLat3 = -5.826789855957031;
 
-	for (unsigned i = 1; i <= nodes.size(); i++) {
-		REQUIRE(nodes[i].latitude() == nodesLats[i]);
-	}
+	REQUIRE(nodes[1].latitude() == expectedLat1);
+	REQUIRE(nodes[2].latitude() == expectedLat2);
+	REQUIRE(nodes[3].latitude() == expectedLat3);
 
-	for (unsigned i = 1; i <= edges.size(); i++) {
-		REQUIRE(edges[i].start().latitude() == nodesLats[i]);
-	}
+	REQUIRE(edges[0].start().latitude() == expectedLat1);
+	REQUIRE(edges[1].start().latitude() == expectedLat2);
+	REQUIRE(edges[2].start().latitude() == expectedLat3);
 }
 
 

@@ -64,7 +64,7 @@ Graph::Graph(const std::string & filename) {
       Node _source(sourceID, sourceLat, sourceLng);
       source = _source;
 
-      nodes_.emplace(nodes_.begin() + sourceID, source);
+      nodes_[sourceID] = source;
 
     } else {
       source = nodes_[sourceID];
@@ -78,7 +78,7 @@ Graph::Graph(const std::string & filename) {
       Node _dest(destID, destLat, destLng);
       dest = _dest;
 
-      nodes_.emplace(nodes_.begin() + destID, dest);
+      nodes_[destID] = dest;
 
     } else {
       dest = nodes_[destID];
