@@ -90,7 +90,9 @@ Graph::Graph(const std::string & filename) {
     if (!(source.areNeighbors(dest))) {
       Edge route(source, dest);
       edges_.push_back(route);
-
+      
+      //Node tmp1 = Node(dest.airportCode(), dest.latitude(), dest.longitude());
+      //Node tmp2 = Node(source.airportCode(), source.latitude(), source.longitude());
       source.addNeighbor(dest);
       dest.addNeighbor(source);
     }
