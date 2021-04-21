@@ -26,9 +26,16 @@ class Node {
         int airportCode();
         double latitude();
         double longitude();
-        void addNeighbor();
-        bool areNeighbors();
+        void addNeighbor(Node neighbor);
+        bool areNeighbors(Node check);
         //void addIncidentEdge(Edge edge);
+
+        /**
+        * overload operator ==
+        * @param other The other point
+        * @return True for smaller, false for otherwise
+        */
+        //bool operator==(const Node &other) const;
 
     private:
         /**

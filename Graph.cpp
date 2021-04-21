@@ -25,8 +25,6 @@
  *
  * @param filename name of the file to create the graph from
  */
-
-
 Graph::Graph(const std::string & filename) {
 
   std::string str = file_to_string(filename);
@@ -56,15 +54,19 @@ Graph::Graph(const std::string & filename) {
     sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
+    Node source, dest;
+
     // If source node doesnt exist create, else set source equal to already built node
     if (nodes_[sourceID].airportCode() == -1) {
       double sourceLat = airports.latitude(sourceID);
       double sourceLng = airports.longitude(sourceID);
 
-      Node source(sourceID, sourceLat, sourceLng);
+      Node _source(sourceID, sourceLat, sourceLng);
+      source = _source;
+
       nodes_.emplace(nodes_.begin() + sourceID, source);
+
     } else {
-      Node source;
       source = nodes_[sourceID];
     }
 
@@ -73,24 +75,25 @@ Graph::Graph(const std::string & filename) {
       double destLat = airports.latitude(destID);;
       double destLng = airports.longitude(destID);
 
-      Node dest(destID, destLat, destLng);
+      Node _dest(destID, destLat, destLng);
+      dest = _dest;
+
       nodes_.emplace(nodes_.begin() + destID, dest);
+
     } else {
-      Node dest;
       dest = nodes_[destID];
     }
 
     //Add edge if not there
 
-    if ()
+    if (!source.areNeighbors(dest)) {
+      Edge route(source, dest);
+      edges_.push_back(route);
 
+      source.addNeighbor(dest);
+      dest.addNeighbor(source);
+    }
 
-    // Check if edge exists using are adjacent
-      // But how will we use that with just two airport codes
-    // Check that both nodes exist
-    // Perform necessary logic
-
-  
     line.clear();
 
   }
@@ -99,26 +102,19 @@ Graph::Graph(const std::string & filename) {
 }
 
 /**
- * This method will insert a node into the nodes_ array maintained by the graph.
- * @param toAdd the Node to add to the nodes_ array 
+ * Method returning all nodes of a graph.
  */
-/*void Graph::insertNode(Node toAdd) {
-
-  nodes_.emplace(nodes_.begin() + toAdd.airportCode(), toAdd);
-
-}*/
+vector<Node> Graph::getNodes() {
+  return nodes_;
+}
 
 /**
- * This method will remove a node from the nodes_ array maintained by the graph. Also, must remove all edges associated with that node.
- * To remove the edges, parse throgh all edges maintained by the node, go to 
+ * Method returning all edges of a graph
  */
-/*void Graph::removeNode(Node toRemove) {
-  
-  nodes_.emplace(nodes_.begin() + toRemove.airportCode(), Node());
-  
-  
-  
-}*/
+vector<Edge> Graph::getEdges() {
+  return edges_;
+}
+
 
 /*
 
@@ -153,6 +149,7 @@ void Graph::insertEdge(Node start, Node goal){
     adjacent_list[start][goal] = Edge(start, goal);
 }
 
+
 void Graph::removeEdge(Node start, Node goal){
   //shouldn't we check whether the node exists or not first?
 
@@ -162,6 +159,7 @@ void Graph::removeEdge(Node start, Node goal){
   }
 }
 
+similar to areNeighbors in Node
 bool Graph::areAdjacent(Node node1, Node node2){
   auto list_1 = adjacent_list.find(node1);
   auto list_2 = adjacent_list.find(node2);
@@ -169,3 +167,25 @@ bool Graph::areAdjacent(Node node1, Node node2){
 }
 
 */
+
+/**
+ * This method will insert a node into the nodes_ array maintained by the graph.
+ * @param toAdd the Node to add to the nodes_ array 
+ */
+/*void Graph::insertNode(Node toAdd) {
+
+  nodes_.emplace(nodes_.begin() + toAdd.airportCode(), toAdd);
+
+}*/
+
+/**
+ * This method will remove a node from the nodes_ array maintained by the graph. Also, must remove all edges associated with that node.
+ * To remove the edges, parse throgh all edges maintained by the node, go to 
+ */
+/*void Graph::removeNode(Node toRemove) {
+  
+  nodes_.emplace(nodes_.begin() + toRemove.airportCode(), Node());
+  
+  
+  
+}*/

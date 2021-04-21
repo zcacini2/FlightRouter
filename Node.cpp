@@ -29,8 +29,44 @@ double Node::longitude() {
     return longitude_;
 }
 
-void Node::addNeighbor() {
+void Node::addNeighbor(Node neighbor) {
+    neighbors_.push_back(neighbor);
     return;
+}
+
+/*
+bool Node::operator==(const Node &other) const {
+
+    if (airportCode_ != other.airportCode_) {
+        return false;
+    }
+
+    if (latitude_ != other.latitude_) {
+        return false;
+    }
+
+    if (longitude_ != other.longitude_) {
+        return false;
+    }
+
+    
+    for (Node neighbor : neighbors_) {
+        if (neighbor.airportCode() != other.neighbors_[i].airportCode()) {
+            return false;
+        }
+    }
+
+    return true;
+}
+*/
+
+bool Node::areNeighbors(Node check) {
+    for (Node neighbor : neighbors_) {
+        if (neighbor.airportCode() == check.airportCode()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*void Node::addIncidentEdge(Edge edge) {

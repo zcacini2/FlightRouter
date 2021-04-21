@@ -55,9 +55,25 @@ class Graph {
         bool areAdjacent(Node node1, Node node2);
         */
 
+        /**
+         * Method returning all nodes of a graph.
+         */
+        vector<Node> getNodes();
+
+        /**
+         * Mathod returning all edgs of a graph.
+         */
+        vector<Edge> getEdges();
+
     private:
 
-        //unordered_map<Node, unordered_map<Node, Edge>> adjacent_list;
+        /**
+         * Vector of Nodes stored by the OpenFlights ID of the airport
+         */
         vector<Node> nodes_;
+
+        /**
+         * Vector of edges. Each edge starts at the airport with the 
+         */
         vector<Edge> edges_;
 };
