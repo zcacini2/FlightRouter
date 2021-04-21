@@ -21,12 +21,21 @@ class Node {
          */
         Node();
 
-        Node(string, double, double);
+        Node(int, double, double);
 
-        string airportCode();
+        int airportCode();
         double latitude();
         double longitude();
+        void addNeighbor(Node neighbor);
+        bool areNeighbors(Node check);
         //void addIncidentEdge(Edge edge);
+
+        /**
+        * overload operator ==
+        * @param other The other point
+        * @return True for smaller, false for otherwise
+        */
+        //bool operator==(const Node &other) const;
 
     private:
         /**
@@ -34,9 +43,10 @@ class Node {
          */
 
         //The beginning/necessary components
-        string airportCode_;
+        int airportCode_;
         double latitude_;
         double longitude_;
+        list<Node> neighbors_;
         //list<Edge> incidentEdges_;
         
 

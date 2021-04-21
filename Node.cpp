@@ -5,15 +5,19 @@
 
 using namespace std;
 
-Node::Node() { }
+Node::Node() { 
+    airportCode_ = -1;
+    latitude_ = 0.0;
+    longitude_ = 0.0;
+}
 
-Node::Node(string code, double latitude, double longitude) {
+Node::Node(int code, double latitude, double longitude) {
     airportCode_ = code;
     latitude_ = latitude;
     longitude_ = longitude;
 }
 
-string Node::airportCode() {
+int Node::airportCode() {
     return airportCode_;
 }
 
@@ -23,6 +27,46 @@ double Node::latitude() {
 
 double Node::longitude() {
     return longitude_;
+}
+
+void Node::addNeighbor(Node neighbor) {
+    neighbors_.push_back(neighbor);
+    return;
+}
+
+/*
+bool Node::operator==(const Node &other) const {
+
+    if (airportCode_ != other.airportCode_) {
+        return false;
+    }
+
+    if (latitude_ != other.latitude_) {
+        return false;
+    }
+
+    if (longitude_ != other.longitude_) {
+        return false;
+    }
+
+    
+    for (Node neighbor : neighbors_) {
+        if (neighbor.airportCode() != other.neighbors_[i].airportCode()) {
+            return false;
+        }
+    }
+
+    return true;
+}
+*/
+
+bool Node::areNeighbors(Node check) {
+    for (Node neighbor : neighbors_) {
+        if (neighbor.airportCode() == check.airportCode()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*void Node::addIncidentEdge(Edge edge) {

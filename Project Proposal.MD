@@ -52,6 +52,7 @@ Week 1 (April 7-14): Data Acquisition and Processing, beginning graph constructo
  
 Week 2 (April 14-21): Traversal and Begin Shortest Path Algorithm
 
+
 (Mid-Semester Check-In Apr 19-23)
 
 Week 3 (April 21-28): Finish Shortest Path and Begin Graphical Representation
