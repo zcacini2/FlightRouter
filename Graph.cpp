@@ -54,23 +54,21 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       line.push_back(substr);
     }
     
-    
     //sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     //destID = stoi(line[5]); //OpenFlights ID of the destination airport
-    
     
     try {
       sourceID = stoi(line[3]);
     } catch (...) {
       std::cerr << "Invalid sourceID on line " << edges_.size() << " with value " << line[3] << std::endl;
-      break;
+      //break;
     }
 
     try {
       destID = stoi(line[5]);
     } catch (...) {
       std::cerr << "Invalid destID on line " << edges_.size() << " with value " << line[5] << std::endl;
-      break;
+      //break;
     }
 
     Node* source;
@@ -78,8 +76,27 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
     // If source node doesnt exist create, else set source equal to already built node
     if (nodes_[sourceID]->airportCode() == -1) {
-      double sourceLat = airports.latitude(sourceID);
-      double sourceLng = airports.longitude(sourceID);
+
+      double sourceLat, sourceLng;
+
+      if (airports.size() < sourceID || airports.size() < destID) {
+        std::cout << "Invalid Source ID or Dest ID " << airports.size() << "," << sourceID << ", " << destID << std::endl;
+      }
+
+      try {
+        sourceLat = airports.latitude(sourceID);
+      } catch (...) {
+        std::cerr << "Invalid sourceLat on line " << edges_.size() << " with value " << sourceID << std::endl;
+        break;
+      }
+      
+      try {
+        sourceLng = airports.longitude(sourceID);
+      } catch (...) {
+        std::cerr << "Invalid sourceLng on line " << edges_.size() << " with value " << sourceID << std::endl;
+        break;
+      }
+      
 
       Node* _source = new Node(sourceID, sourceLat, sourceLng);
       source = _source;
@@ -93,8 +110,24 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
     //If dest node doesnt exist create, else set dest equal to already built node
     if (nodes_[destID]->airportCode() == -1) {
-      double destLat = airports.latitude(destID);;
-      double destLng = airports.longitude(destID);
+      //double destLat = airports.latitude(destID);;
+      //double destLng = airports.longitude(destID);
+
+      double destLat, destLng = 0.0;
+
+      try {
+        destLat = airports.latitude(destID);
+      } catch (...) {
+        std::cerr << "Invalid destLat on line " << edges_.size() << " with value " << destID << std::endl;
+        break;
+      }
+      
+      try {
+        destLng = airports.longitude(destID);
+      } catch (...) {
+        std::cerr << "Invalid destLng on line " << edges_.size() << " with value " << destID << std::endl;
+        break;
+      }
 
       Node* _dest = new Node(destID, destLat, destLng);
       dest = _dest;
@@ -113,11 +146,11 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       edges_.push_back(route);
 
       source->addNeighbor(dest);
-      //std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
-      //std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
+      std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
+      std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
       dest->addNeighbor(source);
-      //std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
-      //std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
+      std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
+      std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
     }
 
     line.clear();
