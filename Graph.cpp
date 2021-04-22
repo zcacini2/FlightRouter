@@ -56,9 +56,10 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       line.push_back(substr);
     }
     
-    //sourceID = stoi(line[3]); //OpenFlights ID of the source airport
-    //destID = stoi(line[5]); //OpenFlights ID of the destination airport
+    sourceID = stoi(line[3]); //OpenFlights ID of the source airport
+    destID = stoi(line[5]); //OpenFlights ID of the destination airport
     
+    /*
     // Tries to convert sourceID to double
     try {
       sourceID = stoi(line[3]);
@@ -74,6 +75,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       std::cerr << "Invalid destID on line " << edges_.size() << " with value " << line[5] << std::endl;
       //break;
     }
+    */
 
     Node* source;
     Node* dest;
@@ -102,6 +104,10 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       double sourceLat, sourceLng;
 
+      sourceLat = airports.latitude(sourceID);
+      sourceLng = airports.longitude(sourceID);
+
+      /*
       // Tries to get source lat
       try {
         sourceLat = airports.latitude(sourceID);
@@ -117,6 +123,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
         std::cerr << "Invalid sourceLng on line " << edges_.size() << " with value " << sourceID << std::endl;
         break;
       }
+      */
       
 
       Node* _source = new Node(sourceID, sourceLat, sourceLng);
@@ -136,6 +143,10 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       double destLat, destLng = 0.0;
 
+      destLat = airports.latitude(destID);
+      destLng = airports.longitude(destID);
+
+      /*
       // Tries to get dest lat
       try {
         destLat = airports.latitude(destID);
@@ -151,6 +162,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
         std::cerr << "Invalid destLng on line " << edges_.size() << " with value " << destID << std::endl;
         break;
       }
+      */
 
       Node* _dest = new Node(destID, destLat, destLng);
       dest = _dest;
