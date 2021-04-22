@@ -4,24 +4,7 @@
 #include "Edge.h"
 #include "Node.h"
 #include <vector>
-<<<<<<< HEAD
-<<<<<<< HEAD
-#include <unordered_map>
-
-
-using namespace std;
-using std::unordered_map;
-
-class Graph {
-    public:
-
-=======
-//#include <unordered_map>
-=======
->>>>>>> a5d79e9c2fa2472db1852833c04ba1d4c6dccabf
 #include <string>
-#include <sstream>
-#include "Airports.h"
 
 using namespace std;
 
@@ -51,10 +34,6 @@ class Graph {
          *
          * @param filename name of the file to create the graph from
          */
-<<<<<<< HEAD
-        Graph(const string & filename);
->>>>>>> e31239400d14e126e6d6d8c0898015a8ae707855
-=======
         Graph(const string & routesFile, const string & airportsFile);
 >>>>>>> a5d79e9c2fa2472db1852833c04ba1d4c6dccabf
 
@@ -74,13 +53,8 @@ class Graph {
 
         //returns true if two nodes are adjacent (have an edge), false otherwise
         bool areAdjacent(Node node1, Node node2);
-<<<<<<< HEAD
-
-    private:
-
-        unordered_map<Node, unordered_map<Node, Edge>> adjacent_list;
-=======
         */
+
 
         /**
          * Method returning all nodes of a graph.
@@ -88,7 +62,7 @@ class Graph {
         vector<Node*> getNodes();
 
         /**
-         * Mathod returning all edgs of a graph.
+         * Method returning all edges of a graph.
          */
         vector<Edge> getEdges();
 
@@ -99,12 +73,8 @@ class Graph {
         /**
          * Vector of Nodes stored by the OpenFlights ID of the airport
          */
-<<<<<<< HEAD
->>>>>>> e31239400d14e126e6d6d8c0898015a8ae707855
-        vector<Node> nodes_;
-=======
+
         vector<Node*> nodes_;
->>>>>>> a5d79e9c2fa2472db1852833c04ba1d4c6dccabf
 
         /**
          * Vector of edges. Each edge starts at the airport with the 
