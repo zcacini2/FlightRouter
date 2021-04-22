@@ -251,9 +251,6 @@ TEST_CASE("Graph Ctor manages null or invalid airports") {}
 TEST_CASE("Graph Ctor compiles on full data set") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 }
-<<<<<<< HEAD
-=======
-*/
 
 TEST_CASE("BFS Traversal traverses through a Graph correctly", "[traversal]") {
 	/*Graph graph1("tests/routesDataMedium.txt", "dataset/airports.txt");
@@ -269,5 +266,3 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[traversal]") {
 	}
 	//REQUIRE
 }
->>>>>>> 6f909447ebd60fda6b0a9b237e29cf6a5d045049
-
