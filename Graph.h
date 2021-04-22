@@ -85,6 +85,8 @@ class Graph {
          */
         vector<Edge> getEdges();
 
+        Node getFirstNode();
+
     private:
 
         /**

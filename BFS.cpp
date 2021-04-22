@@ -1,6 +1,7 @@
 #include "BFS.h"
 #include "Graph.h"
 #include "Node.h"
+#include <iostream>
 
 BFS::BFS() { }
 
@@ -19,14 +20,21 @@ void BFS::traverse()
 {
     while (!(queue_.empty())) {
         Node curr = queue_.front();
+<<<<<<< HEAD
 
+=======
+        //curr.addNeighbor(Node(4, -1, -1));
+        
+>>>>>>> 73a72beb6d5da08e902c15d50d778acf7a9f27b1
         //work
         std::cout << curr.airportCode() << std::endl;
         //work
 
         queue_.pop();
         list<Node> currNeighbors = curr.neighbors();
-        for (auto it = currNeighbors.begin(); it != currNeighbors.end(); ++it) {
+
+        for (list<Node>::iterator it = currNeighbors.begin(); it != currNeighbors.end(); ++it) {
+            std::cout << "TRAVERSAL FOR LOOP:" << (*it).airportCode() << std::endl;
             if (!(visited_[(*it).airportCode()])) {
                 visited_[(*it).airportCode()] = true;
                 queue_.push(*it);
