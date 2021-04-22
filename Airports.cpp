@@ -33,13 +33,13 @@ Airports::Airports(const std::string & filename) {
 
   //lat_long.resize(14111);
 
-  std::cout << "Airports vector begin filling with empty latlng" << std::endl;
+  //std::cout << "Airports vector begin filling with empty latlng" << std::endl;
 
   for (unsigned i = 0; i < 14111; i++) {
     lat_long.push_back(tmp);
   }
 
-  std::cout << "Airports vector filled with empty latlng" << std::endl;
+  //std::cout << "Airports vector filled with empty latlng" << std::endl;
 
   tmp.clear();
 

@@ -280,6 +280,24 @@ TEST_CASE("Graph Ctor does nothing with null or invalid airports") {
 
 TEST_CASE("Graph Ctor compiles on full data set", "[part=6]") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
+	vector<Node*> nodes = graph.getNodes();
+	vector<Edge> edges = graph.getEdges();
+
+	/*
+
+	1959 -> back = 4075
+	4075 -> front  = 2006
+	4075 -> back = 1978
+	2913 -> back = 2912
+	2912 -> back = 2913
+	*/
+
+	REQUIRE(nodes[1959]->neighbors().back()->airportCode() == 3361);
+	REQUIRE(nodes[4075]->neighbors().front()->airportCode() == 2006);
+	REQUIRE(nodes[4075]->neighbors().back()->airportCode() == 1978);
+	REQUIRE(nodes[2913]->neighbors().back()->airportCode() == 2990);
+	REQUIRE(nodes[2912]->neighbors().back()->airportCode() == 2990);
+
 }
 
 TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
