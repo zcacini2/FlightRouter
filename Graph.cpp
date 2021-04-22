@@ -57,6 +57,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
     //sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     //destID = stoi(line[5]); //OpenFlights ID of the destination airport
     
+    // Tries to convert sourceID to double
     try {
       sourceID = stoi(line[3]);
     } catch (...) {
@@ -64,6 +65,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       //break;
     }
 
+    // Tries to convert destID to double
     try {
       destID = stoi(line[5]);
     } catch (...) {
@@ -74,15 +76,29 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
     Node* source;
     Node* dest;
 
+    //std::cout << sourceID << " " << airports.latitude(sourceID) << std::endl;
+    //std::cout << destID << " " << airports.latitude(destID) << std::endl;
+
+    // Check if airport with sourceID is null in airports.
+    if (airports.latitude(sourceID) == -1000) {
+      std::cout << sourceID << " is invalid airport in line " << edges_.size() << std::endl;
+      //continue;
+      //std::cout << "Kept continuing" << std::endl;
+    }
+
+    // Check if airport with destID is null in airports.
+    if (airports.latitude(destID) == -1000) {
+      std::cout << destID << " is invalid airport in line " << edges_.size() << std::endl;
+      //continue;
+      //std::cout << "Kept continuing" << std::endl;
+    }
+
     // If source node doesnt exist create, else set source equal to already built node
     if (nodes_[sourceID]->airportCode() == -1) {
 
       double sourceLat, sourceLng;
 
-      if (airports.size() < sourceID || airports.size() < destID) {
-        std::cout << "Invalid Source ID or Dest ID " << airports.size() << "," << sourceID << ", " << destID << std::endl;
-      }
-
+      // Tries to get source lat
       try {
         sourceLat = airports.latitude(sourceID);
       } catch (...) {
@@ -90,6 +106,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
         break;
       }
       
+      // Tries to get source lng
       try {
         sourceLng = airports.longitude(sourceID);
       } catch (...) {
@@ -115,6 +132,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       double destLat, destLng = 0.0;
 
+      // Tries to get dest lat
       try {
         destLat = airports.latitude(destID);
       } catch (...) {
@@ -122,6 +140,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
         break;
       }
       
+      // Tries to get dest lng
       try {
         destLng = airports.longitude(destID);
       } catch (...) {
@@ -146,11 +165,11 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       edges_.push_back(route);
 
       source->addNeighbor(dest);
-      std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
-      std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
+      //std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
+      //std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
       dest->addNeighbor(source);
-      std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
-      std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
+      //std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
+      //std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
     }
 
     line.clear();

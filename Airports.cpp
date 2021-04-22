@@ -27,12 +27,22 @@ Airports::Airports(const std::string & filename) {
   std::string str = file_to_string(filename);
 
   std::vector<double> tmp;
-  tmp.push_back(0);
-  tmp.push_back(0);
-  lat_long.push_back(tmp);
+  tmp.push_back(-1000);
+  tmp.push_back(-1000);
+  //lat_long.push_back(tmp);
+
+  //lat_long.resize(14111);
+
+  std::cout << "Airports vector begin filling with empty latlng" << std::endl;
+
+  for (unsigned i = 0; i < 14111; i++) {
+    lat_long.push_back(tmp);
+  }
+
+  std::cout << "Airports vector filled with empty latlng" << std::endl;
+
   tmp.clear();
 
-  lat_long.resize(14111);
 
   std::vector<std::string> line;  //create line vector
   std::stringstream s_stream(str); //create string stream from the string

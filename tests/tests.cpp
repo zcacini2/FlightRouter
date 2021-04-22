@@ -14,7 +14,7 @@
 using namespace std;
 
 
-TEST_CASE("Verify that file_to_string works on a small example") {
+TEST_CASE("Verify that file_to_string works on a small example", "[readFile]") {
 	std::string res = file_to_string("tests/smallSample.txt");
 	// always check "expected" == "actual" --> be consistent
 
@@ -22,7 +22,7 @@ TEST_CASE("Verify that file_to_string works on a small example") {
 	REQUIRE("hello\nstudents\nof\ncs\n225\n!!!\n" == res);
 }
 
-TEST_CASE("Verify that file_to_vector works on a small example") {
+TEST_CASE("Verify that file_to_vector works on a small example", "[readFile]") {
 	std::vector<std::string> res = file_to_vector("tests/smallSample.txt");
 	std::string expected[] = {"hello", "students", "of", "cs", "225", "!!!"};
 
@@ -248,21 +248,31 @@ TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
 TEST_CASE("Graph Ctor manages null or invalid airports") {}
 
 
-TEST_CASE("Graph Ctor compiles on full data set") {
+TEST_CASE("Graph Ctor compiles on full data set", "[part=6]") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 }
 
-TEST_CASE("BFS Traversal traverses through a Graph correctly", "[traversal]") {
+TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 	/*Graph graph1("tests/routesDataMedium.txt", "dataset/airports.txt");
 	BFS bfs1(graph1, graph1.getFirstNode());
-    vector<int> vector1 = bfs1.traverse();*/
+    vector<int> vector1 = bfs1.traverse();
+	for (unsigned long i = 0; i < vector1.size(); i++) {
+		cout << "vector1 " << vector1[i] << endl;
+	}*/
 	//REQUIRE
 	
+	cout << "BFS test started" << endl;
 	Graph graph2("tests/smallRoutes2.txt", "tests/smallAirports2.txt");
 	BFS bfs2(graph2, graph2.getFirstNode());
 	vector<int> vector2 = bfs2.traverse();
+	vector<int> expected2{1, 2, 3, 4, 5, 6}; 
 	for (unsigned long i = 0; i < vector2.size(); i++) {
-		cout << vector2[i] << endl;
+		REQUIRE(expected2[i] == vector2[i]);
 	}
-	//REQUIRE
+	
+}
+
+TEST_CASE("dummy test", "[dummy]") {
+	int dummy = 5;
+	REQUIRE(dummy == 5);
 }
