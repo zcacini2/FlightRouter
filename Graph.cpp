@@ -70,7 +70,7 @@ Graph::Graph(const std::string & filename) {
 
     } else {
       source = nodes_[sourceID];
-      std::cout << "Found " << source->airportCode() << " in nodes_" << std::endl;
+      //std::cout << "Found " << source->airportCode() << " in nodes_" << std::endl;
     }
 
     //If dest node doesnt exist create, else set dest equal to already built node
@@ -85,22 +85,22 @@ Graph::Graph(const std::string & filename) {
 
     } else {
       dest = nodes_[destID];
-      std::cout << "Found " << dest->airportCode() << " in nodes_" << std::endl;
+      //std::cout << "Found " << dest->airportCode() << " in nodes_" << std::endl;
     }
 
     //Add edge if not there
 
-    //if (!source.areNeighbors(&dest)) {
-    Edge route(source, dest);
-    edges_.push_back(route);
+    if (!source->areNeighbors(dest)) {
+      Edge route(source, dest);
+      edges_.push_back(route);
 
-    source->addNeighbor(dest);
-    std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
-    std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
-    dest->addNeighbor(source);
-    std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
-    std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
-    //}
+      source->addNeighbor(dest);
+      //std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
+      //std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
+      dest->addNeighbor(source);
+      //std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
+      //std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
+    }
 
     line.clear();
 

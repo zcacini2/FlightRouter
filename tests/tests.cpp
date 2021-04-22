@@ -36,40 +36,6 @@ TEST_CASE("Verify that file_to_vector works on a small example") {
 	}
 }
 
-TEST_CASE("Test behavior of CSV file parsing", "[part=1]") {
-	
-	std::string str = file_to_string("tests/airportsDataSmall.txt");
-
-  	std::vector<string> line;  //create line vector
-	stringstream s_stream(str); //create string stream from the string
-  	string airportID, lat, lng;
-	int count = 0;
-
-  	while(s_stream.good()) {
-		string row, substr;
-		getline(s_stream, row, '\n'); //get first string delimited by comma
-		stringstream row_stream(row);
-
-		while (row_stream.good()) {
-			getline(row_stream, substr, ',');
-			substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
-			line.push_back(substr);
-			//std::cout << line.back() << std::endl;
-		}
-		
-		airportID = line[0];
-		lat = line[6];
-		lng = line[7];
-		
-		line.clear();
-		//std::cout << airportID << ", " << lat << ", " << lng << std::endl;
-
-  	}
-
-	REQUIRE(line[0] == "3");
-	
-}
-
 TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
 	Airports airports("tests/airportsDataSmall.txt");
 
@@ -112,7 +78,7 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 */
 
 TEST_CASE("Test sample data on Graph Ctor") {
-	Graph graph("tests/routesDataSmall.txt");
+	Graph graph("tests/routesSimpleDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges(); 
 
@@ -131,7 +97,7 @@ TEST_CASE("Test sample data on Graph Ctor") {
 
 TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=2]") {
 
-	Graph graph("tests/routesDataSmall.txt");
+	Graph graph("tests/routesSimpleDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
 
 	list<Node*> neigh1 = nodes[1]->neighbors();
@@ -158,6 +124,14 @@ TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=2]") {
 	REQUIRE((*it3)->latitude() == lat1);
 }
 
+TEST_CASE("Graph Ctor doesn't add repeat neighbors") {}
+
+TEST_CASE("Graph Ctor doesn't add repeat edges") {}
+
 TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
 
 TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
+
+TEST_CASE("Graph Ctor manages null or invalid airports") {}
+
+TEST_CASE("Graph Ctor compiles on full data set") {}
