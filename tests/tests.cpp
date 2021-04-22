@@ -9,6 +9,7 @@
 #include "../Edge.h"
 #include "../Airports.h"
 #include "../Graph.h"
+#include "../BFS.h"
 
 using namespace std;
 
@@ -251,3 +252,19 @@ TEST_CASE("Graph Ctor compiles on full data set") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 }
 */
+
+TEST_CASE("BFS Traversal traverses through a Graph correctly", "[traversal]") {
+	/*Graph graph1("tests/routesDataMedium.txt", "dataset/airports.txt");
+	BFS bfs1(graph1, graph1.getFirstNode());
+    vector<int> vector1 = bfs1.traverse();*/
+	//REQUIRE
+	
+	Graph graph2("tests/smallRoutes2.txt", "tests/smallAirports2.txt");
+	BFS bfs2(graph2, graph2.getFirstNode());
+	vector<int> vector2 = bfs2.traverse();
+	for (unsigned long i = 0; i < vector2.size(); i++) {
+		cout << vector2[i] << endl;
+	}
+	//REQUIRE
+}
+

@@ -2,6 +2,8 @@
 #include "Graph.h"
 #include "Node.h"
 #include <iostream>
+#include <string>
+#include <vector>
 
 BFS::BFS() { }
 
@@ -16,15 +18,18 @@ BFS::BFS(Graph graph, Node* start)
 }
 
 
-void BFS::traverse()
+std::vector<int> BFS::traverse()
 {
+    std::vector<int> toReturn;
     while (!(queue_.empty())) {
         Node* curr = queue_.front();
         visited_[curr->airportCode()] = true;
         //curr.addNeighbor(Node(4, -1, -1));
         
         //work
-        std::cout << "Airport Code:" << curr->airportCode() << std::endl;
+        //std::cout << "Airport Code:" << curr->airportCode() << std::endl;
+        //std::vector<std::string> toReturn;
+        toReturn.push_back(curr->airportCode());
         //work
 
         queue_.pop();
@@ -38,4 +43,5 @@ void BFS::traverse()
             }
         }
     }
+    return toReturn;
 }
