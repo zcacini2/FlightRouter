@@ -69,6 +69,8 @@ bool Graph::areAdjacent(Node node1, Node node2){
 
 Graph::Graph() { }
 
+Graph::~Graph() {}
+
 /**
  * Graph constructor. The constructor will take in the routes file. The routes file is a CSV containing the 
  * following elements in order: Airline, Airline ID, Source airport, Source Airport (OpenFlights ID), Destination

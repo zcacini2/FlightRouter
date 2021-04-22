@@ -29,6 +29,8 @@ class Graph {
     public:
 
         Graph();
+
+        ~Graph();
         
         /**
          * Graph constructor. The constructor will take in the routes file. The routes file is a CSV containing the 
