@@ -246,4 +246,6 @@ TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
 
 TEST_CASE("Graph Ctor manages null or invalid airports") {}
 
-TEST_CASE("Graph Ctor compiles on full data set") {}
+TEST_CASE("Graph Ctor compiles on full data set") {
+	Graph graph("dataset/routes.txt", "dataset/airports.txt");
+}
