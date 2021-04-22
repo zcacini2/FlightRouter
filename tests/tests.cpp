@@ -36,7 +36,7 @@ TEST_CASE("Verify that file_to_vector works on a small example") {
 	}
 }
 
-TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
+TEST_CASE("Check Airports ctor populates lat_long correctly") {
 	Airports airports("tests/airportsDataSmall.txt");
 
 	REQUIRE(airports.latitude(1) == -6.081689834590001);
@@ -45,6 +45,18 @@ TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
 	REQUIRE(airports.longitude(1) == 145.391998291);
 	REQUIRE(airports.longitude(2) == 145.789001465);
 	REQUIRE(airports.longitude(3) == 144.29600524902344);
+}
+
+TEST_CASE("Check Airports ctor with full data") {
+	Airports airports("dataset/airports.txt");
+
+	REQUIRE(airports.latitude(45) == 49.21080017089844);
+	REQUIRE(airports.latitude(426) == 61.24919891357422);
+	REQUIRE(airports.latitude(468) == 55.04280090332031);
+	REQUIRE(airports.longitude(3348) == 114.088996887);
+	REQUIRE(airports.longitude(3675) == -87.395401001);
+	REQUIRE(airports.longitude(6712) == -151.7429962);
+	REQUIRE(airports.longitude(14110) == 35.305);
 }
 
 /*
@@ -95,7 +107,7 @@ TEST_CASE("Test sample data on Graph Ctor") {
 	REQUIRE(edges[2].start()->latitude() == expectedLat3);
 }
 
-TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=2]") {
+TEST_CASE("Graph Ctor simple data maintains neighbors correctly") {
 
 	Graph graph("tests/routesSimpleDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
@@ -124,7 +136,15 @@ TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=2]") {
 	REQUIRE((*it3)->latitude() == lat1);
 }
 
-TEST_CASE("Graph Ctor doesn't add repeat neighbors") {}
+/*
+TEST_CASE("Graph Ctor doesn't add repeat neighbors", "[part=1]") {
+	Graph graph("tests/routesDataMedium");
+	//vector<Node*> nodes = graph.getNodes();
+
+
+
+}
+*/
 
 TEST_CASE("Graph Ctor doesn't add repeat edges") {}
 

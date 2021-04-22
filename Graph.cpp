@@ -3,7 +3,7 @@
 #include "Edge.h"
 #include "readFromFile.hpp"
 #include "Airports.h"
-//#include <unordered_map>
+
 
 Graph::Graph() { }
 
@@ -30,30 +30,46 @@ Graph::Graph(const std::string & filename) {
 
   std::string str = file_to_string(filename);
 
-  Airports airports("tests/airportsDataSmall.txt");
+  Airports airports("dataset/airports.txt");
 
   nodes_.resize(airports.size());
   for (unsigned i = 0; i < airports.size(); i++) {
     nodes_[i] = new Node();
   }
 
-  std::vector<string> line;  //create line vector
+  vector<string> line;  //create line vector
   stringstream s_stream(str); //create string stream from the string
   int sourceID, destID; 
 
   while(s_stream.good()) {
     string row, substr;
-    getline(s_stream, row, '\n'); //get first string delimited by comma
+    getline(s_stream, row, '\n'); //get first string delimited by new line
     stringstream row_stream(row);
 
     while (row_stream.good()) {
       getline(row_stream, substr, ',');
-      substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
+      //substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
       line.push_back(substr);
     }
     
-    sourceID = stoi(line[3]); //OpenFlights ID of the source airport
-    destID = stoi(line[5]); //OpenFlights ID of the destination airport
+    
+    //sourceID = stoi(line[3]); //OpenFlights ID of the source airport
+    //destID = stoi(line[5]); //OpenFlights ID of the destination airport
+    
+    
+    try {
+      sourceID = stoi(line[3]);
+    } catch (...) {
+      std::cerr << "Invalid sourceID on line " << edges_.size() << " with value " << line[3] << std::endl;
+      break;
+    }
+
+    try {
+      destID = stoi(line[5]);
+    } catch (...) {
+      std::cerr << "Invalid destID on line " << edges_.size() << " with value " << line[5] << std::endl;
+      break;
+    }
 
     Node* source;
     Node* dest;
