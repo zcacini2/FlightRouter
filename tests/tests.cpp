@@ -136,15 +136,16 @@ TEST_CASE("Graph Ctor simple data maintains neighbors correctly") {
 	REQUIRE((*it3)->latitude() == lat1);
 }
 
-/*
-TEST_CASE("Graph Ctor doesn't add repeat neighbors", "[part=1]") {
-	Graph graph("tests/routesDataMedium");
-	//vector<Node*> nodes = graph.getNodes();
 
+TEST_CASE("Graph Ctor doesn't add repeat neighbors") {
+	Graph graph("tests/routesDataMedium.txt", "dataset/airports.txt");
+	vector<Node*> nodes = graph.getNodes();
 
+	
 
 }
-*/
+
+
 
 TEST_CASE("Graph Ctor doesn't add repeat edges") {}
 

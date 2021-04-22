@@ -48,7 +48,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
     while (row_stream.good()) {
       getline(row_stream, substr, ',');
-      //substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
+      substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
       line.push_back(substr);
     }
     
@@ -121,6 +121,12 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
     line.clear();
 
   }
+
+  /*
+  Functionality to add:
+    - Handling null (\N) values
+    - Parsing for invalid values
+    - Check airport for valid airport
   
   
 }
