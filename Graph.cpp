@@ -124,10 +124,10 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
   /*
   Functionality to add:
-    - Handling null (\N) values
-    - Parsing for invalid values
+    - Handling null (\N) values (Delete from file?)
+    - Parsing for invalid values 
     - Check airport for valid airport
-  
+  */
   
 }
 

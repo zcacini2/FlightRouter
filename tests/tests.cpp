@@ -107,7 +107,7 @@ TEST_CASE("Test sample data on Graph Ctor") {
 	REQUIRE(edges[2].start()->latitude() == expectedLat3);
 }
 
-TEST_CASE("Graph Ctor simple data maintains neighbors correctly") {
+TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=4]") {
 
 	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
@@ -136,18 +136,109 @@ TEST_CASE("Graph Ctor simple data maintains neighbors correctly") {
 	REQUIRE((*it3)->latitude() == lat1);
 }
 
+TEST_CASE("Test functionality of areNeighbors", "[part=3]") {
+	Node* node1 = new Node(123, 65.666, 34.44);
+	Node* node2 = new Node(345, -65.22, 90.4565);
 
-TEST_CASE("Graph Ctor doesn't add repeat neighbors") {
+	node1->addNeighbor(node2);
+
+	REQUIRE(node1->neighbors().size() == 1);
+	REQUIRE(node2->neighbors().size() == 0);
+}
+
+TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[part=5]") {
+
+	/*routesDataMedium.txt
+	2B,410,AER,2965,KZN,2990,,0,CR2
+	2B,410,ASF,2966,KZN,2990,,0,CR2
+	2B,410,ASF,2966,MRV,2962,,0,CR2
+	2B,410,CEK,2968,KZN,2990,,0,CR2
+	2B,410,CEK,2968,OVB,4078,,0,CR2
+	2B,410,DME,4029,KZN,2990,,0,CR2
+	2B,410,DME,4029,NBC,6969,,0,CR2
+
+	Node and Neighbors
+	0 2965 - 2990
+	1 2990 - 2965, 2966, 2968, 4029
+	2 2966 - 2990, 2962, 
+	3 2962 - 2966, 
+	4 2968 - 2990, 4078
+	5 4078 - 2968,
+	6 4029 - 2990 6969
+	7 6969 - 4029,
+	*/
+
+	//Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
+
 	Graph graph("tests/routesDataMedium.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 
-	
+	Node*& node2965 = nodes[2965];
+	std::cout << node2965->neighbors().size() << std::endl;
+	Node*& node2990 = nodes[2990];
+	std::cout << node2990->neighbors().size() << std::endl;
+	Node* node2966 = nodes[2966];
+	Node* node2962 = nodes[2962];
+	Node* node2968 = nodes[2968];
+	Node* node4078 = nodes[4078];
+	Node* node4029 = nodes[4029];
+	Node* node6969 = nodes[6969];
 
+	/*
+	list<Node*> exp2965 {nodes[1]};
+	list<Node*> exp2990 {nodes[0], nodes[2], nodes[4], nodes[6]};
+	list<Node*> exp2966 {nodes[1], nodes[3]};
+	list<Node*> exp2962 {nodes[2]};
+	list<Node*> exp2968 {nodes[1], nodes[5]};
+	list<Node*> exp4078 {nodes[4]};
+	list<Node*> exp4029 {nodes[1], nodes[7]};
+	list<Node*> exp6969 {nodes[6]};
+	*/
+
+	REQUIRE(node2965->neighbors().front()->airportCode() == 2990);
+
+	REQUIRE(node2990->neighbors().front()->airportCode() == 2965);
+	REQUIRE(node2990->neighbors().back()->airportCode() == 4029);
+
+	REQUIRE(node2966->neighbors().front()->airportCode() == 2990);
+	REQUIRE(node2966->neighbors().back()->airportCode() == 2962);
+
+	REQUIRE(node2962->neighbors().front()->airportCode() == 2966);
+
+	REQUIRE(node2968->neighbors().front()->airportCode() == 2990);
+	REQUIRE(node2968->neighbors().back()->airportCode() == 4078);
+
+	REQUIRE(node4078->neighbors().front()->airportCode() == 2968);
+
+	REQUIRE(node4029->neighbors().front()->airportCode() == 2990);
+	REQUIRE(node4029->neighbors().back()->airportCode() == 6969);
+
+	REQUIRE(node6969->neighbors().front()->airportCode() == 4029);
+
+	//REQUIRE(node2962->neighbors() == exp2962);
+	//REQUIRE(node2968->neighbors() == exp2968);
+	//REQUIRE(node4078->neighbors() == exp4078);
+	//REQUIRE(node4029->neighbors() == exp4029);
+	//REQUIRE(node6969->neighbors() == exp6969);
 }
 
+TEST_CASE("Graph Ctor doesn't add repeat nodes") {
+	Graph graph("tests/routesRepeat.txt", "dataset/airports.txt");
+	vector<Node*> nodes = graph.getNodes();
 
+	Node*& node2965 = nodes[2965];
+	Node*& node2990 = nodes[2990];
+	Node* node4029 = nodes[4029];
+	Node* node6969 = nodes[6969];
 
-TEST_CASE("Graph Ctor doesn't add repeat edges") {}
+	REQUIRE(node4029->neighbors().front()->airportCode() == 6969);
+	REQUIRE(node4029->neighbors().back()->airportCode() == 2990);
+	REQUIRE(node6969->neighbors().size() == 1);
+
+	REQUIRE(node2965->neighbors().size() == 1);
+	REQUIRE(node2990->neighbors().size() == 4);
+
+}
 
 TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
 
