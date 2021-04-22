@@ -51,6 +51,15 @@ Week 1 (April 7-14): Data Acquisition and Processing, beginning graph constructo
  - Implementing node and edge class: Krystyna
  
 Week 2 (April 14-21): Traversal and Begin Shortest Path Algorithm
+Krys:
+BFS Traversal test cases
+
+Giwon:
+Start out the bare bones/files for shortest path algorithm
+Psuedocode/Approach for the algorithm
+
+Zach:
+Graph Ctor tests and Compatibility with big data set
 
 
 (Mid-Semester Check-In Apr 19-23)

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+#include <vector>
 #include <iterator>
 #include <queue>
 #include "Graph.h"
@@ -19,7 +21,7 @@ class BFS {
          *  This function traverses the entire graph passed into the constructor. The
          *  traversal itself currently does no work.
          */
-        void traverse();
+        std::vector<int> traverse();
     private:
         //queue used for BFS traversal of the graph
         queue<Node*> queue_;
