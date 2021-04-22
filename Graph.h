@@ -34,7 +34,7 @@ class Graph {
          *
          * @param filename name of the file to create the graph from
          */
-        Graph(const string & filename);
+        Graph(const string & routesFile, const string & airportsFile);
 
         /*
         void insertNode(Node toAdd);

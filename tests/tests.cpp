@@ -90,7 +90,7 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 */
 
 TEST_CASE("Test sample data on Graph Ctor") {
-	Graph graph("tests/routesSimpleDataSmall.txt");
+	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges(); 
 
@@ -109,7 +109,7 @@ TEST_CASE("Test sample data on Graph Ctor") {
 
 TEST_CASE("Graph Ctor simple data maintains neighbors correctly") {
 
-	Graph graph("tests/routesSimpleDataSmall.txt");
+	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
 
 	list<Node*> neigh1 = nodes[1]->neighbors();

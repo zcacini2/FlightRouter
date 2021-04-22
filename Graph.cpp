@@ -26,11 +26,11 @@ Graph::Graph() { }
  *
  * @param filename name of the file to create the graph from
  */
-Graph::Graph(const std::string & filename) {
+Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
-  std::string str = file_to_string(filename);
+  std::string str = file_to_string(routesFile);
 
-  Airports airports("dataset/airports.txt");
+  Airports airports(airportsFile);
 
   nodes_.resize(airports.size());
   for (unsigned i = 0; i < airports.size(); i++) {
