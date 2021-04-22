@@ -32,8 +32,11 @@ Airports::Airports(const std::string & filename) {
   lat_long.push_back(tmp);
   tmp.clear();
 
+  lat_long.resize(14111);
+
   std::vector<std::string> line;  //create line vector
   std::stringstream s_stream(str); //create string stream from the string
+  int airportCode;
   double lat, lng;
   
 
@@ -48,14 +51,43 @@ Airports::Airports(const std::string & filename) {
       line.push_back(substr);
     }
     
+    /*
     lat = stod(line[6]);
     lng = stod(line[7]);
+    airportCode = stoi(line[0]);
+    */
+
+    
+    try {
+      lat = stod(line[6]);
+    } catch (...) {
+      std::cerr << "Invalid lat on line " << lat_long.size() << " with value " << line[6] << std::endl;
+      break;
+    }
+    
+    try {
+      lng = stod(line[7]);
+    } catch (...) {
+      std::cerr << "Invalid lng on line " << lat_long.size() << " with value " << line[7] << std::endl;
+      break;
+    }
+
+    try {
+      airportCode = stoi(line[0]);
+    } catch (...) {
+      std::cerr << "Invalid code on line " << lat_long.size() << " with value " << line[0] << std::endl;
+      break;
+    }
+    
+    
     //name = line[1];
     //city = line[2];
 
+    tmp.clear();
+
     tmp.push_back(lat);
     tmp.push_back(lng);
-    lat_long.push_back(tmp);
+    lat_long[airportCode] = tmp;
 
     tmp.clear();
     line.clear();

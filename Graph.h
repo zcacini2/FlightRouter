@@ -5,6 +5,7 @@
 #include "Node.h"
 #include <vector>
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include <unordered_map>
 
 
@@ -16,13 +17,13 @@ class Graph {
 
 =======
 //#include <unordered_map>
+=======
+>>>>>>> a5d79e9c2fa2472db1852833c04ba1d4c6dccabf
 #include <string>
 #include <sstream>
 #include "Airports.h"
 
-
 using namespace std;
-//using std::unordered_map;
 
 class Graph {
     public:
@@ -48,8 +49,12 @@ class Graph {
          *
          * @param filename name of the file to create the graph from
          */
+<<<<<<< HEAD
         Graph(const string & filename);
 >>>>>>> e31239400d14e126e6d6d8c0898015a8ae707855
+=======
+        Graph(const string & routesFile, const string & airportsFile);
+>>>>>>> a5d79e9c2fa2472db1852833c04ba1d4c6dccabf
 
         /*
         void insertNode(Node toAdd);
@@ -78,22 +83,26 @@ class Graph {
         /**
          * Method returning all nodes of a graph.
          */
-        vector<Node> getNodes();
+        vector<Node*> getNodes();
 
         /**
          * Mathod returning all edgs of a graph.
          */
         vector<Edge> getEdges();
 
-        Node getFirstNode();
+        Node* getFirstNode();
 
     private:
 
         /**
          * Vector of Nodes stored by the OpenFlights ID of the airport
          */
+<<<<<<< HEAD
 >>>>>>> e31239400d14e126e6d6d8c0898015a8ae707855
         vector<Node> nodes_;
+=======
+        vector<Node*> nodes_;
+>>>>>>> a5d79e9c2fa2472db1852833c04ba1d4c6dccabf
 
         /**
          * Vector of edges. Each edge starts at the airport with the 

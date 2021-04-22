@@ -36,41 +36,7 @@ TEST_CASE("Verify that file_to_vector works on a small example") {
 	}
 }
 
-TEST_CASE("Test behavior of CSV file parsing", "[part=1]") {
-	
-	std::string str = file_to_string("tests/airportsDataSmall.txt");
-
-  	std::vector<string> line;  //create line vector
-	stringstream s_stream(str); //create string stream from the string
-  	string airportID, lat, lng;
-	int count = 0;
-
-  	while(s_stream.good()) {
-		string row, substr;
-		getline(s_stream, row, '\n'); //get first string delimited by comma
-		stringstream row_stream(row);
-
-		while (row_stream.good()) {
-			getline(row_stream, substr, ',');
-			substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
-			line.push_back(substr);
-			//std::cout << line.back() << std::endl;
-		}
-		
-		airportID = line[0];
-		lat = line[6];
-		lng = line[7];
-		
-		line.clear();
-		//std::cout << airportID << ", " << lat << ", " << lng << std::endl;
-
-  	}
-
-	REQUIRE(line[0] == "3");
-	
-}
-
-TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
+TEST_CASE("Check Airports ctor populates lat_long correctly") {
 	Airports airports("tests/airportsDataSmall.txt");
 
 	REQUIRE(airports.latitude(1) == -6.081689834590001);
@@ -81,7 +47,19 @@ TEST_CASE("Check Airports ctor populates lat_long correctly", "[part=0]") {
 	REQUIRE(airports.longitude(3) == 144.29600524902344);
 }
 
+TEST_CASE("Check Airports ctor with full data") {
+	Airports airports("dataset/airports.txt");
 
+	REQUIRE(airports.latitude(45) == 49.21080017089844);
+	REQUIRE(airports.latitude(426) == 61.24919891357422);
+	REQUIRE(airports.latitude(468) == 55.04280090332031);
+	REQUIRE(airports.longitude(3348) == 114.088996887);
+	REQUIRE(airports.longitude(3675) == -87.395401001);
+	REQUIRE(airports.longitude(6712) == -151.7429962);
+	REQUIRE(airports.longitude(14110) == 35.305);
+}
+
+/*
 TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)") {
 	//sample lat long coordinates from google
 	Node ORD(3830, 41.9773, -87.8369); //chicago
@@ -109,63 +87,163 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) ORDtoORD.distance() == expected4);
 	REQUIRE((int) CMItoORD.distance() == expected2);
 }
+*/
 
 TEST_CASE("Test sample data on Graph Ctor") {
-	Graph graph("tests/routesDataSmall.txt");
-	vector<Node> nodes = graph.getNodes();
+	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
+	vector<Node*> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges(); 
 
 	double expectedLat1 = -6.081689834590001;
 	double expectedLat2 = -5.20707988739; 
 	double expectedLat3 = -5.826789855957031;
 
-	REQUIRE(nodes[1].latitude() == expectedLat1);
-	REQUIRE(nodes[2].latitude() == expectedLat2);
-	REQUIRE(nodes[3].latitude() == expectedLat3);
+	REQUIRE(nodes[1]->latitude() == expectedLat1);
+	REQUIRE(nodes[2]->latitude() == expectedLat2);
+	REQUIRE(nodes[3]->latitude() == expectedLat3);
 
-	REQUIRE(edges[0].start().latitude() == expectedLat1);
-	REQUIRE(edges[1].start().latitude() == expectedLat2);
-	REQUIRE(edges[2].start().latitude() == expectedLat3);
+	REQUIRE(edges[0].start()->latitude() == expectedLat1);
+	REQUIRE(edges[1].start()->latitude() == expectedLat2);
+	REQUIRE(edges[2].start()->latitude() == expectedLat3);
 }
 
-TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=2]") {
+TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=4]") {
 
-	Graph graph("tests/routesDataSmall.txt");
-	vector<Node> nodes = graph.getNodes();
+	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
+	vector<Node*> nodes = graph.getNodes();
 
-	list<Node> neigh1 = nodes[1].neighbors();
-	list<Node> neigh2 = nodes[2].neighbors();
-	list<Node> neigh3 = nodes[3].neighbors();
-
-	std::cout << "Printed1" << std::endl;
-
-	for (Node node : nodes) {
-		std::cout << node.latitude() << ", " << node.neighbors().size() << " Printed" << std::endl;
-		
-	}
+	list<Node*> neigh1 = nodes[1]->neighbors();
+	list<Node*> neigh2 = nodes[2]->neighbors();
+	list<Node*> neigh3 = nodes[3]->neighbors();
 
 	double lat1 = -6.081689834590001;
 	double lat2 = -5.20707988739;
 	double lat3 = -5.826789855957031;
-	//vector<Node> expLats2 {-6.081689834590001, -5.826789855957031};
-	//vector<Node> expLat3 {-5.20707988739, -6.081689834590001};
 
 	auto it = neigh1.begin();
- 	REQUIRE((*it).latitude() == lat2);
+ 	REQUIRE((*it)->latitude() == lat2);
 	++it;
-	//REQUIRE((*it).latitude() == lat3);
+	REQUIRE((*it)->latitude() == lat3);
 
 	auto it2 = neigh2.begin();
-	//REQUIRE((*it2).latitude() == lat1);
+	REQUIRE((*it2)->latitude() == lat1);
 	++it2;
-	//REQUIRE((*it2).latitude() == lat3);
+	REQUIRE((*it2)->latitude() == lat3);
 
 	auto it3 = neigh3.begin();
-	//REQUIRE((*it3).latitude() == lat2);
+	REQUIRE((*it3)->latitude() == lat2);
 	++it3;
-	//REQUIRE((*it3).latitude() == lat1);
+	REQUIRE((*it3)->latitude() == lat1);
+}
+
+TEST_CASE("Test functionality of areNeighbors", "[part=3]") {
+	Node* node1 = new Node(123, 65.666, 34.44);
+	Node* node2 = new Node(345, -65.22, 90.4565);
+
+	node1->addNeighbor(node2);
+
+	REQUIRE(node1->neighbors().size() == 1);
+	REQUIRE(node2->neighbors().size() == 0);
+}
+
+TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[part=5]") {
+
+	/*routesDataMedium.txt
+	2B,410,AER,2965,KZN,2990,,0,CR2
+	2B,410,ASF,2966,KZN,2990,,0,CR2
+	2B,410,ASF,2966,MRV,2962,,0,CR2
+	2B,410,CEK,2968,KZN,2990,,0,CR2
+	2B,410,CEK,2968,OVB,4078,,0,CR2
+	2B,410,DME,4029,KZN,2990,,0,CR2
+	2B,410,DME,4029,NBC,6969,,0,CR2
+
+	Node and Neighbors
+	0 2965 - 2990
+	1 2990 - 2965, 2966, 2968, 4029
+	2 2966 - 2990, 2962, 
+	3 2962 - 2966, 
+	4 2968 - 2990, 4078
+	5 4078 - 2968,
+	6 4029 - 2990 6969
+	7 6969 - 4029,
+	*/
+
+	//Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
+
+	Graph graph("tests/routesDataMedium.txt", "dataset/airports.txt");
+	vector<Node*> nodes = graph.getNodes();
+
+	Node*& node2965 = nodes[2965];
+	std::cout << node2965->neighbors().size() << std::endl;
+	Node*& node2990 = nodes[2990];
+	std::cout << node2990->neighbors().size() << std::endl;
+	Node* node2966 = nodes[2966];
+	Node* node2962 = nodes[2962];
+	Node* node2968 = nodes[2968];
+	Node* node4078 = nodes[4078];
+	Node* node4029 = nodes[4029];
+	Node* node6969 = nodes[6969];
+
+	/*
+	list<Node*> exp2965 {nodes[1]};
+	list<Node*> exp2990 {nodes[0], nodes[2], nodes[4], nodes[6]};
+	list<Node*> exp2966 {nodes[1], nodes[3]};
+	list<Node*> exp2962 {nodes[2]};
+	list<Node*> exp2968 {nodes[1], nodes[5]};
+	list<Node*> exp4078 {nodes[4]};
+	list<Node*> exp4029 {nodes[1], nodes[7]};
+	list<Node*> exp6969 {nodes[6]};
+	*/
+
+	REQUIRE(node2965->neighbors().front()->airportCode() == 2990);
+
+	REQUIRE(node2990->neighbors().front()->airportCode() == 2965);
+	REQUIRE(node2990->neighbors().back()->airportCode() == 4029);
+
+	REQUIRE(node2966->neighbors().front()->airportCode() == 2990);
+	REQUIRE(node2966->neighbors().back()->airportCode() == 2962);
+
+	REQUIRE(node2962->neighbors().front()->airportCode() == 2966);
+
+	REQUIRE(node2968->neighbors().front()->airportCode() == 2990);
+	REQUIRE(node2968->neighbors().back()->airportCode() == 4078);
+
+	REQUIRE(node4078->neighbors().front()->airportCode() == 2968);
+
+	REQUIRE(node4029->neighbors().front()->airportCode() == 2990);
+	REQUIRE(node4029->neighbors().back()->airportCode() == 6969);
+
+	REQUIRE(node6969->neighbors().front()->airportCode() == 4029);
+
+	//REQUIRE(node2962->neighbors() == exp2962);
+	//REQUIRE(node2968->neighbors() == exp2968);
+	//REQUIRE(node4078->neighbors() == exp4078);
+	//REQUIRE(node4029->neighbors() == exp4029);
+	//REQUIRE(node6969->neighbors() == exp6969);
+}
+
+TEST_CASE("Graph Ctor doesn't add repeat nodes") {
+	Graph graph("tests/routesRepeat.txt", "dataset/airports.txt");
+	vector<Node*> nodes = graph.getNodes();
+
+	Node*& node2965 = nodes[2965];
+	Node*& node2990 = nodes[2990];
+	Node* node4029 = nodes[4029];
+	Node* node6969 = nodes[6969];
+
+	REQUIRE(node4029->neighbors().front()->airportCode() == 6969);
+	REQUIRE(node4029->neighbors().back()->airportCode() == 2990);
+	REQUIRE(node6969->neighbors().size() == 1);
+
+	REQUIRE(node2965->neighbors().size() == 1);
+	REQUIRE(node2990->neighbors().size() == 4);
+
 }
 
 TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
 
 TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
+
+TEST_CASE("Graph Ctor manages null or invalid airports") {}
+
+TEST_CASE("Graph Ctor compiles on full data set") {}

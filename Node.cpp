@@ -29,14 +29,14 @@ double Node::longitude() {
     return longitude_;
 }
 
-void Node::addNeighbor(Node neighbor) {
+void Node::addNeighbor(Node* neighbor) {
     neighbors_.push_back(neighbor);
 }
 
-Node Node::removeNeighbor(Node toRemove) {
-    list<Node>::iterator it;
+Node* Node::removeNeighbor(Node* toRemove) {
+    list<Node*>::iterator it;
     for (it = neighbors_.begin(); it != neighbors_.end(); ++it) {
-        Node tmp = (*it);
+        Node* tmp = (*it);
         if (tmp == toRemove) {
             neighbors_.erase(it);
             return toRemove;
@@ -45,7 +45,7 @@ Node Node::removeNeighbor(Node toRemove) {
     return toRemove;
 }
 
-list<Node> Node::neighbors() {
+list<Node*> Node::neighbors() {
     return neighbors_;
 }
 
@@ -75,9 +75,9 @@ bool Node::operator==(const Node &other) const {
 }
 
 
-bool Node::areNeighbors(Node check) {
-    for (list<Node>::iterator it = neighbors_.begin(); it != neighbors_.end(); ++it) {
-        if ((*it).airportCode() == check.airportCode()) {
+bool Node::areNeighbors(Node* check) {
+    for (list<Node*>::iterator it = neighbors_.begin(); it != neighbors_.end(); ++it) {
+        if ((*it)->airportCode() == check->airportCode()) {
             return true;
         }
     }
