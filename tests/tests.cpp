@@ -245,7 +245,37 @@ TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
 
 TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
 
-TEST_CASE("Graph Ctor manages null or invalid airports") {}
+TEST_CASE("Graph Ctor does nothing with null or invalid airports") {
+
+	/*
+	2B,410,AER,2965,KZN,2990,,0,CR2
+	2B,410,AER,2965,KZN,2963,,0,CR2
+	2B,410,AER,7167,KZN,2965,,0,CR2
+	2B,410,ASF,2966,KZN,7167,,0,CR2
+
+	2965 - 2990, 2963, not 7167
+	2990 - 2965
+	2963 - 2965
+	7167 - nodes_[7167]->airportCode() == -1
+	2966 - size = 0
+	*/ 
+
+	Graph graph("tests/routesInvalid.txt", "dataset/airports.txt");
+	vector<Node*> nodes = graph.getNodes();
+
+	// Ensure correct neighbros for 2965
+	REQUIRE(nodes[2965]->neighbors().front()->airportCode() == 2990);
+	REQUIRE(nodes[2965]->neighbors().back()->airportCode() == 2963);
+	REQUIRE(nodes[2965]->neighbors().size() == 2);
+
+	// Ensure no neighbors added to 2966
+	REQUIRE(nodes[2966]->neighbors().size() == 0);
+
+	// Ensure null node stored at 7167 in nodes_
+	REQUIRE(nodes[7167]->airportCode() == -1);
+
+
+}
 
 
 TEST_CASE("Graph Ctor compiles on full data set", "[part=6]") {

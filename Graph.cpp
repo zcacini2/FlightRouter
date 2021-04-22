@@ -42,11 +42,13 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
   vector<string> line;  //create line vector
   stringstream s_stream(str); //create string stream from the string
   int sourceID, destID; 
+  bool areBothValid;
 
   while(s_stream.good()) {
     string row, substr;
     getline(s_stream, row, '\n'); //get first string delimited by new line
     stringstream row_stream(row);
+    areBothValid = true;
 
     while (row_stream.good()) {
       getline(row_stream, substr, ',');
@@ -81,20 +83,22 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
     // Check if airport with sourceID is null in airports.
     if (airports.latitude(sourceID) == -1000) {
-      std::cout << sourceID << " is invalid airport in line " << edges_.size() << std::endl;
+      //std::cout << sourceID << " is invalid source airport in line " << edges_.size() << std::endl;
+      areBothValid = false;
       //continue;
       //std::cout << "Kept continuing" << std::endl;
     }
 
     // Check if airport with destID is null in airports.
     if (airports.latitude(destID) == -1000) {
-      std::cout << destID << " is invalid airport in line " << edges_.size() << std::endl;
+      //std::cout << destID << " is invalid dest airport in line " << edges_.size() << std::endl;
+      areBothValid = false;
       //continue;
       //std::cout << "Kept continuing" << std::endl;
     }
 
     // If source node doesnt exist create, else set source equal to already built node
-    if (nodes_[sourceID]->airportCode() == -1) {
+    if (areBothValid == true && nodes_[sourceID]->airportCode() == -1) {
 
       double sourceLat, sourceLng;
 
@@ -120,13 +124,13 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       nodes_[sourceID] = source;
 
-    } else {
+    } else if (areBothValid == true) {
       source = nodes_[sourceID];
       //std::cout << "Found " << source->airportCode() << " in nodes_" << std::endl;
     }
 
     //If dest node doesnt exist create, else set dest equal to already built node
-    if (nodes_[destID]->airportCode() == -1) {
+    if (areBothValid == true && nodes_[destID]->airportCode() == -1) {
       //double destLat = airports.latitude(destID);;
       //double destLng = airports.longitude(destID);
 
@@ -153,14 +157,14 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       nodes_[destID] = dest;
 
-    } else {
+    } else if (areBothValid == true) {
       dest = nodes_[destID];
       //std::cout << "Found " << dest->airportCode() << " in nodes_" << std::endl;
     }
 
     //Add edge if not there
 
-    if (!source->areNeighbors(dest)) {
+    if (areBothValid == true && !source->areNeighbors(dest)) {
       Edge route(source, dest);
       edges_.push_back(route);
 
