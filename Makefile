@@ -6,7 +6,7 @@ OBJS = main.o readFromFile.o Node.o Edge.o Graph.o Airports.o BFS.o
 
 # Compilation Flags
 CXX = clang++
-CXXFLAGS = $(CS225) -std=c++14 -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
+CXXFLAGS = $(CS225) -std=c++14 -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic -Wno-address-of-temporary
 LD = clang++
 LDFLAGS = -std=c++14 -stdlib=libc++ -lc++abi -lm
 
@@ -27,7 +27,7 @@ main.o: main.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.c
 	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp
 
 test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp
-	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp $(LDFLAGS) -o test
+	$(LD) -Wno-address-of-temporary catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test

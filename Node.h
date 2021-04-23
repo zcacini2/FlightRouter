@@ -21,6 +21,8 @@ class Node {
          */
         Node();
 
+        ~Node();
+
         Node(int, double, double);
 
         int airportCode();

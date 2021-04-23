@@ -319,7 +319,8 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 	for (unsigned long i = 0; i < vector2.size(); i++) {
 		REQUIRE(expected2[i] == vector2[i]);
 	}
-	
+	//delete graph2;
+	//delete bfs2;
 }
 
 TEST_CASE("dummy test", "[dummy]") {

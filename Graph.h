@@ -5,6 +5,7 @@
 #include "Node.h"
 #include <vector>
 #include <string>
+#include <memory>
 
 using namespace std;
 
@@ -73,6 +74,7 @@ class Graph {
          * Vector of Nodes stored by the OpenFlights ID of the airport
          */
 
+        //vector<Node*> nodes_;
         vector<Node*> nodes_;
 
         /**

@@ -11,6 +11,10 @@ Node::Node() {
     longitude_ = 0.0;
 }
 
+Node::~Node() {
+    neighbors_.clear();
+}
+
 Node::Node(int code, double latitude, double longitude) {
     airportCode_ = code;
     latitude_ = latitude;
