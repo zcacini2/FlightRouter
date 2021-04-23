@@ -32,6 +32,8 @@ class Node {
         Node* removeNeighbor(Node* toRemove);
         bool areNeighbors(Node* check);
         list<Node*> neighbors();
+        void setVisited(bool visited);
+        bool getVisited();
         //void addIncidentEdge(Edge edge);
 
         /**
