@@ -18,7 +18,7 @@ TEST_CASE("Verify that file_to_string works on a small example", "[readFile]") {
 	std::string res = file_to_string("tests/smallSample.txt");
 	// always check "expected" == "actual" --> be consistent
 
-	std::cout << res << std::endl;
+	//std::cout << res << std::endl;
 	REQUIRE("hello\nstudents\nof\ncs\n225\n!!!\n" == res);
 }
 
@@ -26,9 +26,11 @@ TEST_CASE("Verify that file_to_vector works on a small example", "[readFile]") {
 	std::vector<std::string> res = file_to_vector("tests/smallSample.txt");
 	std::string expected[] = {"hello", "students", "of", "cs", "225", "!!!"};
 
+	/*
 	for (unsigned i = 0; i < res.size(); i++) {
 		std::cout << res[i] << std::endl;
 	}
+	*/
 	
 	REQUIRE(6 == res.size());
 
@@ -60,14 +62,14 @@ TEST_CASE("Check Airports ctor with full data") {
 	REQUIRE(airports.longitude(14110) == 35.305);
 }
 
-/*
+
 TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)") {
 	//sample lat long coordinates from google
-	Node ORD(3830, 41.9773, -87.8369); //chicago
-	Node JFK(3797, 40.6413, -73.5581); //NY
-	Node ICN(3930, 37.4602, 126.4407); //icheon
-	Node HND(2359, 35.5494, 139.7798); //tokyo
-	Node CMI(4049, 40.0365, -88.2640); //champaign
+	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
+	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
+	Node* ICN = new Node(3930, 37.4602, 126.4407); //icheon
+	Node* HND = new Node(2359, 35.5494, 139.7798); //tokyo
+	Node* CMI = new Node(4049, 40.0365, -88.2640); //champaign
 
 	Edge ORDtoJFK(ORD, JFK);
 	Edge ORDtoICN(ORD, ICN);
@@ -88,7 +90,7 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) ORDtoORD.distance() == expected4);
 	REQUIRE((int) CMItoORD.distance() == expected2);
 }
-*/
+
 
 TEST_CASE("Test sample data on Graph Ctor") {
 	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
@@ -175,9 +177,9 @@ TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[part=5]")
 	vector<Node*> nodes = graph.getNodes();
 
 	Node*& node2965 = nodes[2965];
-	std::cout << node2965->neighbors().size() << std::endl;
+	//std::cout << node2965->neighbors().size() << std::endl;
 	Node*& node2990 = nodes[2990];
-	std::cout << node2990->neighbors().size() << std::endl;
+	//std::cout << node2990->neighbors().size() << std::endl;
 	Node* node2966 = nodes[2966];
 	Node* node2962 = nodes[2962];
 	Node* node2968 = nodes[2968];
@@ -241,9 +243,9 @@ TEST_CASE("Graph Ctor doesn't add repeat nodes") {
 
 }
 
-TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
+//TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
 
-TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
+//TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
 
 TEST_CASE("Graph Ctor does nothing with null or invalid airports") {
 
