@@ -9,6 +9,7 @@ Node::Node() {
     airportCode_ = -1;
     latitude_ = 0.0;
     longitude_ = 0.0;
+    isVisited_ = false;
 }
 
 Node::~Node() {
@@ -19,6 +20,8 @@ Node::Node(int code, double latitude, double longitude) {
     airportCode_ = code;
     latitude_ = latitude;
     longitude_ = longitude;
+    isVisited_ = false;
+
 }
 
 int Node::airportCode() {
@@ -86,6 +89,14 @@ bool Node::areNeighbors(Node* check) {
         }
     }
     return false;
+}
+
+void Node::setVisited(bool check){
+    isVisited_ = check;
+}
+
+bool Node::getVisited(){
+    return isVisited_;
 }
 
 /*void Node::addIncidentEdge(Edge edge) {
