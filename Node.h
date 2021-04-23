@@ -51,6 +51,8 @@ class Node {
         double latitude_;
         double longitude_;
         list<Node*> neighbors_;
+        bool isVisited_; // member required for implementing dijkstra's algorithm
+    
         //list<Edge> incidentEdges_;
         
 
