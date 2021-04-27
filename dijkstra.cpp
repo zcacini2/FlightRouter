@@ -1,7 +1,9 @@
 #include "dijkstra.h"
-#include <vector>
 #include "graph.h"
-
+#include <vector>
+#include <stack>
+#include <queue>
+using std::unordered_map;
 using namespace std;
 typedef pair<double, int> distanceToNode;
 
