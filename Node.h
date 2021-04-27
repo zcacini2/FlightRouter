@@ -34,6 +34,7 @@ class Node {
         list<Node*> neighbors();
         void setVisited(bool visited);
         bool getVisited();
+        
         //void addIncidentEdge(Edge edge);
 
         /**
