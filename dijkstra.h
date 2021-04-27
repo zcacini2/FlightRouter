@@ -1,11 +1,12 @@
 #pragma once
 
 #include <iterator>
-#include <queue>
 #include "Graph.h"
 #include "Node.h"
 #include "Edge.h"
-
+#include <stack>
+#include <queue>
+using std::unordered_map;
 using namespace std;
 
 class dijkstra {
