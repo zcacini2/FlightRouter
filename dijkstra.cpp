@@ -7,29 +7,19 @@ typedef pair<double, int> distanceToNode;
 
 struct NodeDistance{
 }
+
 dijkstra::dijkstra(Graph * graph, Node * start, Node * end){
   graph_ = graph;
   start_ = start;
   end_ = end;
 }
 
-int dijkstra::minDistance(int dist[], bool sptSet[], int numNodes){
-  // Initialize min value
-  int min = INT_MAX, min_index;
-
-  for (int i = 0; i < numNodes; i++)
-    if (sptSet[i] == false && dist[i] <= min)
-        min = dist[i], min_index = i;
-
-  return min_index;
-}
-
-void dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
+vector<Node> dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
     //struct for comparison function of priority queue
     struct CompareDistance{
       bool operator()(std::pair<Node, double> const & a, std::pair<Node, double> const & b){
         //return true if a is bigger than b
-        //this ensures lower distances are prioritized in a queue
+        // ensures lower distances are prioritized in a queue
         return a.second> b.second;
       }
     };
@@ -42,7 +32,7 @@ void dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
     int size = nodes.size();
 
     std::unordered_map<Node, double> distances; // retrieve distance values for each node
-    std::unordered_map<Node, Node> traces;    // initialize a map that records node->its previous node
+    std::unordered_map<Node, Node> routes_;    // initialize a route that records node->its previous node
 
     //initialize a priority queue of node-distance pair
     typedef std::priority_queue<std::pair<Node, int>, vector<std::pair<Node, int>>,
@@ -53,10 +43,10 @@ void dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
     //check if there's adjacent nodes from starting node
     list<Node> adjacent = Node.neighbors();
     if(adjacent.empty()){
-      return vector<Node>();
+      return vector<Node>(); //return empty vector if there's no adjacent node
     }
 
-    //initialize vertices in distance map to be large enough
+    //initialize edges in distance map to be large enough
     for(auto v: nodes) {
       distance[v] = 999999;
     }
@@ -70,9 +60,34 @@ void dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
       q.pop();
 
       //mark current node as visited
-      traces.insert(curr_node);
-      ///////////////////////////////needs to work from here//////////////////////////////////
+      routes_.insert(curr_node);
+
+      vector<Node> neighbors = curr_node.neighbors(); // get all adjacent nodes
+
+      for (Node neighbor : neighbors){
+        if (visited.find(neighbor) == visited.end()){ // if there's no node neighbor in visited
+          double dist = distances[curr_node] + Something_we_have_to_solve//stuck: how can I get distance of specific edge from two vertex?
+          if (dist <= distances[neighbor]) {
+            distances[neighbor] = dist;
+            routes_[neighbor] = curr_vertex;
+            q.push(std::pair<Node, double>(neighbor, dist));
+          }
+        }
+      }
     }
 
+    if(routes_.find(destination) == routes_.end()){ // if no path exists
+      return vector<Node>();                          //return empty vector
     }
+
+    //backtracing the path from routes_
+    vector<Node> path;
+    Node cur = destination;
+    while (cur != start) {
+      path.push_back(cur);
+      curr = routes_[curr];
+    }
+    path.push_back(source);
+    std::reverse(path.begin(), path.end());
+    return path;
 }
