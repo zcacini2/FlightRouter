@@ -5,6 +5,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 
 //#include "Edge.h"
 
@@ -35,6 +36,7 @@ class Node {
         void setVisited(bool visited);
         bool getVisited();
         double distance(Node* other);
+        double getRouteDistance(vector<Node*> route);
         
         //void addIncidentEdge(Edge edge);
 

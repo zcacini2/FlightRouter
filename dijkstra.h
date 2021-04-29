@@ -6,6 +6,7 @@
 #include "Edge.h"
 #include <stack>
 #include <queue>
+#include <unordered_map>
 using std::unordered_map;
 using namespace std;
 
@@ -29,4 +30,4 @@ class dijkstra {
       Node * end_;
       //size = total number of vertices
       int size_;
-}
+};

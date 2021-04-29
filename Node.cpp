@@ -124,3 +124,11 @@ double Node::distance(Node* other) {
     }
     incidentEdges_.push_back(edge);
 }*/
+
+double Node::getRouteDistance(vector<Node*> route) {
+    double totDist = 0;
+    for (unsigned i = 0; i < route.size() - 1; i++) {
+        totDist += route[i]->distance(route[i+1]);
+    }
+    return totDist;
+}

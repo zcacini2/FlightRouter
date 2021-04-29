@@ -10,6 +10,7 @@
 #include "../Airports.h"
 #include "../Graph.h"
 #include "../BFS.h"
+//#include "../dijkstra.h"
 #include "../cs225/PNG.h"
 #include "../mapprinter.h"
 #include "../cs225/HSLAPixel.h"
@@ -346,60 +347,70 @@ TEST_CASE("Attempting to determine a few shortest paths", "[part=8]") {
 	vector<Node*> nodes = graph.getNodes();
 
 	// Node with 30 neighbors
-	Node* _node = nodes[2006];
+	Node* node4075 = nodes[4075];
+	Node* node2047 = nodes[2047];
+	Node* node2006 = nodes[2006];
 
+	/*
 	double dist = 999999999;
 	Node* shortest;
 
 	for (Node * node : _node->neighbors()) {
-		/*
-		if (_node->distance(*node) < dist) {
-			dist = _node->distance(*node);
+		
+		if (_node->distance(node) < dist) {
+			dist = _node->distance(node);
 			shortest = node;
 		}
-		*/
-		//if (node->airportCode() == 2047) {
-		std::cout << "Airport 2006 has route to Airport " << node->airportCode() << " with distance " << _node->distance(node) << std::endl;
-		std::cout << "Airport 2006 has lat,lng: " << _node->latitude() << ", " << _node->longitude() << std::endl;
-		std::cout << "Airport " << node->airportCode() << " has lat,lng: " << node->latitude() << ", " << node->longitude() << std::endl;
-			//break;
-		//}
 		
+		if (node->airportCode() == 2047) {
+			std::cout << "Airport 2006 has route to Airport " << node->airportCode() << " with distance " << _node->distance(node) << std::endl;
+			//std::cout << "Airport 2006 has lat,lng: " << _node->latitude() << ", " << _node->longitude() << std::endl;
+			//std::cout << "Airport " << node->airportCode() << " has lat,lng: " << node->latitude() << ", " << node->longitude() << std::endl;
+				//break;
+		}
 	}
+	*/
 
-	// std::cout << "The closest Node to Aiport 2006 is Airport " << shortest->airportCode() << " (" << dist << " away)." << std::endl;
+	// std::cout << "The closest Node to Aiport 4075 is Airport " << shortest->airportCode() << " (" << dist << " away)." << std::endl;
 
-	// 4075 -> 2006 closest node @ 14683.7 units away
-	// 2006 is Auckland International Airport
 	// 4075 is Faa'a International Airport, French Polynesia
-
-	// 2006 -> 3320 closest node @ 16479.1 away
-	// 3320 is Brisbane International Airport
-
-	// Check that 4075 doesnt have closer connection to Brisbane
+	// 2006 is Auckland International Airport
 	// 2047 is Wanganui Airport, New Zealand. There is no route from 4075 to 2047.
 
 	// Dijkstra's Path from 4075 to 2047 should be 4075 -> 2006 -> 2047 
-	// 2006 to 2047 has distnce 16479.1 units
 
-	// Path from 
+	// Path from 4075 -> 2006 is 4093.37
+	// Path from 2006 -> 2047 is 329.106
+	// Total Dist: 4422.476
 
+	/*
+	UNCOMMENT WHEN DIJKSTRA WORKING
+	vector<Node*> route = dijkstra(graph, node4075, node2047);
 
+	REQUIRE(route.size() == 3);
+	REQUIRE(route[0] == node4075);
+	REQUIRE(route[1] == node2006);
+	REQUIRE(route[2] == node2047);
+	REQUIRE(getRouteDistance(route) == 4422.476);
+	*/
 
 }
 
 TEST_CASE("testNodeDistance" , "[part=7]") {
-	Graph graph("dataset/routes.txt", "dataset/airports.txt");
-	vector<Node*> nodes = graph.getNodes();
+	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
+	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
+	Node* ICN = new Node(3930, 37.4602, 126.4407); //icheon
+	Node* HND = new Node(2359, 35.5494, 139.7798); //tokyo
+	Node* CMI = new Node(4049, 40.0365, -88.2640); //champaign
+	
+	int expected1 = 1200; 
+	int expected2 = 218;
+	int expected3 = 1200;
+	int expected4 = 0;
 
-	Node* _node = nodes[2006];
-
-	for (Node * node : _node->neighbors()) {
-		
-		std::cout << "Airport 2006 has route to Airport " << node->airportCode() << " with distance " << _node->distance(node) << std::endl;
-		std::cout << "Airport 2006 has lat,lng: " << _node->latitude() << ", " << _node->longitude() << std::endl;
-		std::cout << "Airport " << node->airportCode() << " has lat,lng: " << node->latitude() << ", " << node->longitude() << std::endl;
-		
-	}
-
+	REQUIRE((int) ORD->distance(JFK) == expected1);
+	REQUIRE((int) JFK->distance(ORD) == expected3);
+	REQUIRE((int) ORD->distance(ORD) == expected4);
+	REQUIRE((int) CMI->distance(ORD) == expected2);
 }
+
