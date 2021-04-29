@@ -9,13 +9,19 @@
 Graph::Graph() { }
 
 Graph::~Graph() {
-  unsigned long size1 = nodes_.size();
-  for (unsigned long i = 0; i < size1; i++) {
-    if (nodes_[i] != nullptr && nodes_[i] != NULL) {
-      //delete nodes_[i];
-      //nodes_[i] = nullptr;
+
+  for (unsigned long i = 0; i < nodes_.size(); i++) {
+    if (nodes_[i] != nullptr) {
+      delete nodes_[i];
+      nodes_[i] = nullptr;
     }
   }
+
+  
+  for (unsigned i = 0; i < edges_.size(); i++) {
+    delete edges_[i];
+  }
+  
 }
 
 /**
