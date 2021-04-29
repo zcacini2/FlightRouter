@@ -66,7 +66,7 @@ TEST_CASE("Check Airports ctor with full data") {
 	REQUIRE(airports.longitude(14110) == 35.305);
 }
 
-
+/*
 TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)") {
 	//sample lat long coordinates from google
 	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
@@ -94,7 +94,7 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) ORDtoORD.distance() == expected4);
 	REQUIRE((int) CMItoORD.distance() == expected2);
 }
-
+*/
 
 TEST_CASE("Test sample data on Graph Ctor") {
 	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
