@@ -51,7 +51,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
   nodes_.resize(airports.size());
   for (unsigned i = 0; i < airports.size(); i++) {
-    nodes_[i] = new Node();
+    nodes_[i] = Node();
   }
 
   vector<string> line;  //create line vector
