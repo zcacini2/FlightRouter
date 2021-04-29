@@ -18,8 +18,10 @@ class dijkstra {
       */
 
 
-    void shortestPath(Graph * graph, int src);
-    int minDistance(int dist[], bool sptSet[]);
+    vector<Node> dijkstra(Graph * graph, Node *start, Node * end);
+      /* dijkstra function. this function takes graph and two Nodes
+      and return shortest distance from starting point to the end.
+      */
 
   private:
       Graph * graph_;

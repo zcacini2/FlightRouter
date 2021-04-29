@@ -1,11 +1,11 @@
 #include <string>
 
 #include "Node.h"
-//#include "Edge.h"
+#include "Edge.h"
 
 using namespace std;
 
-Node::Node() { 
+Node::Node() {
     airportCode_ = -1;
     latitude_ = 0.0;
     longitude_ = 0.0;
@@ -52,6 +52,23 @@ Node* Node::removeNeighbor(Node* toRemove) {
     return toRemove;
 }
 
+double Node::getDistance(Node *node) {
+  if (areNeighbors(node)){
+    double earthRadius = 6371;
+    double lat1 = latitude_;
+    double long1 = longitude_;
+    double lat2 = node->latitude();
+    double long2 = node2->longitude();
+
+    double latDiffRads = (lat2 - lat1) * (M_PI/180);
+    double longDiffRads = (long2 - long1) * (M_PI/180);
+
+    double a = 0.5 - cos(latDiffRads)/2 + cos(lat1 * (M_PI/180)) *
+        cos(lat2 * (M_PI/180)) * (1 - cos(longDiffRads))/2;
+
+    return 2 * earthRadius * asin(sqrt(a));
+  }
+}
 list<Node*> Node::neighbors() {
     return neighbors_;
 }
@@ -71,7 +88,7 @@ bool Node::operator==(const Node &other) const {
         return false;
     }
 
-    
+
     /*for (Node neighbor : neighbors_) {
         if (neighbor.airportCode() != other.neighbors_[i].airportCode()) {
             return false;
@@ -89,14 +106,6 @@ bool Node::areNeighbors(Node* check) {
         }
     }
     return false;
-}
-
-void Node::setVisited(bool check){
-    isVisited_ = check;
-}
-
-bool Node::getVisited(){
-    return isVisited_;
 }
 
 /*void Node::addIncidentEdge(Edge edge) {
