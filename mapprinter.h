@@ -14,6 +14,8 @@ class MapPrinter {
         void addPoint(Node);
         void addPath();
         void print(string filename);
+        double longToX(double longitude);
+        double latToY(double latitude);
     private:
         Graph graph_;
         PNG png_;

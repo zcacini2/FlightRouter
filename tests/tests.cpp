@@ -342,6 +342,15 @@ TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]
 	//REQUIRE()
 }
 
+TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
+	PNG background;
+	Graph graph;
+	background.readFromFile("background.png");
+	MapPrinter mapprinter(graph, background);
+	mapprinter.addPoint(Node(1, 0.0, 0.0));
+	mapprinter.print("testOutputOneIndpndntPoint.png");
+}
+
 TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
 	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
 	vector<Node*> node = graph.getNodes();
