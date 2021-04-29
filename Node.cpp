@@ -100,14 +100,14 @@ bool Node::getVisited(){
     return isVisited_;
 }
 
-double Node::distance(Node other) {
+double Node::distance(Node* other) {
 
 
     double earthRadius = 6371;
     double lat1 = latitude_;
-    double long1 = other.longitude();
-    double lat2 = longitude_;
-    double long2 = other.longitude();
+    double long1 = longitude_;
+    double lat2 = other->latitude();
+    double long2 = other->longitude();
 
     double latDiffRads = (lat2 - lat1) * (M_PI/180);
     double longDiffRads = (long2 - long1) * (M_PI/180);
