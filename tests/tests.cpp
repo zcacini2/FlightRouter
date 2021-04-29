@@ -10,9 +10,12 @@
 #include "../Airports.h"
 #include "../Graph.h"
 #include "../BFS.h"
+#include "../cs225/PNG.h"
+#include "../mapprinter.h"
+#include "../cs225/HSLAPixel.h"
 
 using namespace std;
-
+using namespace cs225;
 
 TEST_CASE("Verify that file_to_string works on a small example", "[readFile]") {
 	std::string res = file_to_string("tests/smallSample.txt");
@@ -34,7 +37,7 @@ TEST_CASE("Verify that file_to_vector works on a small example", "[readFile]") {
 	
 	REQUIRE(6 == res.size());
 
-	for (int i = 0; i < res.size(); i++) {
+	for (int i = 0; i < (int) res.size(); i++) {
 		REQUIRE(expected[i] == res[i]);
 	}
 }
@@ -326,4 +329,14 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 TEST_CASE("dummy test", "[dummy]") {
 	int dummy = 5;
 	REQUIRE(dummy == 5);
+}
+
+TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]") {
+	PNG background;
+	Graph graph;
+	background.readFromFile("background.png");
+	MapPrinter mapprinter(graph, background);
+	mapprinter.print("testOutputSimple.png");
+
+	//REQUIRE()
 }

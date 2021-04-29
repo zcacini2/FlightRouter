@@ -228,6 +228,8 @@ Node* Graph::getFirstNode() {
   return (nodes_.at(1));
 }
 
+//void Graph::print() { }
+
 /*
 
 void Graph::removeNode(Node toRemove){
