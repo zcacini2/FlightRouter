@@ -16,7 +16,7 @@ class Edge {
         Node * end();
         double distance();
     private:
-        Node * start_; 
+        Node * start_;
         Node * end_;
         double distance_; //the edge should store the distance between the two airports
 
@@ -24,4 +24,3 @@ class Edge {
 };
 
 //#endif
-

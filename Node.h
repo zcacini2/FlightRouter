@@ -7,12 +7,12 @@
 #include <list>
 #include <vector>
 
-//#include "Edge.h"
+#include "Edge.h"
 
 using namespace std;
 
 /**
- * The Node class represents an Airport in the graph linked-memory structure. 
+ * The Node class represents an Airport in the graph linked-memory structure.
  */
 class Node {
 
@@ -33,11 +33,16 @@ class Node {
         Node* removeNeighbor(Node* toRemove);
         bool areNeighbors(Node* check);
         list<Node*> neighbors();
+<<<<<<< HEAD
+        double getDistance(Node node);
+
+=======
         void setVisited(bool visited);
         bool getVisited();
         double distance(Node* other);
         double getRouteDistance(vector<Node*> route);
         
+>>>>>>> 30d0912ea20226fba177a31a3b931cbb83693ca6
         //void addIncidentEdge(Edge edge);
 
         /**
@@ -57,10 +62,9 @@ class Node {
         double latitude_;
         double longitude_;
         list<Node*> neighbors_;
-        bool isVisited_; // member required for implementing dijkstra's algorithm
-    
+
         //list<Edge> incidentEdges_;
-        
+
 
         /*
         Necessary for advanced input methods
@@ -68,7 +72,7 @@ class Node {
         string city;
         string country;
         */
-        
+
 
 };
 #endif
