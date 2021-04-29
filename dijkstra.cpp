@@ -50,12 +50,14 @@ vector<Node> dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
 
     //initialize edges in distance map to be large enough
     for(auto v: nodes) {
-      distance[v] = 999999;
+      distance[v] = 9999999;
     }
 
     //set distances of starting point to be zero
     distances[start] = 0;
     q.push(std::pair<Node,double>(start, 0));
+
+    //loop until we reach destination
     while (q.top().first != end && !q.empty()){
       std::pair<Node, double> curr = q.top(); //get the next pair from priority_queue
       Node curr_node = curr.first;
@@ -64,11 +66,19 @@ vector<Node> dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
       //mark current node as visited
       routes_.insert(curr_node);
 
+<<<<<<< HEAD
+      list<Node> neighbors = curr_node.neighbors(); // get all adjacent nodes
+
+      for (Node neighbor : neighbors){
+        if (visited.find(neighbor) == visited.end()){ // if there's no node neighbor in visited
+          double dist = distances[curr_node] + curr_node.getDistance(neighbor)
+=======
       vector<Node> neighbors = curr_node.neighbors(); // get all adjacent nodes
 
       for (Node neighbor : neighbors){
         if (visited.find(neighbor) == visited.end()){ // if there's no node neighbor in visited
           double dist = distances[curr_node] + Something_we_have_to_solve//stuck: how can I get distance of specific edge from two vertex?
+>>>>>>> 30d0912ea20226fba177a31a3b931cbb83693ca6
           if (dist <= distances[neighbor]) {
             distances[neighbor] = dist;
             routes_[neighbor] = curr_vertex;

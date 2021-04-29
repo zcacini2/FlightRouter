@@ -10,6 +10,7 @@ Graph::Graph() { }
 
 Graph::~Graph() {
 
+  /*
   for (unsigned long i = 0; i < nodes_.size(); i++) {
     if (nodes_[i] != nullptr) {
       //delete nodes_[i];
@@ -21,6 +22,7 @@ Graph::~Graph() {
   for (unsigned i = 0; i < edges_.size(); i++) {
     //delete edges_[i];
   }
+  */
   
 }
 

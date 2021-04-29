@@ -25,7 +25,7 @@ double Edge::calculateDistance(Node * node1, Node * node2) {
 
     double a = 0.5 - cos(latDiffRads)/2 + cos(lat1 * (M_PI/180)) *
         cos(lat2 * (M_PI/180)) * (1 - cos(longDiffRads))/2;
-    
+
     return 2 * earthRadius * asin(sqrt(a));
 }
 
