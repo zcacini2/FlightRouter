@@ -1,0 +1,8 @@
+2965,"Sochi International Airport","Sochi","Russia","AER","URSS",43.449902,39.9566,89,3,"N","Europe/Moscow","airport","OurAirports"
+2990,"Kazan International Airport","Kazan","Russia","KZN","UWKD",55.606201171875,49.278701782227,411,3,"N","Europe/Moscow","airport","OurAirports"
+2966,"Astrakhan Airport","Astrakhan","Russia","ASF","URWA",46.2832984924,48.0063018799,-65,4,"N","Europe/Samara","airport","OurAirports"
+2962,"Mineralnyye Vody Airport","Mineralnye Vody","Russia","MRV","URMM",44.225101470947266,43.08190155029297,1054,3,"N","Europe/Moscow","airport","OurAirports"
+2968,"Chelyabinsk Balandino Airport","Chelyabinsk","Russia","CEK","USCC",55.305801,61.5033,769,5,"N","Asia/Yekaterinburg","airport","OurAirports"
+4029,"Domodedovo International Airport","Moscow","Russia","DME","UUDD",55.40879821777344,37.90629959106445,588,3,"N","Europe/Moscow","airport","OurAirports"
+4078,"Tolmachevo Airport","Novosibirsk","Russia","OVB","UNNT",55.012599945068,82.650703430176,365,7,"N","Asia/Krasnoyarsk","airport","OurAirports"
+6969,"Begishevo Airport","Nizhnekamsk","Russia","NBC","UWKE",55.564701080322266,52.092498779296875,643,3,"N","Europe/Moscow","airport","OurAirports"

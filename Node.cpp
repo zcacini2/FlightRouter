@@ -1,4 +1,5 @@
 #include <string>
+#include <math.h>
 
 #include "Node.h"
 #include "Edge.h"
@@ -108,9 +109,46 @@ bool Node::areNeighbors(Node* check) {
     return false;
 }
 
+<<<<<<< HEAD
+=======
+void Node::setVisited(bool check){
+    isVisited_ = check;
+}
+
+bool Node::getVisited(){
+    return isVisited_;
+}
+
+double Node::distance(Node* other) {
+
+
+    double earthRadius = 6371;
+    double lat1 = latitude_;
+    double long1 = longitude_;
+    double lat2 = other->latitude();
+    double long2 = other->longitude();
+
+    double latDiffRads = (lat2 - lat1) * (M_PI/180);
+    double longDiffRads = (long2 - long1) * (M_PI/180);
+
+    double a = 0.5 - cos(latDiffRads)/2 + cos(lat1 * (M_PI/180)) *
+        cos(lat2 * (M_PI/180)) * (1 - cos(longDiffRads))/2;
+    
+    return 2 * earthRadius * asin(sqrt(a));
+}
+
+>>>>>>> 30d0912ea20226fba177a31a3b931cbb83693ca6
 /*void Node::addIncidentEdge(Edge edge) {
     if (edge.start() == *this || edge.end() == *this) {
         incidentEdges_.push_back(edge);
     }
     incidentEdges_.push_back(edge);
 }*/
+
+double Node::getRouteDistance(vector<Node*> route) {
+    double totDist = 0;
+    for (unsigned i = 0; i < route.size() - 1; i++) {
+        totDist += route[i]->distance(route[i+1]);
+    }
+    return totDist;
+}

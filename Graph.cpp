@@ -9,13 +9,19 @@
 Graph::Graph() { }
 
 Graph::~Graph() {
-  unsigned long size1 = nodes_.size();
-  for (unsigned long i = 0; i < size1; i++) {
-    if (nodes_[i] != nullptr && nodes_[i] != NULL) {
-      //delete nodes_[i];
-      //nodes_[i] = nullptr;
+
+  for (unsigned long i = 0; i < nodes_.size(); i++) {
+    if (nodes_[i] != nullptr) {
+      delete nodes_[i];
+      nodes_[i] = nullptr;
     }
   }
+
+  
+  for (unsigned i = 0; i < edges_.size(); i++) {
+    delete edges_[i];
+  }
+  
 }
 
 /**
@@ -45,7 +51,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
   nodes_.resize(airports.size());
   for (unsigned i = 0; i < airports.size(); i++) {
-    nodes_[i] = new Node();
+    nodes_[i] = Node();
   }
 
   vector<string> line;  //create line vector
@@ -227,6 +233,8 @@ vector<Edge> Graph::getEdges() {
 Node* Graph::getFirstNode() {
   return (nodes_.at(1));
 }
+
+//void Graph::print() { }
 
 /*
 

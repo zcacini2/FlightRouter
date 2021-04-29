@@ -12,6 +12,7 @@ Edge::Edge(Node * start, Node * end) {
     distance_ = calculateDistance(start, end);
 }
 
+//calculates distance in kilometers
 double Edge::calculateDistance(Node * node1, Node * node2) {
     double earthRadius = 6371;
     double lat1 = node1->latitude();

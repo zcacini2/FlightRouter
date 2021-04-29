@@ -5,6 +5,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 
 #include "Edge.h"
 
@@ -32,8 +33,16 @@ class Node {
         Node* removeNeighbor(Node* toRemove);
         bool areNeighbors(Node* check);
         list<Node*> neighbors();
+<<<<<<< HEAD
         double getDistance(Node node);
 
+=======
+        void setVisited(bool visited);
+        bool getVisited();
+        double distance(Node* other);
+        double getRouteDistance(vector<Node*> route);
+        
+>>>>>>> 30d0912ea20226fba177a31a3b931cbb83693ca6
         //void addIncidentEdge(Edge edge);
 
         /**

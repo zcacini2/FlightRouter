@@ -10,9 +10,13 @@
 #include "../Airports.h"
 #include "../Graph.h"
 #include "../BFS.h"
+//#include "../dijkstra.h"
+#include "../cs225/PNG.h"
+#include "../mapprinter.h"
+#include "../cs225/HSLAPixel.h"
 
 using namespace std;
-
+using namespace cs225;
 
 TEST_CASE("Verify that file_to_string works on a small example", "[readFile]") {
 	std::string res = file_to_string("tests/smallSample.txt");
@@ -34,7 +38,7 @@ TEST_CASE("Verify that file_to_vector works on a small example", "[readFile]") {
 	
 	REQUIRE(6 == res.size());
 
-	for (int i = 0; i < res.size(); i++) {
+	for (int i = 0; i < (int) res.size(); i++) {
 		REQUIRE(expected[i] == res[i]);
 	}
 }
@@ -326,4 +330,188 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 TEST_CASE("dummy test", "[dummy]") {
 	int dummy = 5;
 	REQUIRE(dummy == 5);
+}
+
+TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]") {
+	PNG background;
+	Graph graph;
+	background.readFromFile("background.png");
+	MapPrinter mapprinter(graph, background);
+	mapprinter.print("testOutputSimple.png");
+
+	//REQUIRE()
+}
+
+TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
+	PNG background;
+	Graph graph;
+	background.readFromFile("background.png");
+	MapPrinter mapprinter(graph, background);
+	mapprinter.addPoint(Node(1, 0.0, 0.0));
+	mapprinter.print("testOutputOneIndpndntPoint.png");
+}
+
+TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
+	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	vector<Node*> node = graph.getNodes();
+
+	Node* node2966 = node[2966];
+	Node* node6969 = node[6969];
+
+	Node* node4078 = node[4078];
+	Node* node2962 = node[2962];
+
+	/*
+	UNCOMMENT WHEN DIJKSTRA IMPLEMENTED
+	vector<Node*> route1 = dijkstra(graph, node2966, node6969);
+	vector<Node*> route2 = dijkstra(graph, node4078, node2962);
+
+	//vector<Node*> expected1{node2966, node[2962], node6969};
+	//vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
+
+	REQUIRE(route1.size() == expected1.size());
+	REQUIRE(route2.size() == expected2.size());
+	REQUIRE(getRouteDistance(route1) == getRouteDistance(expected1));
+	REQUIRE(getRouteDistance(route2) == getRouteDistance(expected2));
+	*/
+
+	/*
+	double D1 = node[2966]->distance(node[2990]);
+	double D2 = node[2990]->distance(node[4029]);
+	double D3 = node[4029]->distance(node[6969]);
+
+	double D4 = node[2966]->distance(node[2962]);
+	double D5 = node[2962]->distance(node[6969]);
+
+	double totD1 = D1 + D2 + D3;
+	double totD2 = D4 + D5;
+
+	std::cout << "totD1 = " << totD1 << " and totD2 = " << totD2 << std::endl;
+
+	double D6 = node[4078]->distance(node[2968]);
+	double D7 = node[2968]->distance(node[2990]);
+	double D8 = node[2990]->distance(node[4029]);
+	double D9 = node[4029]->distance(node[6969]);
+	double D10 = node[6969]->distance(node[2962]);
+
+	double D11 = node[2990]->distance(node[2966]);
+	double D12 = node[2966]->distance(node[2962]);
+
+	double totD3 = D6 + D7 + D8 + D9 + D10;
+	double totD4 = D6 + D7 + D11 + D12;
+
+	std::cout << "totD3 = " << totD3 << " and totD4 = " << totD4 << std::endl;
+
+	// Two Logical Routes between 2966 and 6969
+	// 2966 -D1-> 2990 -D2-> 4029 -D3-> 6969, Distance = D1 + D2 + D3 = 2648.47
+	// 2966 -D4-> 2962 -D5-> 6969, Distance = D4 + D5 = 1861.97
+	// Route 2 is the winner
+
+	// Two Logical Routes between 4078 and 2962
+	// 4078 -D6-> 2968 -D7-> 2990 -D8-> 4029 -D9-> 6969 -D10-> 2962
+	// Distance = D6 + D7 + D8 + D9 + D10 = 5130.98
+	// 4078 -D6-> 2968 -D7-> 2990 -D11-> 2966 -D12-> 2962
+	// Distance = D6 + D7 + D11 + D12 = 3597.74
+	// Route 4 is the winner
+	*/
+
+}
+
+TEST_CASE("Easy Dijkstra test on full data") {
+	Graph graph("dataset/routes.txt", "dataset/airports.txt");
+	vector<Node*> nodes = graph.getNodes();
+
+	// Node with 30 neighbors
+	Node* node4075 = nodes[4075];
+	Node* node2047 = nodes[2047];
+	Node* node2006 = nodes[2006];
+
+	/*
+	double dist = 999999999;
+	Node* shortest;
+
+	for (Node * node : _node->neighbors()) {
+		
+		if (_node->distance(node) < dist) {
+			dist = _node->distance(node);
+			shortest = node;
+		}
+		
+		if (node->airportCode() == 2047) {
+			std::cout << "Airport 2006 has route to Airport " << node->airportCode() << " with distance " << _node->distance(node) << std::endl;
+			//std::cout << "Airport 2006 has lat,lng: " << _node->latitude() << ", " << _node->longitude() << std::endl;
+			//std::cout << "Airport " << node->airportCode() << " has lat,lng: " << node->latitude() << ", " << node->longitude() << std::endl;
+				//break;
+		}
+	}
+	*/
+
+	// std::cout << "The closest Node to Aiport 4075 is Airport " << shortest->airportCode() << " (" << dist << " away)." << std::endl;
+
+	// 4075 is Faa'a International Airport, French Polynesia
+	// 2006 is Auckland International Airport
+	// 2047 is Wanganui Airport, New Zealand. There is no route from 4075 to 2047.
+
+	// Dijkstra's Path from 4075 to 2047 should be 4075 -> 2006 -> 2047 
+
+	// Path from 4075 -> 2006 is 4093.37
+	// Path from 2006 -> 2047 is 329.106
+	// Total Dist: 4422.476
+
+	/*
+	UNCOMMENT WHEN DIJKSTRA WORKING
+	vector<Node*> route = dijkstra(graph, node4075, node2047);
+
+	REQUIRE(route.size() == 3);
+	REQUIRE(route[0] == node4075);
+	REQUIRE(route[1] == node2006);
+	REQUIRE(route[2] == node2047);
+	REQUIRE(getRouteDistance(route) == 4422.476);
+	*/
+
+}
+
+TEST_CASE("testNodeDistance" , "[part=7]") {
+	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
+	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
+	Node* ICN = new Node(3930, 37.4602, 126.4407); //icheon
+	Node* HND = new Node(2359, 35.5494, 139.7798); //tokyo
+	Node* CMI = new Node(4049, 40.0365, -88.2640); //champaign
+	
+	int expected1 = 1200; 
+	int expected2 = 218;
+	int expected3 = 1200;
+	int expected4 = 0;
+
+	REQUIRE((int) ORD->distance(JFK) == expected1);
+	REQUIRE((int) JFK->distance(ORD) == expected3);
+	REQUIRE((int) ORD->distance(ORD) == expected4);
+	REQUIRE((int) CMI->distance(ORD) == expected2);
+}
+
+TEST_CASE("testDrawDijkstraSmall") {
+	
+	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	vector<Node*> node = graph.getNodes();
+
+	Node* node2966 = node[2966];
+	Node* node6969 = node[6969];
+
+	Node* node4078 = node[4078];
+	Node* node2962 = node[2962];
+
+	/*
+	NEED TO FINISH
+	vector<Node*> route1 = dijkstra(graph, node2966, node6969);
+	vector<Node*> route2 = dijkstra(graph, node4078, node2962);
+
+	//vector<Node*> expected1{node2966, node[2962], node6969};
+	//vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
+
+	REQUIRE(route1.size() == expected1.size());
+	REQUIRE(route2.size() == expected2.size());
+	REQUIRE(getRouteDistance(route1) == getRouteDistance(expected1));
+	REQUIRE(getRouteDistance(route2) == getRouteDistance(expected2));
+	*/
+
 }

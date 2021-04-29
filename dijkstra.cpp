@@ -1,30 +1,22 @@
 #include "dijkstra.h"
-#include <vector>
 #include "graph.h"
-
+#include <vector>
+#include <stack>
+#include <queue>
+using std::unordered_map;
 using namespace std;
 typedef pair<double, int> distanceToNode;
 
 struct NodeDistance{
 }
+
 dijkstra::dijkstra(Graph * graph, Node * start, Node * end){
   graph_ = graph;
   start_ = start;
   end_ = end;
 }
 
-int dijkstra::minDistance(int dist[], bool sptSet[], int numNodes){
-  // Initialize min value
-  int min = INT_MAX, min_index;
-
-  for (int i = 0; i < numNodes; i++)
-    if (sptSet[i] == false && dist[i] <= min)
-        min = dist[i], min_index = i;
-
-  return min_index;
-}
-
-void dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
+vector<Node> dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
     //struct for comparison function of priority queue
     struct CompareDistance{
       bool operator()(std::pair<Node, double> const & a, std::pair<Node, double> const & b){
@@ -74,11 +66,19 @@ void dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
       //mark current node as visited
       routes_.insert(curr_node);
 
+<<<<<<< HEAD
       list<Node> neighbors = curr_node.neighbors(); // get all adjacent nodes
 
       for (Node neighbor : neighbors){
         if (visited.find(neighbor) == visited.end()){ // if there's no node neighbor in visited
           double dist = distances[curr_node] + curr_node.getDistance(neighbor)
+=======
+      vector<Node> neighbors = curr_node.neighbors(); // get all adjacent nodes
+
+      for (Node neighbor : neighbors){
+        if (visited.find(neighbor) == visited.end()){ // if there's no node neighbor in visited
+          double dist = distances[curr_node] + Something_we_have_to_solve//stuck: how can I get distance of specific edge from two vertex?
+>>>>>>> 30d0912ea20226fba177a31a3b931cbb83693ca6
           if (dist <= distances[neighbor]) {
             distances[neighbor] = dist;
             routes_[neighbor] = curr_vertex;
