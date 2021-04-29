@@ -342,7 +342,70 @@ TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]
 	//REQUIRE()
 }
 
-TEST_CASE("Attempting to determine a few shortest paths", "[part=8]") {
+TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
+	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	vector<Node*> node = graph.getNodes();
+
+	Node* node2966 = node[2966];
+	Node* node6969 = node[6969];
+
+	Node* node4078 = node[4078];
+	Node* node2962 = node[2962];
+
+	vector<Node*> route1 = dijkstra(graph, node2966, node6969);
+	vector<Node*> route2 = dijkstra(graph, node4078, node2962);
+
+	//vector<Node*> expected1{node2966, node[2962], node6969};
+	//vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
+
+	REQUIRE(route1.size() == expected1.size());
+	REQUIRE(route2.size() == expected2.size());
+	REQUIRE(getRouteDistance(route1) == getRouteDistance(expected1));
+	REQUIRE(getRouteDistance(route2) == getRouteDistance(expected2));
+
+	/*
+	double D1 = node[2966]->distance(node[2990]);
+	double D2 = node[2990]->distance(node[4029]);
+	double D3 = node[4029]->distance(node[6969]);
+
+	double D4 = node[2966]->distance(node[2962]);
+	double D5 = node[2962]->distance(node[6969]);
+
+	double totD1 = D1 + D2 + D3;
+	double totD2 = D4 + D5;
+
+	std::cout << "totD1 = " << totD1 << " and totD2 = " << totD2 << std::endl;
+
+	double D6 = node[4078]->distance(node[2968]);
+	double D7 = node[2968]->distance(node[2990]);
+	double D8 = node[2990]->distance(node[4029]);
+	double D9 = node[4029]->distance(node[6969]);
+	double D10 = node[6969]->distance(node[2962]);
+
+	double D11 = node[2990]->distance(node[2966]);
+	double D12 = node[2966]->distance(node[2962]);
+
+	double totD3 = D6 + D7 + D8 + D9 + D10;
+	double totD4 = D6 + D7 + D11 + D12;
+
+	std::cout << "totD3 = " << totD3 << " and totD4 = " << totD4 << std::endl;
+
+	// Two Logical Routes between 2966 and 6969
+	// 2966 -D1-> 2990 -D2-> 4029 -D3-> 6969, Distance = D1 + D2 + D3 = 2648.47
+	// 2966 -D4-> 2962 -D5-> 6969, Distance = D4 + D5 = 1861.97
+	// Route 2 is the winner
+
+	// Two Logical Routes between 4078 and 2962
+	// 4078 -D6-> 2968 -D7-> 2990 -D8-> 4029 -D9-> 6969 -D10-> 2962
+	// Distance = D6 + D7 + D8 + D9 + D10 = 5130.98
+	// 4078 -D6-> 2968 -D7-> 2990 -D11-> 2966 -D12-> 2962
+	// Distance = D6 + D7 + D11 + D12 = 3597.74
+	// Route 4 is the winner
+	*/
+
+}
+
+TEST_CASE("Easy Dijkstra test on full data") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 
