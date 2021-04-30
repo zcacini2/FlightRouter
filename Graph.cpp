@@ -302,7 +302,7 @@ vector<int> Graph::shortestPath(int start, int end){
 
     //initialize edges in distance map to be large enough
     for(int i = 0; i < nodes_.size(); i++) {
-      distances_[v] = 9999999;
+      distances_[i] = 9999999;
     }
 
     //set distances of starting point to be zero
