@@ -33,14 +33,16 @@ class Node {
         Node* removeNeighbor(Node* toRemove);
         bool areNeighbors(Node* check);
         list<Node*> neighbors();
+        list<int> neighbors_codes_();
 
         // double getDistance(Node node);
 
         //void setVisited(bool visited);
         //bool getVisited();
         double distance(Node* other);
+        double distance(vector<Node*> nodes, int other);
         double getRouteDistance(vector<Node*> route);
-        
+
 
         //void addIncidentEdge(Edge edge);
 
@@ -61,7 +63,7 @@ class Node {
         double latitude_;
         double longitude_;
         list<Node*> neighbors_;
-
+        list<int> neighbors_code_;
         //list<Edge> incidentEdges_;
 
 
