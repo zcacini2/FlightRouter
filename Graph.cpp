@@ -301,7 +301,7 @@ vector<int> Graph::shortestPath(int start, int end){
     }
 
     //initialize edges in distance map to be large enough
-    for(auto v: ) {
+    for(int i = 0; i < nodes_.size(); i++) {
       distances_[v] = 9999999;
     }
 
@@ -322,10 +322,10 @@ vector<int> Graph::shortestPath(int start, int end){
 
       for (int neighbor : neighbors){
         if (visited.find(neighbor) == visited.end()){ // if there's no node neighbor in visited
-          double dist = distances_[curr_node] + getDistance(nodes, neighbor);
+          double dist = distances_[curr_node] + getDistance(curr_node, neighbor);
           if (dist <= distances_[neighbor]) {
             distances_[neighbor] = dist;
-            routes_[neighbor] = curr_vertex;
+            routes_[neighbor] = curr_node;
             q.push(std::pair<int, double>(neighbor, dist));
           }
         }
