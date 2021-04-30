@@ -3,7 +3,6 @@
 
 #include "Node.h"
 //#include "Edge.h"
-
 using namespace std;
 
 Node::Node() {
@@ -39,6 +38,7 @@ double Node::longitude() {
 
 void Node::addNeighbor(Node* neighbor) {
     neighbors_.push_back(neighbor);
+    neighbors_code_.push_back(neighbor->airportCode_);
 }
 
 Node* Node::removeNeighbor(Node* toRemove) {
@@ -53,27 +53,6 @@ Node* Node::removeNeighbor(Node* toRemove) {
     return toRemove;
 }
 
-/*
-double Node::getDistance(Node *node) {
-    if (areNeighbors(node)){
-        double earthRadius = 6371;
-        double lat1 = latitude_;
-        double long1 = longitude_;
-        double lat2 = node->latitude();
-        double long2 = node2->longitude();
-
-        double latDiffRads = (lat2 - lat1) * (M_PI/180);
-        double longDiffRads = (long2 - long1) * (M_PI/180);
-
-        double a = 0.5 - cos(latDiffRads)/2 + cos(lat1 * (M_PI/180)) *
-            cos(lat2 * (M_PI/180)) * (1 - cos(longDiffRads))/2;
-
-        return 2 * earthRadius * asin(sqrt(a));
-    } else {
-        return -1;
-    }
-}
-*/
 
 list<Node*> Node::neighbors() {
     return neighbors_;
@@ -114,6 +93,9 @@ bool Node::areNeighbors(Node* check) {
     return false;
 }
 
+list<int> Node::neighbors_codes_(){
+  return neighbors_codes_;
+}
 /*
 void Node::setVisited(bool check){
     isVisited_ = check;
@@ -137,7 +119,7 @@ double Node::distance(Node* other) {
 
     double a = 0.5 - cos(latDiffRads)/2 + cos(lat1 * (M_PI/180)) *
         cos(lat2 * (M_PI/180)) * (1 - cos(longDiffRads))/2;
-    
+
     return 2 * earthRadius * asin(sqrt(a));
 }
 
@@ -148,8 +130,31 @@ double Node::distance(Node* other) {
     incidentEdges_.push_back(edge);
 }*/
 
+double Node::distance(vector<Node*> nodes, int destination){
+  //get destination node from airportcodes
+  Node * dest = new Node();;
+
+  for (Node * node : nodes){
+    if (node->airportCode() == destination){
+      dest = node;
+    }
+  }
+
+  double earthRadius = 6371;
+  double lat1 = latitude_;
+  double long1 = longitude_;
+  double lat2 = dest->latitude();
+  double long2 = dest->longitude();
+  double latDiffRads = (lat2 - lat1) * (M_PI/180);
+  double longDiffRads = (long2 - long1) * (M_PI/180);
+
+  double a = 0.5 - cos(latDiffRads)/2 + cos(lat1 * (M_PI/180)) *
+      cos(lat2 * (M_PI/180)) * (1 - cos(longDiffRads))/2;
+
+  return 2 * earthRadius * asin(sqrt(a));
+}
 double Node::getRouteDistance(vector<Node*> route) {
-    double totDist = 0.0;
+    double totDist = 0;
     for (unsigned i = 0; i < route.size() - 1; i++) {
         totDist += route[i]->distance(route[i+1]);
     }
