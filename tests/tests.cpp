@@ -10,7 +10,7 @@
 #include "../Airports.h"
 #include "../Graph.h"
 #include "../BFS.h"
-//#include "../dijkstra.h"
+#include "../dijkstra.h"
 #include "../cs225/PNG.h"
 #include "../mapprinter.h"
 #include "../cs225/HSLAPixel.h"
@@ -361,19 +361,26 @@ TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
 	Node* node4078 = node[4078];
 	Node* node2962 = node[2962];
 
-	/*
-	UNCOMMENT WHEN DIJKSTRA IMPLEMENTED
-	vector<Node*> route1 = dijkstra(graph, node2966, node6969);
-	vector<Node*> route2 = dijkstra(graph, node4078, node2962);
+	Node temp;
+	
+	dijktra dijkstra1(graph, node2966, node6969);
+	dijktra dijkstra2(graph, node4078, node2962);
 
-	//vector<Node*> expected1{node2966, node[2962], node6969};
-	//vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
+	//vector<Node*> route1 = dijstra1.
+
+	vector<Node*> expected1{node2966, node[2962], node6969};
+	vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
 
 	REQUIRE(route1.size() == expected1.size());
 	REQUIRE(route2.size() == expected2.size());
-	REQUIRE(getRouteDistance(route1) == getRouteDistance(expected1));
-	REQUIRE(getRouteDistance(route2) == getRouteDistance(expected2));
-	*/
+
+	REQUIRE(route1[0]->airportCode() == 2966);
+	REQUIRE(route1[1]->airportCode() == 2962);
+	REQUIRE(route1[2]->airportCode() == 6969);
+
+	//REQUIRE(temp.getRouteDistance(route1) == temp.getRouteDistance(expected1));
+	//REQUIRE(temp.getRouteDistance(route2) == temp.getRouteDistance(expected2));
+	
 
 	/*
 	double D1 = node[2966]->distance(node[2990]);
@@ -459,15 +466,14 @@ TEST_CASE("Easy Dijkstra test on full data") {
 	// Total Dist: 4422.476
 
 	/*
-	UNCOMMENT WHEN DIJKSTRA WORKING
 	vector<Node*> route = dijkstra(graph, node4075, node2047);
 
 	REQUIRE(route.size() == 3);
 	REQUIRE(route[0] == node4075);
 	REQUIRE(route[1] == node2006);
 	REQUIRE(route[2] == node2047);
-	REQUIRE(getRouteDistance(route) == 4422.476);
-	*/
+	REQUIRE(getRouteDistance(route) == 4422.476);*/
+	
 
 }
 
@@ -491,7 +497,7 @@ TEST_CASE("testNodeDistance" , "[part=7]") {
 
 TEST_CASE("testDrawDijkstraSmall") {
 	
-	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	/*Graph* graph1 = Graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
 	vector<Node*> node = graph.getNodes();
 
 	Node* node2966 = node[2966];
@@ -500,18 +506,20 @@ TEST_CASE("testDrawDijkstraSmall") {
 	Node* node4078 = node[4078];
 	Node* node2962 = node[2962];
 
-	/*
-	NEED TO FINISH
-	vector<Node*> route1 = dijkstra(graph, node2966, node6969);
-	vector<Node*> route2 = dijkstra(graph, node4078, node2962);
+	
+	//NEED TO FINISH
+	vector<Node*> route1 = dijkstra(graph1, node2966, node6969);
+	vector<Node*> route2 = dijkstra(graph1, node4078, node2962);
 
-	//vector<Node*> expected1{node2966, node[2962], node6969};
-	//vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
+	vector<Node*> expected1{node2966, node[2962], node6969};
+	vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
+
+	Node temp;
 
 	REQUIRE(route1.size() == expected1.size());
 	REQUIRE(route2.size() == expected2.size());
-	REQUIRE(getRouteDistance(route1) == getRouteDistance(expected1));
-	REQUIRE(getRouteDistance(route2) == getRouteDistance(expected2));
+	REQUIRE(temp.getRouteDistance(route1) == temp.getRouteDistance(expected1));
+	REQUIRE(temp.getRouteDistance(route2) == temp.getRouteDistance(expected2));
 	*/
 
 }
