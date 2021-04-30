@@ -47,6 +47,7 @@ Node* Node::removeNeighbor(Node* toRemove) {
         Node* tmp = (*it);
         if (tmp == toRemove) {
             neighbors_.erase(it);
+            //neighbors_code_.erase(it)
             return toRemove;
         }
     }
@@ -94,7 +95,9 @@ bool Node::areNeighbors(Node* check) {
 }
 
 list<int> Node::neighbors_codes_(){
-  return neighbors_codes_;
+
+  return neighbors_code_;
+
 }
 /*
 void Node::setVisited(bool check){
@@ -153,6 +156,7 @@ double Node::distance(vector<Node*> nodes, int destination){
 
   return 2 * earthRadius * asin(sqrt(a));
 }
+
 double Node::getRouteDistance(vector<Node*> route) {
     double totDist = 0;
     for (unsigned i = 0; i < route.size() - 1; i++) {

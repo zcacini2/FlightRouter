@@ -82,24 +82,6 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
     sourceID = stoi(line[3]); //OpenFlights ID of the source airport
     destID = stoi(line[5]); //OpenFlights ID of the destination airport
 
-    /*
-    // Tries to convert sourceID to double
-    try {
-      sourceID = stoi(line[3]);
-    } catch (...) {
-      std::cerr << "Invalid sourceID on line " << edges_.size() << " with value " << line[3] << std::endl;
-      //break;
-    }
-
-    // Tries to convert destID to double
-    try {
-      destID = stoi(line[5]);
-    } catch (...) {
-      std::cerr << "Invalid destID on line " << edges_.size() << " with value " << line[5] << std::endl;
-      //break;
-    }
-    */
-
     Node* source;
     Node* dest;
 
@@ -130,25 +112,6 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       sourceLat = airports.latitude(sourceID);
       sourceLng = airports.longitude(sourceID);
 
-      /*
-      // Tries to get source lat
-      try {
-        sourceLat = airports.latitude(sourceID);
-      } catch (...) {
-        std::cerr << "Invalid sourceLat on line " << edges_.size() << " with value " << sourceID << std::endl;
-        break;
-      }
-
-      // Tries to get source lng
-      try {
-        sourceLng = airports.longitude(sourceID);
-      } catch (...) {
-        std::cerr << "Invalid sourceLng on line " << edges_.size() << " with value " << sourceID << std::endl;
-        break;
-      }
-      */
-
-
       Node* _source = new Node(sourceID, sourceLat, sourceLng);
       source = _source;
 
@@ -168,24 +131,6 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       destLat = airports.latitude(destID);
       destLng = airports.longitude(destID);
-
-      /*
-      // Tries to get dest lat
-      try {
-        destLat = airports.latitude(destID);
-      } catch (...) {
-        std::cerr << "Invalid destLat on line " << edges_.size() << " with value " << destID << std::endl;
-        break;
-      }
-
-      // Tries to get dest lng
-      try {
-        destLng = airports.longitude(destID);
-      } catch (...) {
-        std::cerr << "Invalid destLng on line " << edges_.size() << " with value " << destID << std::endl;
-        break;
-      }
-      */
 
       Node* _dest = new Node(destID, destLat, destLng);
       dest = _dest;
@@ -243,8 +188,10 @@ Node* Graph::getFirstNode() {
 }
 
 double Graph::getDistance(int start, int end) {
-  Node * start_node = new Node();
-  Node * end_node = new Node();
+  Node * start_node = nodes_[start];
+  Node * end_node = nodes_[end];
+
+  /*
   for (Node * node: nodes_){
     if (node->airportCode() == start) {
       start_node = node;
@@ -253,6 +200,7 @@ double Graph::getDistance(int start, int end) {
       end_node = node;
     }
   }
+  */
 
   if (start_node->areNeighbors(end_node)) {
     return start_node->distance(end_node);
@@ -260,92 +208,112 @@ double Graph::getDistance(int start, int end) {
 
   return 9999999;
 }
-vector<int> Graph::shortestPath(int start, int end){
+
+vector<Node*> Graph::shortestPath(int start, int end){
+
     //struct for comparison function of priority queue
-    struct CompareDistance{
+    struct CompareDistance {
       bool operator()(std::pair<int, double> const & a, std::pair<int, double> const & b){
         //return true if a is bigger than b
         // ensures lower distances are prioritized in a queue
-        return a.second> b.second;
+        return a.second > b.second;
       }
     };
-
 
     //size = number of all nodes(vertices) in graph
     int size = nodes_.size();
 
-    std::unordered_map<int, double> distances_; // retrieve distance values for each node
-    std::unordered_map<int, int> routes_;    // initialize a route that records node->its previous node
+    std::unordered_map<int, double> distances_; // retrieve distance values from source for each node
+    std::unordered_map<int, int> routes_;    // initialize a route that records node->its previous node (curr airport code, parent airport code)
 
     //initialize a priority queue of node-distance pair
     typedef std::priority_queue<std::pair<int, double>, vector<std::pair<int, double>>, CompareDistance> pq;
     pq q;
-    std::set<int> visited; //initialize set 'visited' to chech whether this nodes are visited
+    vector<bool> visited(100000, false); //initialize set 'visited' to chech whether this nodes are visited
 
-    //getting nodes from airportcode
-    Node * startNode = new Node();
-    Node * endNode = new Node();
-    for (Node * node: nodes_){
-      if (node->airportCode() == start) {
-        startNode = node;
-      }
-      if (node->airportCode() == end){
-        endNode = node;
-      }
-    }
+    //getting nodes from airportcode, refactored from below
+    Node* startNode = nodes_[start];
+    Node* endNode = nodes_[end];
 
     //check if there's adjacent nodes from starting node
     list<Node*> adjacent = startNode->neighbors();
-    if(adjacent.empty()){
-      return vector<int>(); //return empty vector if there's no adjacent node
+    if (adjacent.empty()) {
+      return vector<Node*>(); //return empty vector if there's no adjacent node
     }
 
     //initialize edges in distance map to be large enough
-    for(int i = 0; i < nodes_.size(); i++) {
+    for (int i = 0; i < (int) nodes_.size(); i++) {
       distances_[i] = 9999999;
     }
 
     //set distances of starting point to be zero
     distances_[start] = 0;
-    q.push(pair<int,double>(start, 0));
+    q.push(pair<int,double>(start, 0));  // Pushing a pair of airport code and distance from source
 
     //loop until we reach destination
+    int currParent = -1;
+
     while (q.top().first != end && !q.empty()){
+
       std::pair<int, double> curr = q.top(); //get the next pair from priority_queue
-      int curr_node = curr.first;
+      int curr_node = curr.first;  // Airport code of current node
       q.pop();
 
       //mark current node as visited
-      routes_.insert(curr_node);
+      if (currParent != -1) routes_[curr_node] = currParent;
+      currParent = curr_node;
 
-      list<int> neighbors = curr_node.neighbors_codes(); // get all adjacent nodes
+      list<int> neighbors = nodes_[curr_node]->neighbors_codes_(); // get all adjacent nodes
 
-      for (int neighbor : neighbors){
-        if (visited.find(neighbor) == visited.end()){ // if there's no node neighbor in visited
-          double dist = distances_[curr_node] + getDistance(curr_node, neighbor);
-          if (dist <= distances_[neighbor]) {
+      //int best_neighbor;
+      //int best_neighbor2;
+
+
+      for (int neighbor : neighbors) {
+        if (visited[neighbor] == false) { // if there's no node neighbor in visited
+
+          Node* currentNode = nodes_[curr_node];
+          Node* neighborNode = nodes_[neighbor];
+          double dist = distances_[curr_node] + currentNode->distance(neighborNode);
+
+          if (dist < distances_[neighbor]) {
             distances_[neighbor] = dist;
             routes_[neighbor] = curr_node;
+            //best_neighbor = curr_node;
+            //best_neighbor2 = neighbor;
+            cout << "Current Node " << curr_node << " was marked as parent (Value Member) of " << neighbor << "(Key)" << endl;
+            visited[neighbor] = true;
             q.push(std::pair<int, double>(neighbor, dist));
           }
         }
       }
+      //routes_[best_neighbor2] = best_neighbor;
+      cout << "---" << endl;
+
     }
 
-    if(routes_.find(end) == routes_.end()){ // if no path exists
-      return vector<int>();                          //return empty vector
-    }
+    if (routes_.find(end) == routes_.end()) { // if no path exists
+      return vector<Node*>();                          //return empty vector
+    } 
 
     //backtracing the path from routes_
-    vector<int> path;
+    vector<Node*> path;
     int curr = end;
     while (curr != start) {
-      path.push_back(curr);
+
+      // Find node in nodes_
+      Node* pathNode = nodes_[curr];
+      path.push_back(pathNode);
+
+      cout << "Airport " << curr << " has parent Aiport " << routes_[curr] << endl;
+      // Update curr to its parent, routes_[curr] will return parent airport code
       curr = routes_[curr];
     }
-    path.push_back(start);
-    std::reverse(path.begin(), path.end());
+
+    path.push_back(startNode); // Push startNode
+    std::reverse(path.begin(), path.end()); 
     return path;
+
 }
 
 //void Graph::print() { }

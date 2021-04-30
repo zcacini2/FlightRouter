@@ -22,7 +22,7 @@ dijkstra::dijkstra() { }
 
 vector<Node*> dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
     //struct for comparison function of priority queue
-    struct CompareDistance{
+    /*struct CompareDistance{
       bool operator()(std::pair<Node*, double> const & a, std::pair<Node*, double> const & b){
         //return true if a is bigger than b
         // ensures lower distances are prioritized in a queue
@@ -54,7 +54,7 @@ vector<Node*> dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
 
     //initialize edges in distance map to be large enough
     for(auto v: nodes) {
-      distance[v] = 9999999;
+      distances[v] = 9999999;
     }
 
     //set distances of starting point to be zero
@@ -95,7 +95,10 @@ vector<Node*> dijkstra::shortestPath(Graph * graph, Node * start, Node * end){
       path.push_back(cur);
       curr = routes_[curr];
     }
+
     path.push_back(source);
     std::reverse(path.begin(), path.end());
-    return path;
+    return path;*/
+
+    return vector<Node*>();
 }

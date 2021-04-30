@@ -18,17 +18,15 @@ class dijkstra {
       /* dijkstra constructor. The constructor takes graph and two nodes:
       first node is starting point(source) and second node is ending point (destination)
       */
-    vector<Node> shortestPath(Graph * graph, Node *start, Node * end);
+    vector<Node*> shortestPath(Graph * graph, Node *start, Node * end);
       /* dijkstra function. this function takes graph and two Nodes
       and return shortest distance from starting point to the end.
       */
 
-    //vector<Node*> shortestPath(Graph * graph, Node *start, Node * end);
-
   private:
-      Graph * graph_;
-      Node * start_;
-      Node * end_;
+      //Graph * graph_;
+      //Node * start_;
+      //Node * end_;
       //size = total number of vertices
-      int size_;
+      //int size_;
 };

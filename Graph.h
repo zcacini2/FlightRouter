@@ -70,7 +70,7 @@ class Graph {
         vector<Edge> getEdges();
 
         Node* getFirstNode();
-        vector<int> shortestPath(int start, int end);
+        vector<Node*> shortestPath(int start, int end);
           /* dijkstra function. this function takes graph and two Nodes
           and return shortest distance from starting point to the end.
           */
