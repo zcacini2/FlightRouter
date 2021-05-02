@@ -12,7 +12,7 @@ class MapPrinter {
         MapPrinter();
         MapPrinter(Graph graph, PNG background);
         void addPoint(Node);
-        void addPath();
+        void addPath(Edge edge);
         void print(string filename);
         double longToX(double longitude);
         double latToY(double latitude);

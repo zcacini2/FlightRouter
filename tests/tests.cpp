@@ -151,6 +151,9 @@ TEST_CASE("Test functionality of areNeighbors", "[part=3]") {
 
 	REQUIRE(node1->neighbors().size() == 1);
 	REQUIRE(node2->neighbors().size() == 0);
+
+	delete node1;
+	delete node2;
 }
 
 TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[part=5]") {
@@ -337,7 +340,7 @@ TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]
 	Graph graph;
 	background.readFromFile("background.png");
 	MapPrinter mapprinter(graph, background);
-	mapprinter.print("testOutputSimple.png");
+	mapprinter.print("testSimple.png");
 
 	//REQUIRE()
 }
@@ -348,7 +351,22 @@ TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
 	background.readFromFile("background.png");
 	MapPrinter mapprinter(graph, background);
 	mapprinter.addPoint(Node(1, 0.0, 0.0));
-	mapprinter.print("testOutputOneIndpndntPoint.png");
+	mapprinter.print("testOneIndpndntPoint.png");
+}
+
+TEST_CASE("MapPrinter prints a line", "[mapprinter]") {
+	PNG background;
+	Graph graph;
+	Node* node1 = new Node(1, 50.0, 50.0);
+	Node* node2 = new Node(2, -50.0, -50.0);
+	Edge edge1(node1, node2);
+	background.readFromFile("background.png");
+	MapPrinter mapprinter(graph, background);
+	mapprinter.addPath(edge1);
+	mapprinter.print("testPath.png");
+
+	delete node1;
+	delete node2;
 }
 
 TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
@@ -493,6 +511,12 @@ TEST_CASE("testNodeDistance" , "[part=7]") {
 	REQUIRE((int) JFK->distance(ORD) == expected3);
 	REQUIRE((int) ORD->distance(ORD) == expected4);
 	REQUIRE((int) CMI->distance(ORD) == expected2);
+
+	delete ORD;
+	delete JFK;
+	delete ICN;
+	delete HND;
+	delete CMI;
 }
 
 TEST_CASE("testDrawDijkstraSmall") {
