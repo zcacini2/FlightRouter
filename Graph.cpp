@@ -222,6 +222,7 @@ vector<Node*> Graph::shortestPath(int start, int end){
 
     //size = number of all nodes(vertices) in graph
     int size = nodes_.size();
+    int edgeSize = edges_.size();
 
     std::unordered_map<int, double> distances_; // retrieve distance values from source for each node
     std::unordered_map<int, int> routes_;    // initialize a route that records node->its previous node (curr airport code, parent airport code)
@@ -229,7 +230,7 @@ vector<Node*> Graph::shortestPath(int start, int end){
     //initialize a priority queue of node-distance pair
     typedef std::priority_queue<std::pair<int, double>, vector<std::pair<int, double>>, CompareDistance> pq;
     pq q;
-    vector<bool> visited(100000, false); //initialize set 'visited' to chech whether this nodes are visited
+    std::set<int, greater<int>> visited; //initialize set 'visited' to chech whether this nodes are visited
 
     //getting nodes from airportcode, refactored from below
     Node* startNode = nodes_[start];
@@ -251,7 +252,7 @@ vector<Node*> Graph::shortestPath(int start, int end){
     q.push(pair<int,double>(start, 0));  // Pushing a pair of airport code and distance from source
 
     //loop until we reach destination
-    int currParent = -1;
+    //if loop reached destination point, stop the loop
 
     while (q.top().first != end && !q.empty()){
 
@@ -260,30 +261,34 @@ vector<Node*> Graph::shortestPath(int start, int end){
       q.pop();
 
       //mark current node as visited
-      if (currParent != -1) routes_[curr_node] = currParent;
-      currParent = curr_node;
+      visited.insert(curr_node);
 
       list<int> neighbors = nodes_[curr_node]->neighbors_codes_(); // get all adjacent nodes
 
       //int best_neighbor;
       //int best_neighbor2;
 
-
+      cout<<"current node is "<<curr_node<<endl;
       for (int neighbor : neighbors) {
-        if (visited[neighbor] == false) { // if there's no node neighbor in visited
+        if (visited.find(neighbor) == visited.end()) { // if there's no node neighbor in visited
 
           Node* currentNode = nodes_[curr_node];
           Node* neighborNode = nodes_[neighbor];
           double dist = distances_[curr_node] + currentNode->distance(neighborNode);
+          cout<<"Approaching neighbor node"<<neighbor<<endl;
+          cout<<"Distance from source to current node is: "<<distances_[curr_node]<<endl;
+          cout<<"Distance from current node to neighbor is: "<<currentNode->distance(neighborNode)<<endl;
 
-          if (dist < distances_[neighbor]) {
+          if (dist <= distances_[neighbor]) {
             distances_[neighbor] = dist;
             routes_[neighbor] = curr_node;
             //best_neighbor = curr_node;
             //best_neighbor2 = neighbor;
+
             cout << "Current Node " << curr_node << " was marked as parent (Value Member) of " << neighbor << "(Key)" << endl;
-            visited[neighbor] = true;
+            cout << "Current Node " << routes_.at(neighbor) << " is value of " << neighbor << "(Key) in routes" << endl;
             q.push(std::pair<int, double>(neighbor, dist));
+
           }
         }
       }
@@ -294,24 +299,22 @@ vector<Node*> Graph::shortestPath(int start, int end){
 
     if (routes_.find(end) == routes_.end()) { // if no path exists
       return vector<Node*>();                          //return empty vector
-    } 
+    }
 
     //backtracing the path from routes_
     vector<Node*> path;
     int curr = end;
     while (curr != start) {
-
       // Find node in nodes_
       Node* pathNode = nodes_[curr];
       path.push_back(pathNode);
-
-      cout << "Airport " << curr << " has parent Aiport " << routes_[curr] << endl;
+      cout << "Airport " << curr << " has parent Aiport " << routes_.at(curr) << endl;
       // Update curr to its parent, routes_[curr] will return parent airport code
-      curr = routes_[curr];
+      curr = routes_.at(curr);
     }
 
     path.push_back(startNode); // Push startNode
-    std::reverse(path.begin(), path.end()); 
+    std::reverse(path.begin(), path.end());
     return path;
 
 }
