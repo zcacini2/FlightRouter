@@ -354,7 +354,7 @@ TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
 	mapprinter.print("testOneIndpndntPoint.png");
 }
 
-TEST_CASE("MapPrinter prints a line", "[mapprinter]") {
+TEST_CASE("MapPrinter prints a line", "[mapprinter][path]") {
 	PNG background;
 	Graph graph;
 	Node* node1 = new Node(1, 50.0, 50.0);
@@ -367,6 +367,28 @@ TEST_CASE("MapPrinter prints a line", "[mapprinter]") {
 
 	delete node1;
 	delete node2;
+}
+
+TEST_CASE("MapPrinter prints a route", "[mapprinter][route]") {
+	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	vector<Node*> node = graph.getNodes();
+
+	Node* node2966 = node[2966];
+	Node* node6969 = node[6969];
+
+	Node* node4078 = node[4078];
+	Node* node2962 = node[2962];
+
+	vector<Node*> route1 = graph.shortestPath(2966, 6969);
+	//cout << "route1 complete" << endl;
+	vector<Node*> route2 = graph.shortestPath(4078, 2962);
+	//cout << "route2 complete" << endl;
+	PNG background;
+	background.readFromFile("background.png");
+	MapPrinter mapprinter(graph, background);
+	mapprinter.addRoute(route2);
+	mapprinter.print("testRoute.png");
+
 }
 
 TEST_CASE("2 Dijkstra test on small data", "[part=8]") {

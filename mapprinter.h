@@ -13,9 +13,11 @@ class MapPrinter {
         MapPrinter(Graph graph, PNG background);
         void addPoint(Node);
         void addPath(Edge edge);
+        void addRoute(vector<Node*>);
         void print(string filename);
         double longToX(double longitude);
         double latToY(double latitude);
+
     private:
         Graph graph_;
         PNG png_;

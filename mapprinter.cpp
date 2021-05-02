@@ -65,9 +65,11 @@ void MapPrinter::addPath(Edge edge) {
     if (longitude2 - longitude1 < 0) neg = neg + 1.0;
     //if (neg == 1.0) mod = -1.0;
 
-    double slope = mod * ((y2 - y1) / (x2 - x1));
+    double slope = (double) ((1.0*(y2 - y1)) / (1.0*(x2 - x1)));
     if ((slope < 0 && mod > 0) || (mod < 0 && slope > 0)) slope = -1.0 * slope;
-    double invSlope = (-1.0 / slope);
+    double invSlope;
+    if (x1 > x2) invSlope = -1.0;
+    if (x2 > x1) invSlope = 1.0;
 
     cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
 
@@ -79,14 +81,44 @@ void MapPrinter::addPath(Edge edge) {
         pixel1.s = 1.0;
         pixel1.l = 0.5;
         pixel1.a = 1.0;
-        if ((abs((x1 + (i*invSlope)) - x2) < 2) || (abs((y1 + (y1*invSlope)) - y2) < 2)) break;
+        HSLAPixel& pixel2 = png_.getPixel((int) (x1 + (i*invSlope)), (int) (y1 + i*slope + 1));
+        pixel2.h = 0.0;
+        pixel2.s = 1.0;
+        pixel2.l = 0.5;
+        pixel2.a = 1.0;
+        if (abs(slope) > 2) {
+            for (int j = 0; j < (int) (slope - 1); j++) {
+                HSLAPixel& pixel2 = png_.getPixel((int) (x1 + (i*invSlope)), (int) (y1 + i*slope + 1 + j));
+                pixel2.h = 0.0;
+                pixel2.s = 1.0;
+                pixel2.l = 0.5;
+                pixel2.a = 1.0;
+            }
+        }
+        if ((abs((x1 + (i*invSlope)) - x2) < 0.5) || (abs((y1 + (y1*invSlope)) - y2) < 0.5)) break;
     }
+    cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
+
+    cout << "adding path with slope " << slope << " and invSlope " << invSlope << endl;
     
 
 }
 
+void MapPrinter::addRoute(vector<Node*> route) {
+    if (route.size() == 0) return;
+    if (route.size() == 1) {
+        addPoint(*route[0]);
+        return;
+    }
+    for (unsigned long i = 0; i < (route.size()-1); i++) {
+        Edge edge = Edge(route[i], route[i+1]);
+        addPath(edge);
+    }
+}
+
 void MapPrinter::print(string filename) {
     png_.writeToFile(filename);
+    cout << "Map saved to" << filename << endl;
 }
 
 double MapPrinter::longToX(double longitude) {
