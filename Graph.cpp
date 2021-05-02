@@ -285,8 +285,7 @@ vector<Node*> Graph::shortestPath(int start, int end){
             //best_neighbor = curr_node;
             //best_neighbor2 = neighbor;
 
-            cout << "Current Node " << curr_node << " was marked as parent (Value Member) of " << neighbor << "(Key)" << endl;
-            cout << "Current Node " << routes_.at(neighbor) << " is value of " << neighbor << "(Key) in routes" << endl;
+            cout << "Current Node " << routes_.at(neighbor) << " was marked as parent (Value Member) of " << neighbor << "(Key)" << endl;
             q.push(std::pair<int, double>(neighbor, dist));
 
           }
