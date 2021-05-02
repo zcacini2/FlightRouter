@@ -451,11 +451,11 @@ TEST_CASE("Easy Dijkstra test on full data") {
 	Node* node2047 = nodes[2047];
 	Node* node2006 = nodes[2006];
 
-	/*
+	
 	double dist = 999999999;
 	Node* shortest;
 
-	for (Node * node : _node->neighbors()) {
+	/*for (Node * node : _node->neighbors()) {
 		
 		if (_node->distance(node) < dist) {
 			dist = _node->distance(node);
@@ -464,33 +464,33 @@ TEST_CASE("Easy Dijkstra test on full data") {
 		
 		if (node->airportCode() == 2047) {
 			std::cout << "Airport 2006 has route to Airport " << node->airportCode() << " with distance " << _node->distance(node) << std::endl;
-			//std::cout << "Airport 2006 has lat,lng: " << _node->latitude() << ", " << _node->longitude() << std::endl;
-			//std::cout << "Airport " << node->airportCode() << " has lat,lng: " << node->latitude() << ", " << node->longitude() << std::endl;
+			std::cout << "Airport 2006 has lat,lng: " << _node->latitude() << ", " << _node->longitude() << std::endl;
+			std::cout << "Airport " << node->airportCode() << " has lat,lng: " << node->latitude() << ", " << node->longitude() << std::endl;
 				//break;
 		}
 	}
-	*/
+	
 
-	// std::cout << "The closest Node to Aiport 4075 is Airport " << shortest->airportCode() << " (" << dist << " away)." << std::endl;
+	std::cout << "The closest Node to Aiport 4075 is Airport " << shortest->airportCode() << " (" << dist << " away)." << std::endl;
 
-	// 4075 is Faa'a International Airport, French Polynesia
-	// 2006 is Auckland International Airport
-	// 2047 is Wanganui Airport, New Zealand. There is no route from 4075 to 2047.
+	4075 is Faa'a International Airport, French Polynesia
+	2006 is Auckland International Airport
+	2047 is Wanganui Airport, New Zealand. There is no route from 4075 to 2047.
 
-	// Dijkstra's Path from 4075 to 2047 should be 4075 -> 2006 -> 2047 
+	Dijkstra's Path from 4075 to 2047 should be 4075 -> 2006 -> 2047 
 
-	// Path from 4075 -> 2006 is 4093.37
-	// Path from 2006 -> 2047 is 329.106
-	// Total Dist: 4422.476
+	Path from 4075 -> 2006 is 4093.37
+	Path from 2006 -> 2047 is 329.106
+	Total Dist: 4422.476
 
-	/*
-	vector<Node*> route = dijkstra(graph, node4075, node2047);
+	
+	vector<Node*> route = graph.shortestPath(node4075, node2047);
 
 	REQUIRE(route.size() == 3);
 	REQUIRE(route[0] == node4075);
 	REQUIRE(route[1] == node2006);
 	REQUIRE(route[2] == node2047);
-	REQUIRE(getRouteDistance(route) == 4422.476);*/
+	REQUIRE(shortest->getRouteDistance(route) == 4422.476);*/
 	
 
 }
@@ -519,10 +519,10 @@ TEST_CASE("testNodeDistance" , "[part=7]") {
 	delete CMI;
 }
 
-TEST_CASE("testDrawDijkstraSmall") {
+TEST_CASE("testDrawDijkstraSmall", "[dijksta]") {
 	
-	/*Graph* graph1 = Graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
-	vector<Node*> node = graph.getNodes();
+	Graph graph1 = Graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	vector<Node*> node = graph1.getNodes();
 
 	Node* node2966 = node[2966];
 	Node* node6969 = node[6969];
@@ -532,8 +532,11 @@ TEST_CASE("testDrawDijkstraSmall") {
 
 	
 	//NEED TO FINISH
-	vector<Node*> route1 = dijkstra(graph1, node2966, node6969);
-	vector<Node*> route2 = dijkstra(graph1, node4078, node2962);
+	//vector<Node*> route1 = graph1.shortestPath(node2966, node6969);
+	//vector<Node*> route2 = graph1.shortestPath(node4078, node2962);
+
+	vector<Node*> route1 = graph1.shortestPath(2966, 6969);
+	vector<Node*> route2 = graph1.shortestPath(4078, 2962);
 
 	vector<Node*> expected1{node2966, node[2962], node6969};
 	vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
@@ -544,6 +547,6 @@ TEST_CASE("testDrawDijkstraSmall") {
 	REQUIRE(route2.size() == expected2.size());
 	REQUIRE(temp.getRouteDistance(route1) == temp.getRouteDistance(expected1));
 	REQUIRE(temp.getRouteDistance(route2) == temp.getRouteDistance(expected2));
-	*/
+	
 
 }

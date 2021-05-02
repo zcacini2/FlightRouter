@@ -57,6 +57,30 @@ void MapPrinter::addPath(Edge edge) {
 
     addPoint(*node1);
     addPoint(*node2);
+
+    double neg = 0.0;
+    double mod = 1.0;
+
+    if (latitude2 - latitude1 < 0) neg = neg + 1.0;
+    if (longitude2 - longitude1 < 0) neg = neg + 1.0;
+    //if (neg == 1.0) mod = -1.0;
+
+    double slope = mod * ((y2 - y1) / (x2 - x1));
+    if ((slope < 0 && mod > 0) || (mod < 0 && slope > 0)) slope = -1.0 * slope;
+    double invSlope = (-1.0 / slope);
+
+    cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
+
+    cout << "adding path with slope " << slope << " and invSlope " << invSlope << endl;
+
+    for (int i = 0; i < 1000; i++) {
+        HSLAPixel& pixel1 = png_.getPixel((int) (x1 + (i*invSlope)), (int) (y1 + i*slope));
+        pixel1.h = 0.0;
+        pixel1.s = 1.0;
+        pixel1.l = 0.5;
+        pixel1.a = 1.0;
+        if ((abs((x1 + (i*invSlope)) - x2) < 2) || (abs((y1 + (y1*invSlope)) - y2) < 2)) break;
+    }
     
 
 }
