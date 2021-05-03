@@ -66,30 +66,6 @@ Airports::Airports(const std::string & filename) {
     lng = stod(line[7]);
     airportCode = stoi(line[0]);
     
-
-    /*
-    try {
-      lat = stod(line[6]);
-    } catch (...) {
-      std::cerr << "Invalid lat on line " << lat_long.size() << " with value " << line[6] << std::endl;
-      break;
-    }
-    
-    try {
-      lng = stod(line[7]);
-    } catch (...) {
-      std::cerr << "Invalid lng on line " << lat_long.size() << " with value " << line[7] << std::endl;
-      break;
-    }
-
-    try {
-      airportCode = stoi(line[0]);
-    } catch (...) {
-      std::cerr << "Invalid code on line " << lat_long.size() << " with value " << line[0] << std::endl;
-      break;
-    }
-    */
-    
     //name = line[1];
     //city = line[2];
 

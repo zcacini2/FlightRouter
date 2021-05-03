@@ -412,17 +412,24 @@ TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
 	
 
 	REQUIRE(route1.size() == expected1.size());
-	//REQUIRE(route2.size() == expected2.size());
+	REQUIRE(route2.size() == expected2.size());
 
 	REQUIRE(route1[0]->airportCode() == 2966);
 	REQUIRE(route1[1]->airportCode() == 2962);
 	REQUIRE(route1[2]->airportCode() == 6969);
-	
+
+	REQUIRE(route2[0]->airportCode() == 4078);
+	REQUIRE(route2[1]->airportCode() == 2968);
+	REQUIRE(route2[2]->airportCode() == 2990);
+	REQUIRE(route2[3]->airportCode() == 2966);
+	REQUIRE(route2[4]->airportCode() == 2962);
+
+	/*
 	for (Node* airport: route2) {
 		cout << airport->airportCode() << endl;
 	}
 	
-	/*
+	
 	double D1 = node[2966]->distance(node[2990]);
 	double D2 = node[2990]->distance(node[4029]);
 	double D3 = node[4029]->distance(node[6969]);
@@ -450,14 +457,15 @@ TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
 	std::cout << "totD3 = " << totD3 << " and totD4 = " << totD4 << std::endl;
 
 	// Two Logical Routes between 2966 and 6969
-	// 2966 -D1-> 2990 -D2-> 4029 -D3-> 6969, Distance = D1 + D2 + D3 = 2648.47
-	// 2966 -D4-> 2962 -D5-> 6969, Distance = D4 + D5 = 1861.97
+	// Route 1: 2966 -D1-> 2990 -D2-> 4029 -D3-> 6969, Distance = D1 + D2 + D3 = 2648.47
+	// Route 2: 2966 -D4-> 2962 -D5-> 6969, Distance = D4 + D5 = 1861.97
 	// Route 2 is the winner
 
 	// Two Logical Routes between 4078 and 2962
-	// 4078 -D6-> 2968 -D7-> 2990 -D8-> 4029 -D9-> 6969 -D10-> 2962
+	// Route 3: 4078 -D6-> 2968 -D7-> 2990 -D8-> 4029 -D9-> 6969 -D10-> 2962
 	// Distance = D6 + D7 + D8 + D9 + D10 = 5130.98
-	// 4078 -D6-> 2968 -D7-> 2990 -D11-> 2966 -D12-> 2962
+
+	// Route 4: 4078 -D6-> 2968 -D7-> 2990 -D11-> 2966 -D12-> 2962
 	// Distance = D6 + D7 + D11 + D12 = 3597.74
 	// Route 4 is the winner
 	*/
@@ -473,9 +481,16 @@ TEST_CASE("Easy Dijkstra test on full data") {
 	Node* node2047 = nodes[2047];
 	Node* node2006 = nodes[2006];
 
-	
-	double dist = 999999999;
-	Node* shortest;
+	//double dist = 999999999;
+	//Node* shortest;
+
+	vector<Node*> route = graph.shortestPath(4075, 2047);
+
+	REQUIRE(route.size() == 3);
+	REQUIRE(route[0] == node4075);
+	REQUIRE(route[1] == node2006);
+	REQUIRE(route[2] == node2047);
+	//REQUIRE(shortest->getRouteDistance(route) == 4422.476);
 
 	/*for (Node * node : _node->neighbors()) {
 		
@@ -504,17 +519,7 @@ TEST_CASE("Easy Dijkstra test on full data") {
 	Path from 4075 -> 2006 is 4093.37
 	Path from 2006 -> 2047 is 329.106
 	Total Dist: 4422.476
-
-	
-	vector<Node*> route = graph.shortestPath(node4075, node2047);
-
-	REQUIRE(route.size() == 3);
-	REQUIRE(route[0] == node4075);
-	REQUIRE(route[1] == node2006);
-	REQUIRE(route[2] == node2047);
-	REQUIRE(shortest->getRouteDistance(route) == 4422.476);*/
-	
-
+	*/
 }
 
 TEST_CASE("testNodeDistance" , "[part=7]") {
