@@ -46,10 +46,12 @@ void MapPrinter::addPoint(Node node) {
 void MapPrinter::addPath(Edge edge) { 
     Node* node1 = edge.start();
     Node* node2 = edge.end();
+
     double latitude1 = node1->latitude();
     double longitude1 = node1->longitude();
     double latitude2 = node2->latitude();
     double longitude2 = node2->longitude();
+    
     int x1 = floor(longToX(longitude1));
     int y1 = floor(latToY(latitude1));
     int x2 = floor(longToX(longitude2));
