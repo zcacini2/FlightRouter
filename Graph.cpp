@@ -393,3 +393,7 @@ bool Graph::areAdjacent(Node node1, Node node2){
 
 
 }*/
+
+Node* Graph::getNode(int airportCode) {
+  return nodes_[airportCode];
+}

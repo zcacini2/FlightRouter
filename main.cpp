@@ -8,11 +8,16 @@
 #include <string>
 #include <iostream>
 
-bool isValidAirport(Airports airports, int airportCode) {
-    
+bool isValidAirport(Airports airports, int airportCode, Graph graph) {
+
     if (airportCode < 0) {
         return false;
     } else if (airports.latitude(airportCode) == -1000) {
+        return false;
+    } 
+    
+    Node* node = graph.getNode(airportCode);
+    if (node->neighbors().size() == 0) {
         return false;
     }
 
@@ -48,7 +53,7 @@ int main() {
     int origin;
     std::cin >> origin;
 
-    while (std::cin.fail() || !isValidAirport(airports, origin)) {
+    while (std::cin.fail() || !isValidAirport(airports, origin, graph)) {
         std::cout << "You have entered an invalid airport code. Please enter a valid integer aiport code from the ReadME file included on GitHub" << std::endl;
         std::cin.clear();
         std::cin.ignore(256,'\n');
@@ -70,7 +75,7 @@ int main() {
     if (valid == 0) {
         std::cout << "Please reenter your desired origin airport code (Enter a valid integer aiport code from the ReadME file included on GitHub)" << std::endl;
         std::cin >> origin;
-        while (std::cin.fail() || !isValidAirport(airports, origin)) {
+        while (std::cin.fail() || !isValidAirport(airports, origin, graph)) {
             std::cout << "You have entered an invalid airport code. Please enter a valid integer aiport code from the ReadME file included on GitHub" << std::endl;
             std::cin.clear();
             std::cin.ignore(256,'\n');
@@ -84,7 +89,7 @@ int main() {
     std::cout << "What is your destination airport? (Please input a valid airport code found in the ReadME file)" << std::endl;
     std::cin >> dest;
 
-    while (std::cin.fail() || !isValidAirport(airports, dest)) {
+    while (std::cin.fail() || !isValidAirport(airports, dest, graph)) {
         std::cout << "You have entered an invalid airport code. Please enter a valid integer aiport code from the ReadME file included on GitHub" << std::endl;
         std::cin.clear();
         std::cin.ignore(256,'\n');
@@ -106,7 +111,7 @@ int main() {
     if (valid2 == 0) {
         std::cout << "Please reenter your desired destination airport code (Enter a valid integer aiport code from the ReadME file included on GitHub)" << std::endl;
         std::cin >> dest;
-        while (std::cin.fail() || !isValidAirport(airports, dest)) {
+        while (std::cin.fail() || !isValidAirport(airports, dest, graph)) {
             std::cout << "You have entered an invalid airport code. Please enter a valid integer aiport code from the ReadME file included on GitHub" << std::endl;
             std::cin.clear();
             std::cin.ignore(256,'\n');

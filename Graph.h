@@ -64,6 +64,8 @@ class Graph {
          */
         vector<Node*> getNodes();
 
+        Node* getNode(int airportCode);
+
         /**
          * Method returning all edges of a graph.
          */
