@@ -140,7 +140,7 @@ int main() {
 
     // Output route distance
     double distance = route[1]->getRouteDistance(route);
-    std::cout << "The shortest path has a length of " << distance << " units." << std::endl;
+    std::cout << "The shortest path has a length of " << distance << " kilometers." << std::endl;
     std::cout << std::endl;
 
     // Prompt user to input output file name
