@@ -26,10 +26,15 @@ Airports::Airports(const std::string & filename) {
 
   std::string str = file_to_string(filename);
 
+  // Default lat_lng entry
   std::vector<double> tmp;
   tmp.push_back(-1000);
   tmp.push_back(-1000);
-  //lat_long.push_back(tmp);
+  
+  // Default airports entry
+  std::vector<std::string> tmp2;
+  tmp2.push_back("Name");
+  tmp2.push_back("City");
 
   //lat_long.resize(14111);
 
@@ -37,17 +42,20 @@ Airports::Airports(const std::string & filename) {
 
   for (unsigned i = 0; i < 14111; i++) {
     lat_long.push_back(tmp);
+    airports.push_back(tmp2);
   }
 
   //std::cout << "Airports vector filled with empty latlng" << std::endl;
 
   tmp.clear();
+  tmp2.clear();
 
 
   std::vector<std::string> line;  //create line vector
   std::stringstream s_stream(str); //create string stream from the string
   int airportCode;
   double lat, lng;
+  std::string name,city;
   
 
   while(s_stream.good()) {
@@ -64,18 +72,28 @@ Airports::Airports(const std::string & filename) {
     
     lat = stod(line[6]);
     lng = stod(line[7]);
+    name = line[1];
+    city = line[2];
     airportCode = stoi(line[0]);
+
+    
     
     //name = line[1];
     //city = line[2];
 
     tmp.clear();
+    tmp2.clear();
 
     tmp.push_back(lat);
     tmp.push_back(lng);
     lat_long[airportCode] = tmp;
 
+    tmp2.push_back(name);
+    tmp2.push_back(city);
+    airports[airportCode] = tmp2;
+
     tmp.clear();
+    tmp2.clear();
     line.clear();
 
   }
@@ -101,6 +119,28 @@ double Airports::latitude(int code) {
  */
 double Airports::longitude(int code) {
     return lat_long[code][1];
+}
+
+/**
+ * Gets the name of the airport.
+ * 
+ * @param code airport code
+ *
+ * @return name of the airport of provided code
+ */
+std::string Airports::name(int code) {
+    return airports[code][0];
+}
+
+/**
+ * Gets the city of the airport.
+ * 
+ * @param code airport code
+ *
+ * @return city of the airport of provided code
+ */
+std::string Airports::city(int code) {
+    return airports[code][1];
 }
 
 unsigned Airports::size() {

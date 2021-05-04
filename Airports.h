@@ -51,6 +51,16 @@ class Airports {
          */
         unsigned size();
 
+        /**
+         *
+         */
+        std::string name(int code);
+
+        /**
+         *  
+         */
+        std::string city(int code);
+
         
 
     private:

@@ -66,6 +66,29 @@ TEST_CASE("Check Airports ctor with full data") {
 	REQUIRE(airports.longitude(14110) == 35.305);
 }
 
+TEST_CASE("Check Airports ctor populates airports correctly", "[airport]") {
+	Airports airports("tests/airportsDataSmall.txt");
+
+	REQUIRE(airports.name(1) == "Goroka Airport");
+	REQUIRE(airports.name(2) == "Madang Airport");
+	REQUIRE(airports.name(3) == "Mount Hagen Kagamuga Airport");
+	REQUIRE(airports.city(1) == "Goroka");
+	REQUIRE(airports.city(2) == "Madang");
+	REQUIRE(airports.city(3) == "Mount Hagen");
+}
+
+TEST_CASE("Check Airports ctor populates airports with full data") {
+	Airports airports("dataset/airports.txt");
+
+	REQUIRE(airports.latitude(45) == 49.21080017089844);
+	REQUIRE(airports.latitude(426) == 61.24919891357422);
+	REQUIRE(airports.latitude(468) == 55.04280090332031);
+	REQUIRE(airports.longitude(3348) == 114.088996887);
+	REQUIRE(airports.longitude(3675) == -87.395401001);
+	REQUIRE(airports.longitude(6712) == -151.7429962);
+	REQUIRE(airports.longitude(14110) == 35.305);
+}
+
 /*
 TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)") {
 	//sample lat long coordinates from google
