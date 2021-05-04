@@ -62,7 +62,7 @@ int main() {
     }
 
     // Give user a chance to change their mind. Input protections
-    std::cout << "You have chosen " << origin << " as your origin airport. Is this correct? (Enter 1 if yes, 0 if no)" << std::endl;
+    std::cout << "You have chosen " << airports.name(origin) << " (" << origin <<  ") as your origin airport. Is this correct? (Enter 1 if yes, 0 if no)" << std::endl;
     int valid;
     std::cin >> valid;
 
@@ -86,7 +86,8 @@ int main() {
 
     // Prompt user to input destination airport with input protections
     int dest;
-    std::cout << "You have confirmed " << origin << " as your origin airport." << std::endl;
+    std::cout << "You have confirmed " << airports.name(origin) << " (" << origin <<  ") as your origin airport." << std::endl;
+    std::cout << std::endl;
     std::cout << "What is your destination airport? (Please input a valid airport code found in the ReadME file)" << std::endl;
     std::cin >> dest;
 
@@ -98,7 +99,7 @@ int main() {
     }
 
     // Confirm and allow user to change mind, with input protections
-    std::cout << "You have chosen " << dest << " as your destination airport. Is this correct? (Enter 1 if yes, 0 if no)" << std::endl;
+    std::cout << "You have chosen " << airports.name(dest) << " (" << dest <<  ") as your destination airport. Is this correct? (Enter 1 if yes, 0 if no)" << std::endl;
     int valid2;
     std::cin >> valid2;
 
@@ -121,7 +122,7 @@ int main() {
     }
 
     // Confirmation Message
-    std::cout << "You have confirmed " << origin << " as your origin airport and " << dest << " as your destination airport." << std::endl;
+    std::cout << "You have confirmed " << airports.name(origin) << " (" << origin <<  ") as your origin airport and " << airports.name(dest) << " (" << dest <<  ") as your destination airport." << std::endl;
     std::cout << std::endl;
 
     // Find shortest path
@@ -129,14 +130,16 @@ int main() {
 
     // Output route
     std::cout << "The shortest route between " << origin << " and " << dest << ":" << std::endl;
-    if (route.size() == 0) {
-        std::cout << "No route" << std::endl;
-    }
     for (unsigned i = 0; i < route.size() - 1; i++) { 
-        std::cout << route[i]->airportCode() << " -> ";
+        std::cout << airports.name(route[i]->airportCode()) << " (" << route[i]->airportCode() << ") -> ";
     }
-    std::cout << route[route.size() - 1]->airportCode() << std::endl;
+    std::cout << airports.name(route[route.size() - 1]->airportCode()) << " (" << route[route.size() - 1]->airportCode() << ")" << std::endl;
     std::cout << std::endl;
+    /*
+    for (unsigned i = 0; i < route.size() - 1; i++) { 
+        std::cout << route[i]->() << " -> ";
+    }
+    */
 
     // Output route distance
     double distance = route[1]->getRouteDistance(route);
