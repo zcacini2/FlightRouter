@@ -120,7 +120,7 @@ void MapPrinter::addRoute(vector<Node*> route) {
 
 void MapPrinter::print(string filename) {
     png_.writeToFile(filename);
-    cout << "Map saved to" << filename << endl;
+    cout << "Map saved to " << filename << endl;
 }
 
 double MapPrinter::longToX(double longitude) {

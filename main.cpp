@@ -138,32 +138,44 @@ int main() {
     std::cout << route[route.size() - 1]->airportCode() << std::endl;
     std::cout << std::endl;
 
-    // Draw map and save to testRoute.png
-    //vector<Node*> routeToNode;
-    //vector<Node*> nodes = graph.getNodes();
+    // Output route distance
+    double distance = route[1]->getRouteDistance(route);
+    std::cout << "The shortest path has a length of " << distance << " units." << std::endl;
+    std::cout << std::endl;
 
+    // Prompt user to input output file name
+    std::cout << "Please enter where you would like to store the map route drawing." << std::endl;
+    std::cout << "(Format your input as a string including complete file route and .png. Enter 0 to default to output.png)" << std::endl;
+    std::cout << std::endl;
+
+    // Input protections
+    string filename;
+    cin >> filename;
+    while (std::cin.fail()) {
+        std::cout << "You have entered an invalid filename. Please follow thr directions above to input your desired output file name." << std::endl;
+        std::cin.clear();
+        std::cin.ignore(256,'\n');
+        std::cin >> filename;
+    }
+
+    // If user decides default
+    if (filename == "0") {
+        filename = "output.png";
+    }
+    std::cout << std::endl;
+
+    // Draw map and save to testRoute.png
     PNG background;
 	background.readFromFile("background.png");
 	MapPrinter map(graph, background);
     
     map.addRoute(route);
-    map.print("testRoute.png");
+    map.print(filename);
     std::cout << std::endl;
 
     // Direct user to open file to see the route
-
     std::cout << "The shortest path between " << origin << " and " << dest << " is displayed above. To view the path on a map, please open testRoute.png" << std::endl;
     std::cout << "Thank you for using FlightRouter! If you would like to route another trip, please simply type in ./finalproj after this message!" << std::endl;
-
-    /*const std::string& filename1 = "tests/routesDataSmall.txt";
-    Graph graph1(filename1);
-    BFS test(graph1, (graph1.getFirstNode()));
-    test.traverse();
-
-    const std::string& filename2 = "dataset/routes.txt";
-    Graph graph2(filename2);
-    BFS bfs2(graph2, (graph2.getFirstNode()));
-    bfs2.traverse();*/
 
     return 0;
 }
