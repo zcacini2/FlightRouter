@@ -73,9 +73,9 @@ void MapPrinter::addPath(Edge edge) {
     if (x1 > x2) invSlope = -1.0;
     if (x2 > x1) invSlope = 1.0;
 
-    cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
+    //cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
 
-    cout << "adding path with slope " << slope << " and invSlope " << invSlope << endl;
+    //cout << "adding path with slope " << slope << " and invSlope " << invSlope << endl;
 
     for (int i = 0; i < 1000; i++) {
         HSLAPixel& pixel1 = png_.getPixel((int) (x1 + (i*invSlope)), (int) (y1 + i*slope));
@@ -99,9 +99,9 @@ void MapPrinter::addPath(Edge edge) {
         }
         if ((abs((x1 + (i*invSlope)) - x2) < 0.5) || (abs((y1 + (y1*invSlope)) - y2) < 0.5)) break;
     }
-    cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
+    //cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
 
-    cout << "adding path with slope " << slope << " and invSlope " << invSlope << endl;
+    //cout << "adding path with slope " << slope << " and invSlope " << invSlope << endl;
     
 
 }

@@ -28,8 +28,12 @@ bool isOneOrZero(int num) {
 
 int main() {
 
+    // Initialize Graph and Airports. Provide intro prompt.
+
     std::cout << "Initializing..." << std::endl;
-    //Graph graph("dataset/routes.txt", "dataset/airports.txt");
+    //Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+    Graph graph("dataset/routes.txt", "dataset/airports.txt");
+    //Airports airports("tests/airportsDataMedium.txt");
     Airports airports("dataset/airports.txt");
     std::cout << "Initializion Complete." << std::endl;
     std::cout << std::endl;
@@ -40,6 +44,7 @@ int main() {
     std::cout << std::endl;
     std::cout << "What is your origin airport? (Please input a valid airport code found in the ReadME file)" << std::endl;
 
+    // Take in origin airport and provide invalid input protections
     int origin;
     std::cin >> origin;
 
@@ -50,6 +55,7 @@ int main() {
         std::cin >> origin;
     }
 
+    // Give user a chance to change their mind. Input protections
     std::cout << "You have chosen " << origin << " as your origin airport. Is this correct? (Enter 1 if yes, 0 if no)" << std::endl;
     int valid;
     std::cin >> valid;
@@ -72,7 +78,7 @@ int main() {
         }
     }
 
-
+    // Prompt user to input destination airport with input protections
     int dest;
     std::cout << "You have confirmed " << origin << " as your origin airport." << std::endl;
     std::cout << "What is your destination airport? (Please input a valid airport code found in the ReadME file)" << std::endl;
@@ -85,6 +91,7 @@ int main() {
         std::cin >> dest;
     }
 
+    // Confirm and allow user to change mind, with input protections
     std::cout << "You have chosen " << dest << " as your destination airport. Is this correct? (Enter 1 if yes, 0 if no)" << std::endl;
     int valid2;
     std::cin >> valid2;
@@ -107,8 +114,40 @@ int main() {
         }
     }
 
+    // Confirmation Message
     std::cout << "You have confirmed " << origin << " as your origin airport and " << dest << " as your destination airport." << std::endl;
+    std::cout << std::endl;
 
+    // Find shortest path
+    vector<Node*> route = graph.shortestPath(origin, dest);
+
+    // Output route
+    std::cout << "The shortest route between " << origin << " and " << dest << ":" << std::endl;
+    if (route.size() == 0) {
+        std::cout << "No route" << std::endl;
+    }
+    for (unsigned i = 0; i < route.size() - 1; i++) { 
+        std::cout << route[i]->airportCode() << " -> ";
+    }
+    std::cout << route[route.size() - 1]->airportCode() << std::endl;
+    std::cout << std::endl;
+
+    // Draw map and save to testRoute.png
+    //vector<Node*> routeToNode;
+    //vector<Node*> nodes = graph.getNodes();
+
+    PNG background;
+	background.readFromFile("background.png");
+	MapPrinter map(graph, background);
+    
+    map.addRoute(route);
+    map.print("testRoute.png");
+    std::cout << std::endl;
+
+    // Direct user to open file to see the route
+
+    std::cout << "The shortest path between " << origin << " and " << dest << " is displayed above. To view the path on a map, please open testRoute.png" << std::endl;
+    std::cout << "Thank you for using FlightRouter! If you would like to route another trip, please simply type in ./finalproj after this message!" << std::endl;
 
     /*const std::string& filename1 = "tests/routesDataSmall.txt";
     Graph graph1(filename1);

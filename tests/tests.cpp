@@ -577,3 +577,17 @@ TEST_CASE("testDrawDijkstraSmall", "[dijksta]") {
 	
 
 }
+
+TEST_CASE("Probe why no route is created", "[part=0]") {
+	Graph graph1 = Graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	vector<Node*> node = graph1.getNodes();
+	Node* node5453 = node[5453];
+	if (node5453->neighbors().size() == 0) {
+		std::cout << "Node 5453 has no neighbors" << std::endl;
+	} else {
+		for (Node* neighbor : node5453->neighbors() ) {
+			std::cout << neighbor->airportCode() << std::endl;
+		}
+	}
+	
+}

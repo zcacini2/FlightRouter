@@ -268,16 +268,16 @@ vector<Node*> Graph::shortestPath(int start, int end){
       //int best_neighbor;
       //int best_neighbor2;
 
-      cout<<"current node is "<<curr_node<<endl;
+      //cout<<"current node is "<<curr_node<<endl;
       for (int neighbor : neighbors) {
         if (visited.find(neighbor) == visited.end()) { // if there's no node neighbor in visited
 
           Node* currentNode = nodes_[curr_node];
           Node* neighborNode = nodes_[neighbor];
           double dist = distances_[curr_node] + currentNode->distance(neighborNode);
-          cout<<"Approaching neighbor node"<<neighbor<<endl;
-          cout<<"Distance from source to current node is: "<<distances_[curr_node]<<endl;
-          cout<<"Distance from current node to neighbor is: "<<currentNode->distance(neighborNode)<<endl;
+          //cout<<"Approaching neighbor node"<<neighbor<<endl;
+          //cout<<"Distance from source to current node is: "<<distances_[curr_node]<<endl;
+          //cout<<"Distance from current node to neighbor is: "<<currentNode->distance(neighborNode)<<endl;
 
           if (dist <= distances_[neighbor]) {
             distances_[neighbor] = dist;
@@ -285,14 +285,14 @@ vector<Node*> Graph::shortestPath(int start, int end){
             //best_neighbor = curr_node;
             //best_neighbor2 = neighbor;
 
-            cout << "Current Node " << routes_.at(neighbor) << " was marked as parent (Value Member) of " << neighbor << "(Key)" << endl;
+            //cout << "Current Node " << routes_.at(neighbor) << " was marked as parent (Value Member) of " << neighbor << "(Key)" << endl;
             q.push(std::pair<int, double>(neighbor, dist));
 
           }
         }
       }
       //routes_[best_neighbor2] = best_neighbor;
-      cout << "---" << endl;
+      //cout << "---" << endl;
 
     }
 
@@ -307,7 +307,7 @@ vector<Node*> Graph::shortestPath(int start, int end){
       // Find node in nodes_
       Node* pathNode = nodes_[curr];
       path.push_back(pathNode);
-      cout << "Airport " << curr << " has parent Aiport " << routes_.at(curr) << endl;
+      //cout << "Airport " << curr << " has parent Aiport " << routes_.at(curr) << endl;
       // Update curr to its parent, routes_[curr] will return parent airport code
       curr = routes_.at(curr);
     }
