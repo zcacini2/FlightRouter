@@ -167,7 +167,7 @@ int main() {
     }
     std::cout << std::endl;
 
-    // Draw map and save to testRoute.png
+    // Draw map and save to filename
     PNG background;
 	background.readFromFile("background.png");
 	MapPrinter map(graph, background);
@@ -177,7 +177,7 @@ int main() {
     std::cout << std::endl;
 
     // Direct user to open file to see the route
-    std::cout << "The shortest path between " << origin << " and " << dest << " is displayed above. To view the path on a map, please open testRoute.png" << std::endl;
+    std::cout << "The shortest path between " << origin << " and " << dest << " is displayed above. To view the path on a map, please open " << filename << std::endl;
     std::cout << "Thank you for using FlightRouter! If you would like to route another trip, please simply type in ./finalproj after this message!" << std::endl;
 
     return 0;

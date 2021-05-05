@@ -18,7 +18,12 @@ MapPrinter::MapPrinter(Graph graph, PNG background) {
     png_ = background;
 }
 
-void MapPrinter::addPoint(Node node) { 
+void MapPrinter::addPoint(Node node) {
+    if (firstDone_ == false) {
+        addPoint(node, 290.0, 1.0, 0.5, 2);
+        firstDone_ = true;
+        return;
+    } 
     double latitude = node.latitude();
     double longitude = node.longitude();
     int x = (int) longToX(longitude);
@@ -37,6 +42,32 @@ void MapPrinter::addPoint(Node node) {
                 pixel2.h = 0.0;
                 pixel2.s = 1.0;
                 pixel2.l = 0.5;
+                pixel2.a = 1.0;
+            }
+        }
+    }
+    lastPoint_ = node;
+}
+
+void MapPrinter::addPoint(Node node, double h, double s, double l, int sizeInc) { 
+    double latitude = node.latitude();
+    double longitude = node.longitude();
+    int x = (int) longToX(longitude);
+    int y = (int) latToY(latitude);
+
+    HSLAPixel& pixel1 = png_.getPixel((int) x, (int) y);
+    pixel1.h = h;
+    pixel1.s = s;
+    pixel1.l = l;
+    pixel1.a = 1.0;
+    
+    for (int i = (-9 - sizeInc) ; i <= (9 + sizeInc); i++) {
+        for (int j = -9-sizeInc; j <= 9+sizeInc; j++) {
+            if ((abs(i) + abs(j)) <= 100) {
+                HSLAPixel& pixel2 = png_.getPixel(x+i, y+j);
+                pixel2.h = h;
+                pixel2.s = s;
+                pixel2.l = l;
                 pixel2.a = 1.0;
             }
         }
@@ -61,17 +92,18 @@ void MapPrinter::addPath(Edge edge) {
     addPoint(*node2);
 
     double neg = 0.0;
-    double mod = 1.0;
+    //double mod = 1.0;
 
     if (latitude2 - latitude1 < 0) neg = neg + 1.0;
     if (longitude2 - longitude1 < 0) neg = neg + 1.0;
     //if (neg == 1.0) mod = -1.0;
 
-    double slope = (double) ((1.0*(y2 - y1)) / (1.0*(x2 - x1)));
-    if ((slope < 0 && mod > 0) || (mod < 0 && slope > 0)) slope = -1.0 * slope;
+    double slope = (double) abs((1.0*(y2 - y1)) / (1.0*(x2 - x1)));
+    //if ((slope < 0 && mod > 0) || (mod < 0 && slope > 0)) slope = -1.0 * slope;
     double invSlope;
     if (x1 > x2) invSlope = -1.0;
     if (x2 > x1) invSlope = 1.0;
+    if (y2 < y1) slope = slope * -1.0;
 
     //cout << "x1: " << x1 << "    y1: " <<  y1  << "   x2: " << x2 << "   y2: " << y2 << endl;
 
@@ -119,6 +151,7 @@ void MapPrinter::addRoute(vector<Node*> route) {
 }
 
 void MapPrinter::print(string filename) {
+    addPoint(lastPoint_, 110.0, 1, 0.5, 2);
     png_.writeToFile(filename);
     cout << "Map saved to " << filename << endl;
 }

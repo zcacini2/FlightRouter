@@ -12,6 +12,7 @@ class MapPrinter {
         MapPrinter();
         MapPrinter(Graph graph, PNG background);
         void addPoint(Node);
+        void addPoint(Node, double, double, double, int size);
         void addPath(Edge edge);
         void addRoute(vector<Node*>);
         void print(string filename);
@@ -21,4 +22,6 @@ class MapPrinter {
     private:
         Graph graph_;
         PNG png_;
+        bool firstDone_ = false;
+        Node lastPoint_;
 };
