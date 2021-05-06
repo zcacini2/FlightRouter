@@ -5,8 +5,18 @@
 #include <string>
 #include <vector>
 
+/**
+ * This is the BFS (Breadth First Search) traversal class. This class takes in a graph object and
+ * traverses it using the traverse() method.
+ */
 BFS::BFS() { }
 
+/** 
+ *  Constructs a BFS traversal object using the given graph to be traversed and an
+ *  arbitrary starting node
+ *  @param graph graph to be traversed
+ *  @param start starting node/center for the traversal
+ */
 BFS::BFS(Graph graph, Node* start)
 {
     queue_.push(start);
@@ -17,7 +27,12 @@ BFS::BFS(Graph graph, Node* start)
     }
 }
 
-
+/**
+ *  This function traverses the entire graph passed into the constructor and returns
+ *  an array of the airport codes in the order they were traversed.
+ * 
+ *  @returns an array of the traversed nodes' airport codes as integers
+ */
 std::vector<int> BFS::traverse()
 {
     std::vector<int> toReturn;
@@ -25,11 +40,8 @@ std::vector<int> BFS::traverse()
 
         Node* curr = queue_.front();
         visited_[curr->airportCode()] = true;
-        
-        //work
-        //std::cout << "Airport Code:" << curr->airportCode() << std::endl;
+
         toReturn.push_back(curr->airportCode());
-        //work
 
         queue_.pop();
         list<Node*> currNeighbors = curr->neighbors();

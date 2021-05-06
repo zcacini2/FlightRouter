@@ -3,7 +3,7 @@ EXENAME = finalproj
 #include png/make/cs225.mk
 
 # Object Types
-OBJS = main.o readFromFile.o Node.o Edge.o Graph.o Airports.o BFS.o dijkstra.o mapprinter.o
+OBJS = main.o readFromFile.o Node.o Edge.o Graph.o Airports.o BFS.o mapprinter.o
 
 # Compilation Flags
 CXX = clang++
@@ -26,11 +26,11 @@ all : $(EXENAME)
 $(EXENAME): output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-main.o: main.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp dijkstra.cpp mapprinter.cpp 
-	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp dijkstra.cpp mapprinter.cpp
+main.o: main.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp mapprinter.cpp 
+	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp mapprinter.cpp
 
-test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp dijkstra.cpp mapprinter.cpp
-	$(LD) $(LDFLAGS) catch/catchmain.cpp tests/tests.cpp cs225/lodepng/lodepng.cpp cs225/PNG.cpp cs225/HSLAPixel.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp dijkstra.cpp mapprinter.cpp $(LDFLAGS) -o test
+test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp mapprinter.cpp
+	$(LD) $(LDFLAGS) catch/catchmain.cpp tests/tests.cpp cs225/lodepng/lodepng.cpp cs225/PNG.cpp cs225/HSLAPixel.cpp readFromFile.cpp Node.cpp Edge.cpp Graph.cpp Airports.cpp BFS.cpp mapprinter.cpp $(LDFLAGS) -o test
 
 include cs225/make/cs225.mk
 
