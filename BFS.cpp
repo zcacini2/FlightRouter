@@ -47,7 +47,6 @@ std::vector<int> BFS::traverse()
         list<Node*> currNeighbors = curr->neighbors();
 
         for (list<Node*>::iterator it = currNeighbors.begin(); it != currNeighbors.end(); ++it) {
-            //std::cout << "TRAVERSAL FOR LOOP:" << (*it)->airportCode() << std::endl;
             if (!(visited_[(*it)->airportCode()])) {
                 visited_[(*it)->airportCode()] = true;
                 queue_.push(*it);

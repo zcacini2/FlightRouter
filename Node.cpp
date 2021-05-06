@@ -172,7 +172,7 @@ double Node::distance(Node* other) {
  * from the given vector of Nodes. 
  * 
  * @param nodes vector of nodes to use in finding the desired node by airport code
- * @param other airport code of the node to/from which the distance should be calculated
+ * @param destination airport code of the node to/from which the distance should be calculated
  * @returns the linear distance between the two nodes in kilometers
  */
 double Node::distance(vector<Node*> nodes, int destination) {

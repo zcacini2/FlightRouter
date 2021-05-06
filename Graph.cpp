@@ -191,17 +191,6 @@ double Graph::getDistance(int start, int end) {
   Node * start_node = nodes_[start];
   Node * end_node = nodes_[end];
 
-  /*
-  for (Node * node: nodes_){
-    if (node->airportCode() == start) {
-      start_node = node;
-    }
-    if (node->airportCode() == end){
-      end_node = node;
-    }
-  }
-  */
-
   if (start_node->areNeighbors(end_node)) {
     return start_node->distance(end_node);
   }
@@ -317,82 +306,6 @@ vector<Node*> Graph::shortestPath(int start, int end){
     return path;
 
 }
-
-//void Graph::print() { }
-
-/*
-
-void Graph::removeNode(Node toRemove){
-  //if the node is not at the end of the graph,
-  if (adjacent_list.find(toRemove) != adjacent_list.end()){
-    for (auto i = adjacent_list[toRemove].begin(); i != adjacent_list.end(); i++) {
-        Node n = i->first;
-        adjacent_list[u].erase(v);
-
-    }
-    adjacent_list.erase(v);
-  }
-}
-
-void Graph::insertEdge(Node start, Node goal){
-  //Edge newEdge = New Edge(node1, node2);
-
-  //if edge already exists
-  if(adjacent_list.find(start)!= adjacent_list.end()
-    && adjacent_list[start].find(goal)!= adjacent_list[start].end()){
-        return;
-    }
-
-  // if start nod does not exists, add it
-  if(adjacent_list.find(start)==adjacent_list.end()){
-    adjacent_list[start] = unordered_map<Node, Edge>();
-  }
-
-  // if start nod exists and edge does not exists between start and goal,
-  // add new edge
-    adjacent_list[start][goal] = Edge(start, goal);
-}
-
-
-void Graph::removeEdge(Node start, Node goal){
-  //shouldn't we check whether the node exists or not first?
-
-  // check whether edge exists or not
-  if (adjacent_list[start].find(goal) != adjacent_list[start].end()){
-    adjacent_list[start].erase(goal);
-  }
-}
-
-similar to areNeighbors in Node
-bool Graph::areAdjacent(Node node1, Node node2){
-  auto list_1 = adjacent_list.find(node1);
-  auto list_2 = adjacent_list.find(node2);
-  //if ()
-}
-
-*/
-
-/**
- * This method will insert a node into the nodes_ array maintained by the graph.
- * @param toAdd the Node to add to the nodes_ array
- */
-/*void Graph::insertNode(Node toAdd) {
-
-  nodes_.emplace(nodes_.begin() + toAdd.airportCode(), toAdd);
-
-}*/
-
-/**
- * This method will remove a node from the nodes_ array maintained by the graph. Also, must remove all edges associated with that node.
- * To remove the edges, parse throgh all edges maintained by the node, go to
- */
-/*void Graph::removeNode(Node toRemove) {
-
-  nodes_.emplace(nodes_.begin() + toRemove.airportCode(), Node());
-
-
-
-}*/
 
 Node* Graph::getNode(int airportCode) {
   return nodes_[airportCode];
