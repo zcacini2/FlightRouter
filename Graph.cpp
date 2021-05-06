@@ -160,16 +160,6 @@ Node* Graph::getFirstNode() {
   return (nodes_.at(1));
 }
 
-double Graph::getDistance(int start, int end) {
-  Node * start_node = nodes_[start];
-  Node * end_node = nodes_[end];
-
-  if (start_node->areNeighbors(end_node)) {
-    return start_node->distance(end_node);
-  }
-
-  return 9999999;
-}
 
 /*
 Graph::shortestPath is implementation of Dijkstra algorithm. Receives airportCode of starting airport and destination airport,
