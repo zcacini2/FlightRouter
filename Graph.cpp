@@ -16,20 +16,6 @@ Graph::Graph() { }
 
 Graph::~Graph() {
 
-  /*
-  for (unsigned long i = 0; i < nodes_.size(); i++) {
-    if (nodes_[i] != nullptr) {
-      //delete nodes_[i];
-      //nodes_[i] = nullptr;
-    }
-  }
-
-
-  for (unsigned i = 0; i < edges_.size(); i++) {
-    //delete edges_[i];
-  }
-  */
-
 }
 
 /**
@@ -51,6 +37,7 @@ Graph::~Graph() {
  *
  * @param filename name of the file to create the graph from
  */
+
 Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
   std::string str = file_to_string(routesFile);
@@ -90,18 +77,12 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
     // Check if airport with sourceID is null in airports.
     if (airports.latitude(sourceID) == -1000) {
-      //std::cout << sourceID << " is invalid source airport in line " << edges_.size() << std::endl;
       areBothValid = false;
-      //continue;
-      //std::cout << "Kept continuing" << std::endl;
     }
 
     // Check if airport with destID is null in airports.
     if (airports.latitude(destID) == -1000) {
-      //std::cout << destID << " is invalid dest airport in line " << edges_.size() << std::endl;
       areBothValid = false;
-      //continue;
-      //std::cout << "Kept continuing" << std::endl;
     }
 
     // If source node doesnt exist create, else set source equal to already built node
@@ -119,13 +100,10 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
     } else if (areBothValid == true) {
       source = nodes_[sourceID];
-      //std::cout << "Found " << source->airportCode() << " in nodes_" << std::endl;
     }
 
     //If dest node doesnt exist create, else set dest equal to already built node
     if (areBothValid == true && nodes_[destID]->airportCode() == -1) {
-      //double destLat = airports.latitude(destID);;
-      //double destLng = airports.longitude(destID);
 
       double destLat, destLng = 0.0;
 
@@ -139,7 +117,6 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
     } else if (areBothValid == true) {
       dest = nodes_[destID];
-      //std::cout << "Found " << dest->airportCode() << " in nodes_" << std::endl;
     }
 
     //Add edge if not there
@@ -149,11 +126,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       edges_.push_back(route);
 
       source->addNeighbor(dest);
-      //std::cout << "Added " << dest->airportCode() << " as neighbor to " << source->airportCode() << std::endl;
-      //std::cout << source->airportCode() << " now has " << source->neighbors().size() << " neighbors." << std::endl;
       dest->addNeighbor(source);
-      //std::cout << "Added " << source->airportCode() << " as neighbor to " << dest->airportCode() << std::endl;
-      //std::cout << dest->airportCode() << " now has " << dest->neighbors().size() << " neighbors." << std::endl;
     }
 
     line.clear();
@@ -198,6 +171,10 @@ double Graph::getDistance(int start, int end) {
   return 9999999;
 }
 
+/*
+Graph::shortestPath is implementation of Dijkstra algorithm. Receives airportCode of starting airport and destination airport,
+and returns vector of Node* which stores the shortest route between two airports.
+*/
 vector<Node*> Graph::shortestPath(int start, int end){
 
     //struct for comparison function of priority queue
@@ -211,9 +188,8 @@ vector<Node*> Graph::shortestPath(int start, int end){
 
     //size = number of all nodes(vertices) in graph
     int size = nodes_.size();
-    int edgeSize = edges_.size();
 
-    std::unordered_map<int, double> distances_; // retrieve distance values from source for each node
+    std::unordered_map<int, double> distances_; // initialize distances_ which retrieve distance values from source for each node
     std::unordered_map<int, int> routes_;    // initialize a route that records node->its previous node (curr airport code, parent airport code)
 
     //initialize a priority queue of node-distance pair
@@ -238,13 +214,10 @@ vector<Node*> Graph::shortestPath(int start, int end){
 
     //set distances of starting point to be zero
     distances_[start] = 0;
-    q.push(pair<int,double>(start, 0));  // Pushing a pair of airport code and distance from source
+    q.push(pair<int,double>(start, 0));  // Pushing a pair of airport code and distance to priority queue from source
 
     //loop until we reach destination
-    //if loop reached destination point, stop the loop
-
     while (q.top().first != end && !q.empty()){
-
       std::pair<int, double> curr = q.top(); //get the next pair from priority_queue
       int curr_node = curr.first;  // Airport code of current node
       q.pop();
@@ -254,35 +227,22 @@ vector<Node*> Graph::shortestPath(int start, int end){
 
       list<int> neighbors = nodes_[curr_node]->neighbors_codes_(); // get all adjacent nodes
 
-      //int best_neighbor;
-      //int best_neighbor2;
-
-      //cout<<"current node is "<<curr_node<<endl;
       for (int neighbor : neighbors) {
-        if (visited.find(neighbor) == visited.end()) { // if there's no node neighbor in visited
+        if (visited.find(neighbor) == visited.end()) { //only proceed if node is not visited before
 
           Node* currentNode = nodes_[curr_node];
           Node* neighborNode = nodes_[neighbor];
           double dist = distances_[curr_node] + currentNode->distance(neighborNode);
-          //cout<<"Approaching neighbor node"<<neighbor<<endl;
-          //cout<<"Distance from source to current node is: "<<distances_[curr_node]<<endl;
-          //cout<<"Distance from current node to neighbor is: "<<currentNode->distance(neighborNode)<<endl;
 
           if (dist <= distances_[neighbor]) {
             distances_[neighbor] = dist;
             routes_[neighbor] = curr_node;
-            //best_neighbor = curr_node;
-            //best_neighbor2 = neighbor;
 
-            //cout << "Current Node " << routes_.at(neighbor) << " was marked as parent (Value Member) of " << neighbor << "(Key)" << endl;
             q.push(std::pair<int, double>(neighbor, dist));
 
           }
         }
       }
-      //routes_[best_neighbor2] = best_neighbor;
-      //cout << "---" << endl;
-
     }
 
     if (routes_.find(end) == routes_.end()) { // if no path exists
@@ -296,8 +256,6 @@ vector<Node*> Graph::shortestPath(int start, int end){
       // Find node in nodes_
       Node* pathNode = nodes_[curr];
       path.push_back(pathNode);
-      //cout << "Airport " << curr << " has parent Aiport " << routes_.at(curr) << endl;
-      // Update curr to its parent, routes_[curr] will return parent airport code
       curr = routes_.at(curr);
     }
 
