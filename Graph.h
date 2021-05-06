@@ -41,10 +41,6 @@ class Graph {
         Graph(const string & routesFile, const string & airportsFile);
 
         /*
-        void insertNode(Node toAdd);
-
-        void removeNode(Node toRemove);
-
         //inserts an edge between two nodes into the graph structure
         void insertEdge(Node start, Node goal);
 
@@ -72,25 +68,20 @@ class Graph {
         vector<Edge> getEdges();
 
         Node* getFirstNode();
-        vector<Node*> shortestPath(int start, int end);
-          /* dijkstra function. this function takes graph and two Nodes
-          and return shortest distance from starting point to the end.
-          */
 
-        double getDistance(int start, int end);
-        /* helper function for shortestPath. this function takes two airportcodes,
-        get nodes from the codes, and returns distance of two nodes if they're adjacent.
+    
+        /* dijkstra Method. this function take two airportcodes (starting airport, destination airport)
+        and return shortest distance between them as a vector of Node.
         */
+        vector<Node*> shortestPath(int start, int end);
 
-        //void print();
-
+    
     private:
 
         /**
          * Vector of Nodes stored by the OpenFlights ID of the airport
          */
 
-        //vector<Node*> nodes_;
         vector<Node*> nodes_;
 
         /**
