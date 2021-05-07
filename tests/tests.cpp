@@ -42,7 +42,7 @@ TEST_CASE("Verify that file_to_vector works on a small example", "[readFile]") {
 	}
 }
 
-TEST_CASE("Check Airports ctor populates lat_long correctly") {
+TEST_CASE("Check Airports ctor populates lat_long correctly", "[airports]") {
 	Airports airports("tests/airportsDataSmall.txt");
 
 	REQUIRE(airports.latitude(1) == -6.081689834590001);
@@ -51,9 +51,11 @@ TEST_CASE("Check Airports ctor populates lat_long correctly") {
 	REQUIRE(airports.longitude(1) == 145.391998291);
 	REQUIRE(airports.longitude(2) == 145.789001465);
 	REQUIRE(airports.longitude(3) == 144.29600524902344);
+
+	std::cout << "Airports class populates lat_long member variable correctly on small data set" << std::endl;
 }
 
-TEST_CASE("Check Airports ctor with full data") {
+TEST_CASE("Check Airports ctor with full data", "[airports]") {
 	Airports airports("dataset/airports.txt");
 
 	REQUIRE(airports.latitude(45) == 49.21080017089844);
@@ -63,33 +65,32 @@ TEST_CASE("Check Airports ctor with full data") {
 	REQUIRE(airports.longitude(3675) == -87.395401001);
 	REQUIRE(airports.longitude(6712) == -151.7429962);
 	REQUIRE(airports.longitude(14110) == 35.305);
+
+	std::cout << "Airports class populates lat_long member variable correctly on full data set" << std::endl;
 }
 
-TEST_CASE("Check Airports ctor populates airports correctly", "[airport]") {
+TEST_CASE("Check Airports ctor populates names correctly", "[airports]") {
 	Airports airports("tests/airportsDataSmall.txt");
 
 	REQUIRE(airports.name(1) == "Goroka Airport");
 	REQUIRE(airports.name(2) == "Madang Airport");
 	REQUIRE(airports.name(3) == "Mount Hagen Kagamuga Airport");
-	REQUIRE(airports.city(1) == "Goroka");
-	REQUIRE(airports.city(2) == "Madang");
-	REQUIRE(airports.city(3) == "Mount Hagen");
+
+	std::cout << "Airports class populates names member variable correctly on small data set" << std::endl;
 }
 
-TEST_CASE("Check Airports ctor populates airports with full data") {
+TEST_CASE("Check Airports ctor populates names with full data", "[airports]") {
 	Airports airports("dataset/airports.txt");
 
-	REQUIRE(airports.latitude(45) == 49.21080017089844);
-	REQUIRE(airports.latitude(426) == 61.24919891357422);
-	REQUIRE(airports.latitude(468) == 55.04280090332031);
-	REQUIRE(airports.longitude(3348) == 114.088996887);
-	REQUIRE(airports.longitude(3675) == -87.395401001);
-	REQUIRE(airports.longitude(6712) == -151.7429962);
-	REQUIRE(airports.longitude(14110) == 35.305);
+	REQUIRE(airports.name(45) == "Deer Lake Airport");
+	REQUIRE(airports.name(426) == "Immola Airport");
+	REQUIRE(airports.name(468) == "City of Derry Airport");
+
+	std::cout << "Airports class populates names member variable correctly on full data set" << std::endl;
 }
 
-/*
-TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)") {
+
+TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)", "[edge]") {
 	//sample lat long coordinates from google
 	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
 	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
@@ -116,9 +117,45 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) ORDtoORD.distance() == expected4);
 	REQUIRE((int) CMItoORD.distance() == expected2);
 }
-*/
 
-TEST_CASE("Test sample data on Graph Ctor") {
+TEST_CASE("Test functionality of areNeighbors", "[node]") {
+	Node* node1 = new Node(123, 65.666, 34.44);
+	Node* node2 = new Node(345, -65.22, 90.4565);
+
+	node1->addNeighbor(node2);
+
+	REQUIRE(node1->neighbors().size() == 1);
+	REQUIRE(node2->neighbors().size() == 0);
+
+	delete node1;
+	delete node2;
+}
+
+TEST_CASE("testNodeDistance" , "[node]") {
+	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
+	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
+	Node* ICN = new Node(3930, 37.4602, 126.4407); //icheon
+	Node* HND = new Node(2359, 35.5494, 139.7798); //tokyo
+	Node* CMI = new Node(4049, 40.0365, -88.2640); //champaign
+	
+	int expected1 = 1200; 
+	int expected2 = 218;
+	int expected3 = 1200;
+	int expected4 = 0;
+
+	REQUIRE((int) ORD->distance(JFK) == expected1);
+	REQUIRE((int) JFK->distance(ORD) == expected3);
+	REQUIRE((int) ORD->distance(ORD) == expected4);
+	REQUIRE((int) CMI->distance(ORD) == expected2);
+
+	delete ORD;
+	delete JFK;
+	delete ICN;
+	delete HND;
+	delete CMI;
+}
+
+TEST_CASE("Test sample data on Graph Ctor", "[graph]") {
 	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges(); 
@@ -136,7 +173,7 @@ TEST_CASE("Test sample data on Graph Ctor") {
 	REQUIRE(edges[2].start()->latitude() == expectedLat3);
 }
 
-TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=4]") {
+TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[graph]") {
 
 	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
@@ -165,20 +202,7 @@ TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[part=4]") {
 	REQUIRE((*it3)->latitude() == lat1);
 }
 
-TEST_CASE("Test functionality of areNeighbors", "[part=3]") {
-	Node* node1 = new Node(123, 65.666, 34.44);
-	Node* node2 = new Node(345, -65.22, 90.4565);
-
-	node1->addNeighbor(node2);
-
-	REQUIRE(node1->neighbors().size() == 1);
-	REQUIRE(node2->neighbors().size() == 0);
-
-	delete node1;
-	delete node2;
-}
-
-TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[part=5]") {
+TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[graph]") {
 
 	/*routesDataMedium.txt
 	2B,410,AER,2965,KZN,2990,,0,CR2
@@ -200,32 +224,17 @@ TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[part=5]")
 	7 6969 - 4029,
 	*/
 
-	//Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
-
 	Graph graph("tests/routesDataMedium.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 
 	Node*& node2965 = nodes[2965];
-	//std::cout << node2965->neighbors().size() << std::endl;
 	Node*& node2990 = nodes[2990];
-	//std::cout << node2990->neighbors().size() << std::endl;
 	Node* node2966 = nodes[2966];
 	Node* node2962 = nodes[2962];
 	Node* node2968 = nodes[2968];
 	Node* node4078 = nodes[4078];
 	Node* node4029 = nodes[4029];
 	Node* node6969 = nodes[6969];
-
-	/*
-	list<Node*> exp2965 {nodes[1]};
-	list<Node*> exp2990 {nodes[0], nodes[2], nodes[4], nodes[6]};
-	list<Node*> exp2966 {nodes[1], nodes[3]};
-	list<Node*> exp2962 {nodes[2]};
-	list<Node*> exp2968 {nodes[1], nodes[5]};
-	list<Node*> exp4078 {nodes[4]};
-	list<Node*> exp4029 {nodes[1], nodes[7]};
-	list<Node*> exp6969 {nodes[6]};
-	*/
 
 	REQUIRE(node2965->neighbors().front()->airportCode() == 2990);
 
@@ -246,15 +255,9 @@ TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[part=5]")
 	REQUIRE(node4029->neighbors().back()->airportCode() == 6969);
 
 	REQUIRE(node6969->neighbors().front()->airportCode() == 4029);
-
-	//REQUIRE(node2962->neighbors() == exp2962);
-	//REQUIRE(node2968->neighbors() == exp2968);
-	//REQUIRE(node4078->neighbors() == exp4078);
-	//REQUIRE(node4029->neighbors() == exp4029);
-	//REQUIRE(node6969->neighbors() == exp6969);
 }
 
-TEST_CASE("Graph Ctor doesn't add repeat nodes") {
+TEST_CASE("Graph Ctor doesn't add repeat nodes", "[graph]") {
 	Graph graph("tests/routesRepeat.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 
@@ -272,11 +275,7 @@ TEST_CASE("Graph Ctor doesn't add repeat nodes") {
 
 }
 
-//TEST_CASE("Graph Ctor complex data maintains nodes and edges correctly") {}
-
-//TEST_CASE("Graph Ctor complex data maintains neighbors correctly") {}
-
-TEST_CASE("Graph Ctor does nothing with null or invalid airports") {
+TEST_CASE("Graph Ctor does nothing with null or invalid airports", "[graph]") {
 
 	/*
 	2B,410,AER,2965,KZN,2990,,0,CR2
@@ -304,18 +303,15 @@ TEST_CASE("Graph Ctor does nothing with null or invalid airports") {
 
 	// Ensure null node stored at 7167 in nodes_
 	REQUIRE(nodes[7167]->airportCode() == -1);
-
-
 }
 
 
-TEST_CASE("Graph Ctor compiles on full data set", "[part=6]") {
+TEST_CASE("Graph Ctor compiles on full data set", "[graph]") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges();
 
 	/*
-
 	1959 -> back = 4075
 	4075 -> front  = 2006
 	4075 -> back = 1978
@@ -350,11 +346,6 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 	}
 	//delete graph2;
 	//delete bfs2;
-}
-
-TEST_CASE("dummy test", "[dummy]") {
-	int dummy = 5;
-	REQUIRE(dummy == 5);
 }
 
 TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]") {
@@ -402,9 +393,7 @@ TEST_CASE("MapPrinter prints a route", "[mapprinter][route]") {
 	Node* node2962 = node[2962];
 
 	vector<Node*> route1 = graph.shortestPath(2966, 6969);
-	//cout << "route1 complete" << endl;
 	vector<Node*> route2 = graph.shortestPath(4078, 2962);
-	//cout << "route2 complete" << endl;
 	PNG background;
 	background.readFromFile("background.png");
 	MapPrinter mapprinter(graph, background);
@@ -413,7 +402,7 @@ TEST_CASE("MapPrinter prints a route", "[mapprinter][route]") {
 
 }
 
-TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
+TEST_CASE("Test Dijkstra test on small data", "[dijkstra]") {
 	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
 	vector<Node*> node = graph.getNodes();
 
@@ -447,11 +436,7 @@ TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
 	REQUIRE(route2[4]->airportCode() == 2962);
 
 	/*
-	for (Node* airport: route2) {
-		cout << airport->airportCode() << endl;
-	}
-	
-	
+	Test Verification
 	double D1 = node[2966]->distance(node[2990]);
 	double D2 = node[2990]->distance(node[4029]);
 	double D3 = node[4029]->distance(node[6969]);
@@ -494,7 +479,32 @@ TEST_CASE("2 Dijkstra test on small data", "[part=8]") {
 
 }
 
-TEST_CASE("Easy Dijkstra test on full data") {
+TEST_CASE("testDijkstraMedium", "[dijkstra]") {
+	
+	Graph graph1 = Graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+	vector<Node*> node = graph1.getNodes();
+
+	Node* node2966 = node[2966];
+	Node* node6969 = node[6969];
+
+	Node* node4078 = node[4078];
+	Node* node2962 = node[2962];
+
+	vector<Node*> route1 = graph1.shortestPath(2966, 6969);
+	vector<Node*> route2 = graph1.shortestPath(4078, 2962);
+
+	vector<Node*> expected1{node2966, node[2962], node6969};
+	vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
+
+	Node temp;
+
+	REQUIRE(route1.size() == expected1.size());
+	REQUIRE(route2.size() == expected2.size());
+	REQUIRE(temp.getRouteDistance(route1) == temp.getRouteDistance(expected1));
+	REQUIRE(temp.getRouteDistance(route2) == temp.getRouteDistance(expected2));
+}
+
+TEST_CASE("Easy Dijkstra test on full data", "[dijkstra]") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 
@@ -503,18 +513,16 @@ TEST_CASE("Easy Dijkstra test on full data") {
 	Node* node2047 = nodes[2047];
 	Node* node2006 = nodes[2006];
 
-	//double dist = 999999999;
-	//Node* shortest;
-
 	vector<Node*> route = graph.shortestPath(4075, 2047);
 
 	REQUIRE(route.size() == 3);
 	REQUIRE(route[0] == node4075);
 	REQUIRE(route[1] == node2006);
 	REQUIRE(route[2] == node2047);
-	//REQUIRE(shortest->getRouteDistance(route) == 4422.476);
 
-	/*for (Node * node : _node->neighbors()) {
+	/*
+	TEST VERIFICATION
+	for (Node * node : _node->neighbors()) {
 		
 		if (_node->distance(node) < dist) {
 			dist = _node->distance(node);
@@ -542,60 +550,4 @@ TEST_CASE("Easy Dijkstra test on full data") {
 	Path from 2006 -> 2047 is 329.106
 	Total Dist: 4422.476
 	*/
-}
-
-TEST_CASE("testNodeDistance" , "[part=7]") {
-	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
-	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
-	Node* ICN = new Node(3930, 37.4602, 126.4407); //icheon
-	Node* HND = new Node(2359, 35.5494, 139.7798); //tokyo
-	Node* CMI = new Node(4049, 40.0365, -88.2640); //champaign
-	
-	int expected1 = 1200; 
-	int expected2 = 218;
-	int expected3 = 1200;
-	int expected4 = 0;
-
-	REQUIRE((int) ORD->distance(JFK) == expected1);
-	REQUIRE((int) JFK->distance(ORD) == expected3);
-	REQUIRE((int) ORD->distance(ORD) == expected4);
-	REQUIRE((int) CMI->distance(ORD) == expected2);
-
-	delete ORD;
-	delete JFK;
-	delete ICN;
-	delete HND;
-	delete CMI;
-}
-
-TEST_CASE("testDrawDijkstraSmall", "[dijksta]") {
-	
-	Graph graph1 = Graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
-	vector<Node*> node = graph1.getNodes();
-
-	Node* node2966 = node[2966];
-	Node* node6969 = node[6969];
-
-	Node* node4078 = node[4078];
-	Node* node2962 = node[2962];
-
-	
-	//NEED TO FINISH
-	//vector<Node*> route1 = graph1.shortestPath(node2966, node6969);
-	//vector<Node*> route2 = graph1.shortestPath(node4078, node2962);
-
-	vector<Node*> route1 = graph1.shortestPath(2966, 6969);
-	vector<Node*> route2 = graph1.shortestPath(4078, 2962);
-
-	vector<Node*> expected1{node2966, node[2962], node6969};
-	vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
-
-	Node temp;
-
-	REQUIRE(route1.size() == expected1.size());
-	REQUIRE(route2.size() == expected2.size());
-	REQUIRE(temp.getRouteDistance(route1) == temp.getRouteDistance(expected1));
-	REQUIRE(temp.getRouteDistance(route2) == temp.getRouteDistance(expected2));
-	
-
 }

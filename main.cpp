@@ -34,8 +34,7 @@ bool isOneOrZero(int num) {
 
 int main() {
 
-    // Initialize Graph and Airports. Provide intro prompt.
-
+    // Initialize Graph and Airports. Provide prompt for user to specify data
     std::cout << "Initializing..." << std::endl;
     //Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
     Graph graph("dataset/routes.txt", "dataset/airports.txt");
@@ -43,11 +42,19 @@ int main() {
     Airports airports("dataset/airports.txt");
     std::cout << "Initializion Complete." << std::endl;
     std::cout << std::endl;
-    std::cout << "Hello, and welcome to FlightRouter!" << std::endl; // << std::endl;
+
+    std::cout << "Hello, and welcome to FlightRouter!" << std::endl;
     std::cout << "We are a flight routing platform that has access to over 10,000 airports and over 60,000 flight routes." << std::endl;
     std::cout << "Using this data, we are able to provide you with the shortest route between any two airports in the world! "; // << std::endl;
     std::cout << "Our platform provides both a listing of airports to travel through and a graphical map output to aid your travels." << std::endl;
     std::cout << std::endl;
+
+    /*
+    std::cout << "Please enter a string for the file you would like to use for airports. Use 0 to default to full airports dataset" << std::cout;
+    std::cout << "(Include the file path if you choose to use  different dataset)" << std::endl;
+    std::cout << "Other defaults: 1"
+    std::cout << std::endl;
+    */
     std::cout << "What is your origin airport? (Please input a valid airport code found in the ReadME file)" << std::endl;
 
     // Take in origin airport and provide invalid input protections

@@ -27,73 +27,56 @@ Airports::Airports(const std::string & filename) {
   std::string str = file_to_string(filename);
 
   // Default lat_lng entry
-  std::vector<double> tmp;
-  tmp.push_back(-1000);
-  tmp.push_back(-1000);
+  std::vector<double> location;
+  location.push_back(-1000);
+  location.push_back(-1000);
   
   // Default airports entry
-  std::vector<std::string> tmp2;
-  tmp2.push_back("Name");
-  tmp2.push_back("City");
+  std::string name = "Name";
 
-  //lat_long.resize(14111);
-
-  //std::cout << "Airports vector begin filling with empty latlng" << std::endl;
-
+  // Push back all default array vals
   for (unsigned i = 0; i < 14111; i++) {
-    lat_long.push_back(tmp);
-    airports.push_back(tmp2);
+    lat_long.push_back(location);
+    names.push_back(name);
   }
 
-  //std::cout << "Airports vector filled with empty latlng" << std::endl;
+  // Clear lat_lng default, will be used
+  location.clear();
 
-  tmp.clear();
-  tmp2.clear();
-
-
+  // Initialize data parsing values
   std::vector<std::string> line;  //create line vector
   std::stringstream s_stream(str); //create string stream from the string
   int airportCode;
   double lat, lng;
-  std::string name,city;
   
-
+  // Proceed until no more data
   while(s_stream.good()) {
     std::string row, substr;
     getline(s_stream, row, '\n'); //get first string delimited by comma
     std::stringstream row_stream(row);
 
+    // For each line, clean quotation marks and form into line vector
     while (row_stream.good()) {
       getline(row_stream, substr, ',');
       substr.erase(std::remove( substr.begin(), substr.end(), '\"' ), substr.end()); //cleans quotations
       line.push_back(substr);
     }
-    
-    
+
+    // Access meaningful data
     lat = stod(line[6]);
     lng = stod(line[7]);
     name = line[1];
-    city = line[2];
     airportCode = stoi(line[0]);
 
-    
-    
-    //name = line[1];
-    //city = line[2];
+    // Prep location to store lat and lng
+    location.clear();
+    location.push_back(lat);
+    location.push_back(lng);
+    lat_long[airportCode] = location; // Insert into lat_lng
 
-    tmp.clear();
-    tmp2.clear();
+    names[airportCode] = name;  // Insert name into names
 
-    tmp.push_back(lat);
-    tmp.push_back(lng);
-    lat_long[airportCode] = tmp;
-
-    tmp2.push_back(name);
-    tmp2.push_back(city);
-    airports[airportCode] = tmp2;
-
-    tmp.clear();
-    tmp2.clear();
+    location.clear();
     line.clear();
 
   }
@@ -129,20 +112,14 @@ double Airports::longitude(int code) {
  * @return name of the airport of provided code
  */
 std::string Airports::name(int code) {
-    return airports[code][0];
+    return names[code];
 }
 
 /**
- * Gets the city of the airport.
+ * This method will return the size of the lat_lng vector. Not necessarily equal to num of airports because airports stored by index.
  * 
- * @param code airport code
- *
- * @return city of the airport of provided code
+ * @return size of lat_lng
  */
-std::string Airports::city(int code) {
-    return airports[code][1];
-}
-
 unsigned Airports::size() {
   return lat_long.size();
 }

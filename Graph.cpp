@@ -133,17 +133,12 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
   }
 
-  /*
-  Functionality to add:
-    - Handling null (\N) values (Delete from file?)
-    - Parsing for invalid values
-    - Check airport for valid airport
-  */
-
 }
 
 /**
  * Method returning all nodes of a graph.
+ *
+ * @return a vector of Node* stored in nodes_
  */
 vector<Node*> Graph::getNodes() {
   return nodes_;
@@ -151,20 +146,31 @@ vector<Node*> Graph::getNodes() {
 
 /**
  * Method returning all edges of a graph
+ *
+ * @return a vector of Edges stored in edges_
  */
 vector<Edge> Graph::getEdges() {
   return edges_;
 }
 
+/**
+ * Method returning the first node in nodes_
+ *
+ * @return the first Node* stored in nodes_
+ */
 Node* Graph::getFirstNode() {
   return (nodes_.at(1));
 }
 
 
-/*
-Graph::shortestPath is implementation of Dijkstra algorithm. Receives airportCode of starting airport and destination airport,
-and returns vector of Node* which stores the shortest route between two airports.
-*/
+/**
+ * Graph::shortestPath is implementation of Dijkstra algorithm. Receives airportCode of starting airport and destination airport,
+ * and returns vector of Node* which stores the shortest route between two airports.
+ * @param start airport code of the starting airport
+ * @param end airport code of the end airport
+ * 
+ * @return a vector of Node* representing the shortest path between start and end, including both start and end
+ */
 vector<Node*> Graph::shortestPath(int start, int end){
 
     //struct for comparison function of priority queue
@@ -255,6 +261,13 @@ vector<Node*> Graph::shortestPath(int start, int end){
 
 }
 
+/**
+ * Method returning node for specified airportCode
+ * 
+ * @param airportCode integer corresponding to airportCode
+ *
+ * @return Node* representing airport of specified code
+ */
 Node* Graph::getNode(int airportCode) {
   return nodes_[airportCode];
 }

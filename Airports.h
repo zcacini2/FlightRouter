@@ -8,6 +8,11 @@
 
 #include "readFromFile.hpp"
 
+/**
+ * The following class is used as a coding/decoding process with the airports.txt file and the airport codes found in the routes.txt file. This 
+ * will be used as an external storage process to simplify Graph.
+ */
+
 class Airports {
     public:
 
@@ -52,25 +57,21 @@ class Airports {
         unsigned size();
 
         /**
+         * This method returns the airport name for a given airport code
          *
+         * @param code airport code
+         * 
+         * @return string of the airport name for given airport code
          */
         std::string name(int code);
-
-        /**
-         *  
-         */
-        std::string city(int code);
-
         
-
     private:
 
         /** 
-         * TO BE ADDED TO FUNCTIONALITY LATER!!
          * Index corresponds to the OpenFlights identifier.
-         * Data stored: Airport Name and City of Airport.
+         * Data stored: Airport Name
          */
-        std::vector<std::vector<std::string>> airports;
+        std::vector<std::string> names;
 
         /**
          * Index corresponds to the OpenFlights identifier.
