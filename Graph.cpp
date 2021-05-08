@@ -78,9 +78,6 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
     Node* source;
     Node* dest;
 
-    //std::cout << sourceID << " " << airports.latitude(sourceID) << std::endl;
-    //std::cout << destID << " " << airports.latitude(destID) << std::endl;
-
     // Check if airport with sourceID is null in airports.
     if (airports.latitude(sourceID) == -1000) {
       areBothValid = false;
@@ -101,7 +98,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       Node* _source = new Node(sourceID, sourceLat, sourceLng);
       source = _source;
-
+      delete nodes_[sourceID];
       nodes_[sourceID] = source;
 
     } else if (areBothValid == true) {
