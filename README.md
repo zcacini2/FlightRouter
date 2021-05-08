@@ -35,8 +35,9 @@ The user will only interact with main. To build our program, simply enter `make`
 The user has a choice to specify their dataset or to use default datasets. If the user decides to use their own dataset, the user is responsible for ensuring the following:
   1. The filepaths specified are correct and complete (meaning that the computer will recognize where it is within the main project directory).
   2. Both the airports and routes datasets match the formatting of the OpenFlights data sets uses to construct the project.
-  3. The airports and routes data correspond to each other (If there are routes with airport codes not included in the airports dataset, the program will crash)
- As a result, it is typically easier to use the datasets provided; however, if you have datasets that match there criteria, feel free to use them!
+  3. The airports and routes data correspond to each other (If there are routes with airport codes not included in the airports dataset, the program will crash).
+  
+As a result, it is typically easier to use the datasets provided; however, if you have datasets that match there criteria, feel free to use them!
 
 The user will have to input an integer airport code for the code to find the route. The full listing of possible integer airport codes is found in airports.txt, found in the dataset folder of our project. Here, like explained earlier, all airport codes and coresponding airport names are found. If you would like to search for a specific airport code for a certin airport, use your machines "Find on Page" feature. For Mac users, this will be Command + F. For Windows users, this will be Control + F. To search for the airport code for London Heathrow Airport, simply enter London Heathrow Airport. Also, due to the extra airport qualifiers in each entry, a search of United Kingdom will bring up all airports in the United Kingdom. Some airports included in the airports.txt file do not have any provided routes to or from itself in the routes.txt file. If you choose an airport without any routes, the system will tell you that there are no routes through this airport and that it is invalid. Please choose a different airport because we have no data on this airport to find the shortest path.
 
