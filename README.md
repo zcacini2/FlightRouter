@@ -20,7 +20,7 @@ Our code has 6 important classes that all reside in the main project folder. The
 
 **User Interaction** 
 
-The user will only interact with main. To build our program, simply enter `make` into the main directory terminal. Once this command finishes, please then type `./finalproj` into the main directory terminal. The user should then be provided a seamless experience with directions to input their desired source airport and destination airport. 
+The user will only interact with main. To build our program, simply enter `make` into the main directory terminal. Once this command finishes, please then type `./finalproj` into the main directory terminal. The user should then be provided a seamless experience with directions to input their desired source airport and destination airport. If you would like to find another route, simply run `./finalproj` again.
 
 **Input Directions** 
 
@@ -32,7 +32,7 @@ Our code will output the names and airport codes of the list of airports represe
 
 **Test Suite**
 
-All of 
+All of our tests are included in the tests folder of our project in the tests.cpp file. 
 
 README which describes: (1) The location of all major code, data, and results. (2) Full instructions on how to build and run your executable, including how to define the input data and output location for each method. (3) Full instructions how to build and run your test suite, including a general description on what tests you have created. It is in your best interest to make the instructions (and the running of your executables and tests) as simple and straightforward as possible.
 
