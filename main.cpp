@@ -28,6 +28,26 @@ bool isValidAirport(Airports airports, int airportCode, Graph graph) {
     return true;
 }
 
+bool isValidAirportDest(Airports airports, int airportCode, Graph graph, int sourceCode) {
+
+    if (airportCode < 0 || airportCode > 14110) {
+        return false;
+    } else if (airports.latitude(airportCode) == -1000) {
+        return false;
+    } else if (airportCode == sourceCode) {
+        std::cout << "You have input the same airport for origin and destination. This is invalid. Please choose a different airport." << std::endl;
+        return false;
+    }
+    
+    Node* node = graph.getNode(airportCode);
+    if (node->neighbors().size() == 0) {
+        std::cout << airports.name(airportCode) << " has no provided routes to any other airport. Please choose a different airport." << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 bool isValidAirportSuppressedOutput(Airports airports, int airportCode, Graph graph) {
 
     if (airportCode < 0) {
@@ -232,7 +252,7 @@ int main() {
     std::cout << std::endl;
     std::cin >> dest;
 
-    while (std::cin.fail() || !isValidAirport(airports, dest, graph)) {
+    while (std::cin.fail() || !isValidAirportDest(airports, dest, graph, origin)) {
         std::cout << "You have entered an invalid airport code. Please enter a valid integer aiport code from the ReadME file included on GitHub" << std::endl;
         std::cin.clear();
         std::cin.ignore(256,'\n');

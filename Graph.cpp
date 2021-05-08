@@ -15,7 +15,7 @@ typedef pair<double, int> distanceToNode;
 Graph::Graph() { }
 
 Graph::~Graph() {
-
+  /*
   for (unsigned long i = 0; i < nodes_.size(); i++) {
     if (nodes_[i] != nullptr && nodes_[i] != NULL) {
       delete nodes_[i];
@@ -23,7 +23,7 @@ Graph::~Graph() {
     }
   }
   nodes_.clear();
-
+  */
 }
 
 /**
