@@ -2,7 +2,7 @@
 
 ## Team Members: Giwon Jung, Krystyna Madel, and Zach Cacini
 
-### "The README clearly and succintly describes the following
+### The README clearly and succintly describes the following
 
 The linkage and location of all major code, data, and results
 
