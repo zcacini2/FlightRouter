@@ -116,6 +116,8 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	REQUIRE((int) JFKtoORD.distance() == expected3);
 	REQUIRE((int) ORDtoORD.distance() == expected4);
 	REQUIRE((int) CMItoORD.distance() == expected2);
+
+	std::cout << "Edge class calculates distance correctly" << std::endl;
 }
 
 TEST_CASE("Test functionality of areNeighbors", "[node]") {
@@ -129,6 +131,8 @@ TEST_CASE("Test functionality of areNeighbors", "[node]") {
 
 	delete node1;
 	delete node2;
+
+	std::cout << "Node::areNeighbors functions correctly" << std::endl;
 }
 
 TEST_CASE("testNodeDistance" , "[node]") {
@@ -153,6 +157,8 @@ TEST_CASE("testNodeDistance" , "[node]") {
 	delete ICN;
 	delete HND;
 	delete CMI;
+
+	std::cout << "Node::distance() functions correctly" << std::endl;
 }
 
 TEST_CASE("Test sample data on Graph Ctor", "[graph]") {
@@ -171,6 +177,8 @@ TEST_CASE("Test sample data on Graph Ctor", "[graph]") {
 	REQUIRE(edges[0].start()->latitude() == expectedLat1);
 	REQUIRE(edges[1].start()->latitude() == expectedLat2);
 	REQUIRE(edges[2].start()->latitude() == expectedLat3);
+
+	std::cout << "Graph constructor functions correctly on small data set" << std::endl;
 }
 
 TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[graph]") {
@@ -200,6 +208,8 @@ TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[graph]") {
 	REQUIRE((*it3)->latitude() == lat2);
 	++it3;
 	REQUIRE((*it3)->latitude() == lat1);
+
+	std::cout << "Graph Ctor simple data maintains neighbors correctly" << std::endl;
 }
 
 TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[graph]") {
@@ -255,6 +265,8 @@ TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[graph]") 
 	REQUIRE(node4029->neighbors().back()->airportCode() == 6969);
 
 	REQUIRE(node6969->neighbors().front()->airportCode() == 4029);
+
+	std::cout << "Graph Ctor maintains propor neighbors correctly (medium complexity)" << std::endl;
 }
 
 TEST_CASE("Graph Ctor doesn't add repeat nodes", "[graph]") {
@@ -273,6 +285,7 @@ TEST_CASE("Graph Ctor doesn't add repeat nodes", "[graph]") {
 	REQUIRE(node2965->neighbors().size() == 1);
 	REQUIRE(node2990->neighbors().size() == 4);
 
+	std::cout << "Graph Ctor doesn't add repeat nodes" << std::endl;
 }
 
 TEST_CASE("Graph Ctor does nothing with null or invalid airports", "[graph]") {
@@ -303,6 +316,8 @@ TEST_CASE("Graph Ctor does nothing with null or invalid airports", "[graph]") {
 
 	// Ensure null node stored at 7167 in nodes_
 	REQUIRE(nodes[7167]->airportCode() == -1);
+
+	std::cout << "Graph Ctor does nothing with null or invalid airports" << std::endl;
 }
 
 
@@ -325,6 +340,8 @@ TEST_CASE("Graph Ctor compiles on full data set", "[graph]") {
 	REQUIRE(nodes[2913]->neighbors().back()->airportCode() == 2990);
 	REQUIRE(nodes[2912]->neighbors().back()->airportCode() == 2990);
 
+	std::cout << "Graph Ctor compiles on full data set" << std::endl;
+
 }
 
 TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
@@ -334,9 +351,7 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 	for (unsigned long i = 0; i < vector1.size(); i++) {
 		cout << "vector1 " << vector1[i] << endl;
 	}*/
-	//REQUIRE
 	
-	cout << "BFS test started" << endl;
 	Graph graph2("tests/smallRoutes2.txt", "tests/smallAirports2.txt");
 	BFS bfs2(graph2, graph2.getFirstNode());
 	vector<int> vector2 = bfs2.traverse();
@@ -346,6 +361,8 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 	}
 	//delete graph2;
 	//delete bfs2;
+
+	std::cout << "BFS Traversal traverses through a Graph correctly" << std::endl;
 }
 
 TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]") {
@@ -355,7 +372,7 @@ TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]
 	MapPrinter mapprinter(graph, background);
 	mapprinter.print("testSimple.png");
 
-	//REQUIRE()
+	std::cout << "MapPrinter prints an input image with no modification" << std::endl;
 }
 
 TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
@@ -365,6 +382,8 @@ TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
 	MapPrinter mapprinter(graph, background);
 	mapprinter.addPoint(Node(1, 0.0, 0.0));
 	mapprinter.print("testOneIndpndntPoint.png");
+
+	std::cout << "MapPrinter prints points/nodes on the input image" << std::endl;
 }
 
 TEST_CASE("MapPrinter prints a line", "[mapprinter][path]") {
@@ -380,6 +399,8 @@ TEST_CASE("MapPrinter prints a line", "[mapprinter][path]") {
 
 	delete node1;
 	delete node2;
+
+	std::cout << "MapPrinter prints a line correctly" << std::endl;
 }
 
 TEST_CASE("MapPrinter prints a route", "[mapprinter][route]") {
@@ -400,6 +421,8 @@ TEST_CASE("MapPrinter prints a route", "[mapprinter][route]") {
 	mapprinter.addRoute(route2);
 	mapprinter.print("testRoute.png");
 
+	std::cout << "MapPrinter prints a route correctly" << std::endl;
+
 }
 
 TEST_CASE("Test Dijkstra test on small data", "[dijkstra]") {
@@ -413,10 +436,7 @@ TEST_CASE("Test Dijkstra test on small data", "[dijkstra]") {
 	Node* node2962 = node[2962];
 
 	vector<Node*> route1 = graph.shortestPath(2966, 6969);
-	cout << "route1 complete" << endl;
 	vector<Node*> route2 = graph.shortestPath(4078, 2962);
-	cout << "route2 complete" << endl;
-
 	
 	vector<Node*> expected1{node2966, node[2962], node6969};
 	vector<Node*> expected2{node4078, node[2968], node[2990], node[2966], node2962}; 
@@ -434,6 +454,8 @@ TEST_CASE("Test Dijkstra test on small data", "[dijkstra]") {
 	REQUIRE(route2[2]->airportCode() == 2990);
 	REQUIRE(route2[3]->airportCode() == 2966);
 	REQUIRE(route2[4]->airportCode() == 2962);
+
+	std::cout << "Dijkstra test on small data passes" << std::endl;
 
 	/*
 	Test Verification
@@ -502,6 +524,8 @@ TEST_CASE("testDijkstraMedium", "[dijkstra]") {
 	REQUIRE(route2.size() == expected2.size());
 	REQUIRE(temp.getRouteDistance(route1) == temp.getRouteDistance(expected1));
 	REQUIRE(temp.getRouteDistance(route2) == temp.getRouteDistance(expected2));
+
+	std::cout << "Dijkstra test passes on medium data" << std::endl;
 }
 
 TEST_CASE("Easy Dijkstra test on full data", "[dijkstra]") {
@@ -519,6 +543,8 @@ TEST_CASE("Easy Dijkstra test on full data", "[dijkstra]") {
 	REQUIRE(route[0] == node4075);
 	REQUIRE(route[1] == node2006);
 	REQUIRE(route[2] == node2047);
+
+	std::cout << "Dijkstra test passes on full data" << std::endl;
 
 	/*
 	TEST VERIFICATION
