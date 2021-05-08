@@ -92,21 +92,25 @@ int main() {
         std::cout << "Initializing Airports..." << std::endl;
         Airports airportsME("dataset/airports.txt");
         airports = airportsME;
-        std::cout << "Initialization complete." << std::endl;
+        std::cout << "Airports initialization complete." << std::endl;
+        std::cout << std::endl;
     } else if (filepath == "1") {
         std::cout << "You have chosen to use a shorted airports dataset (tests/airportsDataMedium.txt)." << std::endl;
         std::cout << "Initializing Airports..." << std::endl;
-        Airports airportsME("dataset/airports.txt");
+        Airports airportsME("tests/airportsDataMedium.txt");
         airports = airportsME;
-        std::cout << "Initialization complete." << std::endl;
+        std::cout << "Airports initialization complete." << std::endl;
+        std::cout << std::endl;
     } else {
         std::cout << "You have chosen to use " << filepath << " as your airports dataset." << std::endl;
         std::cout << "Initializing Airports..." << std::endl;
-        Airports airportsME("dataset/airports.txt");
+        Airports airportsME(filepath);
         airports = airportsME;
-        std::cout << "Initialization complete." << std::endl;
+        std::cout << "Airports initialization complete." << std::endl;
+        std::cout << std::endl;
     }
 
+    /*
     std::cout << "Initializing..." << std::endl;
     //Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
     Graph graph("dataset/routes.txt", "dataset/airports.txt");
@@ -114,6 +118,47 @@ int main() {
     //Airports airports("dataset/airports.txt");
     std::cout << "Initializion Complete." << std::endl;
     std::cout << std::endl;
+    */
+
+    // Initialize Graph. Provide prompt for user to specify data
+    std::cout << "Please specify an routes dataset to use for this program. Your input must correctly include the filepath as well." << std::endl;
+    std::cout << "(Input 0 if you would like to default to the full dataset or 1 if you would like to use a shortened dataset)" << std::endl; 
+    std::cout << "WARNING: The program will seg fault if your data doesn't match the formatting of routes.txt OR if your routes data doesn't correspond to the EXACT SAME airports data as you input above." << std::endl;
+    std::cout << std::endl;
+
+    std::string filepath2;
+    std::cin >> filepath2;
+
+    while (std::cin.fail()) {
+        std::cout << "You have entered an invalid filepath. Please enter a valid string filepath for your dataset." << std::endl;
+        std::cin.clear();
+        std::cin.ignore(256,'\n');
+        std::cin >> filepath2;
+    }
+
+    Graph graph;
+    if (filepath2 == "0") {
+        std::cout << "You have chosen to use the full routes dataset." << std::endl;
+        std::cout << "Initializing routes..." << std::endl;
+        Graph graphME("dataset/routes.txt", "dataset/airports.txt");
+        graph = graphME;
+        std::cout << "Routes initialization complete." << std::endl;
+        std::cout << std::endl;
+    } else if (filepath2 == "1") {
+        std::cout << "You have chosen to use a shorted routes dataset (tests/routesDataMedium.txt)." << std::endl;
+        std::cout << "Initializing routes..." << std::endl;
+        Graph graphME("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
+        graph = graphME;
+        std::cout << "Routes initialization complete." << std::endl;
+        std::cout << std::endl;
+    } else {
+        std::cout << "You have chosen to use " << filepath2 << " as your routes dataset." << std::endl;
+        std::cout << "Initializing routes..." << std::endl;
+        Graph graphME(filepath2, filepath);
+        graph = graphME;
+        std::cout << "Routes initialization complete." << std::endl;
+        std::cout << std::endl;
+    }
 
     // Suggesting a few airports.
     std::srand(time(NULL));
