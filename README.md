@@ -2,6 +2,14 @@
 
 ## Team Members: Giwon Jung, Krystyna Madel, and Zach Cacini
 
+### "The README clearly and succintly describes the following
+
+The linkage and location of all major code, data, and results
+
+The necessary commands to run the assignment are well described and include instructions for selecting the input dataset and output location
+
+The test suite is well described and instructions on how to reproduce the tests are provided."
+
 **Our Project**
 
 For our final project, we have decided to implement a graph-based flight routing program. The OpenFlights Data Set (https://openflights.org/data.html) provides our team access to over 67,000 flight routes and over 10,000 airports to contruct our edges and nodes, respectively. We weigh our edges using the physical distance between the two airports, and using DIjkstra's Shortest Path Algorithm, we are able to output the shortest path between any two nodes and the graphical output onto a map. 
