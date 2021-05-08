@@ -36,7 +36,7 @@ The user will have to input an integer airport code for the code to find the rou
 
 **Output**
 
-Our code will output the names and airport codes of the list of airports representing the shortest path between the source and destination airports directly to the terminal. The user has a choice to specify a png for where they would like to have the map graphical output stored, or they can default to output.png. The green square represents the start airport, and the purple square represents the destination airport.
+Our code will output the names and airport codes of the list of airports representing the shortest path between the source and destination airports directly to the terminal. The user has a choice to specify a filename ending in .png for where they would like to have the map graphical output stored, or they can default to output.png. The green square represents the start airport, and the purple square represents the destination airport.
 
 **Test Suite**
 
