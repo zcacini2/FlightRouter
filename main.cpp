@@ -7,6 +7,9 @@
 
 #include <string>
 #include <iostream>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 
 bool isValidAirport(Airports airports, int airportCode, Graph graph) {
 
@@ -18,7 +21,24 @@ bool isValidAirport(Airports airports, int airportCode, Graph graph) {
     
     Node* node = graph.getNode(airportCode);
     if (node->neighbors().size() == 0) {
-        std::cout << "This airport has no provided routes to any other airport. Please choose a different airport." << std::endl;
+        std::cout << airports.name(airportCode) << " has no provided routes to any other airport. Please choose a different airport." << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool isValidAirportSuppressedOutput(Airports airports, int airportCode, Graph graph) {
+
+    if (airportCode < 0) {
+        return false;
+    } else if (airports.latitude(airportCode) == -1000) {
+        return false;
+    } 
+    
+    Node* node = graph.getNode(airportCode);
+    if (node->neighbors().size() == 0) {
+        //std::cout << airports.name(airportCode) << " has no provided routes to any other airport. Please choose a different airport." << std::endl;
         return false;
     }
 
@@ -49,13 +69,23 @@ int main() {
     std::cout << "Our platform provides both a listing of airports to travel through and a graphical map output to aid your travels." << std::endl;
     std::cout << std::endl;
 
-    /*
-    std::cout << "Please enter a string for the file you would like to use for airports. Use 0 to default to full airports dataset" << std::cout;
-    std::cout << "(Include the file path if you choose to use  different dataset)" << std::endl;
-    std::cout << "Other defaults: 1"
+    // Suggesting a few airports.
+    std::srand(time(NULL));
+    int num = std::rand() % airports.size();
+    int num2 = std::rand() % airports.size();
+    //int num3 = std::rand() % airports.size();
+
+    while (!isValidAirportSuppressedOutput(airports, num, graph)) {
+        num = std::rand() % airports.size();
+    }
+
+    while (!isValidAirportSuppressedOutput(airports, num2, graph)) {
+        num2 = std::rand() % airports.size();
+    }
+
+    std::cout << "What is your origin airport? (Please input a valid airport code found in the ReadME file)" << std::endl; 
+    std::cout << "Some examples include " << airports.name(num) << " (" << num << ") or " <<  airports.name(num2) << " (" << num2 << ")" << std::endl;
     std::cout << std::endl;
-    */
-    std::cout << "What is your origin airport? (Please input a valid airport code found in the ReadME file)" << std::endl;
 
     // Take in origin airport and provide invalid input protections
     int origin;
@@ -95,7 +125,20 @@ int main() {
     int dest;
     std::cout << "You have confirmed " << airports.name(origin) << " (" << origin <<  ") as your origin airport." << std::endl;
     std::cout << std::endl;
+
+    num = std::rand() % airports.size();
+    while (!isValidAirportSuppressedOutput(airports, num, graph)) {
+        num = std::rand() % airports.size();
+    }
+
+    num2 = std::rand() % airports.size();
+    while (!isValidAirportSuppressedOutput(airports, num2, graph)) {
+        num2 = std::rand() % airports.size();
+    }
+
     std::cout << "What is your destination airport? (Please input a valid airport code found in the ReadME file)" << std::endl;
+    std::cout << "Some examples include " << airports.name(num) << " (" << num << ") or " <<  airports.name(num2) << " (" << num2 << ")" << std::endl;
+    std::cout << std::endl;
     std::cin >> dest;
 
     while (std::cin.fail() || !isValidAirport(airports, dest, graph)) {
@@ -186,6 +229,9 @@ int main() {
     // Direct user to open file to see the route
     std::cout << "The shortest path between " << origin << " and " << dest << " is displayed above. To view the path on a map, please open " << filename << std::endl;
     std::cout << "Thank you for using FlightRouter! If you would like to route another trip, please simply type in ./finalproj after this message!" << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
 
     return 0;
 }
