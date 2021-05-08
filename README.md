@@ -32,7 +32,7 @@ Our code will output the names and airport codes of the list of airports represe
 
 **Test Suite**
 
-All of our tests are included in the tests folder of our project in the tests.cpp file. 
+All of our tests are included in the tests folder of our project in the tests.cpp file. We have 23 test cases. To build the test suite, please run `make test` in the main directory terminal. Then, to run all test cases, run `./test`. To run specific groups of test, we have provided special codes. To run all test cases regarding the Airports class, run `./test [airports]`. To run all test cases regarding the Edge class, run `./test [edge]`. To run all test cases regarding the Node class, run `./test [node]`. To run all test cases regarding the Graph class, run `./test [graph]`. To run all test cases regarding the BFS class, run `./test [bfs]`. To run all test cases regarding the MapPrinter class, run `./test [mapprinter]`. To run all test cases regarding the Shortest Path Algorithm, run `./test [dijkstra]`.
 
 README which describes: (1) The location of all major code, data, and results. (2) Full instructions on how to build and run your executable, including how to define the input data and output location for each method. (3) Full instructions how to build and run your test suite, including a general description on what tests you have created. It is in your best interest to make the instructions (and the running of your executables and tests) as simple and straightforward as possible.
 
