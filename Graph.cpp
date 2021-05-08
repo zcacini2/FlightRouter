@@ -15,7 +15,7 @@ typedef pair<double, int> distanceToNode;
 Graph::Graph() { }
 
 Graph::~Graph() {
-  //nodes_.clear();
+
   for (unsigned long i = 0; i < nodes_.size(); i++) {
     if (nodes_[i] != nullptr && nodes_[i] != NULL) {
       delete nodes_[i];
@@ -23,6 +23,7 @@ Graph::~Graph() {
     }
   }
   nodes_.clear();
+
 }
 
 /**
@@ -99,6 +100,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
 
       Node* _source = new Node(sourceID, sourceLat, sourceLng);
       source = _source;
+
       delete nodes_[sourceID];
       nodes_[sourceID] = source;
 
@@ -117,6 +119,7 @@ Graph::Graph(const std::string & routesFile, const std::string & airportsFile) {
       Node* _dest = new Node(destID, destLat, destLng);
       dest = _dest;
 
+      delete nodes_[destID];
       nodes_[destID] = dest;
 
     } else if (areBothValid == true) {
