@@ -16,6 +16,8 @@ An entry in the routes.txt file is as follows: 3E,10739,ORD,3830,DEC,4042,,0,CNC
 
 **Code Base**
 
+Our code has 6 important classes that all reside in the main project folder. The first class is Airports found in Airports.h. This class is is used as a coding/decoding process with the airports.txt file and the airport codes found in the routes.txt file. This will be used as an external storage process to simplify Graph. The second class is BFS found in BFS.h. This class provides a BFS traversal of the graph. The third class is the Edge class found in Edge.h. This class represents an edge. It maintains the start and end airport as well as the distance between them. The fourth and most important class is Graph found in Graph.h. This class is responsible for the graph constructor (parsing the routes.txt file and building every node and edge from each entry) and our implementaion of the Dijkstra Shortest Path algorithm. The fifth class is MapPrinter found in mapprinter.h. This class maintains all of the logic to print a shortest path onto a Mercator Projection Map. The last class is the Node class found in Node.h. This class is the definition of a node and maintains its own airport code, latitude, longitude, a list of all neighbors (Node*), and a list of all neighbors (int airport codes). 
+
 
 
 README which describes: (1) The location of all major code, data, and results. (2) Full instructions on how to build and run your executable, including how to
