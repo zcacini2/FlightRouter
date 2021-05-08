@@ -7,7 +7,9 @@
 
 #include "readFromFile.hpp"
 
-
+Airports::Airports() {
+  
+}
 
 /** 
  * This method will handle the airport coder/decoder. This will be maintained as 2 vectors. The vector's

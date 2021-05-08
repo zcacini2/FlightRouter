@@ -16,6 +16,11 @@
 class Airports {
     public:
 
+        /**
+         * Default airports ctor
+         */
+        Airports();
+
         /** 
          * This constructor will handle the airport coder/decoder. This will be maintained as 2 vectors. The vectors'
          * indices correspond to the OpenFlights ID. This will aid the creation of nodes by matching airport ID
