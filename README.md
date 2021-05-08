@@ -24,7 +24,12 @@ An entry in the routes.txt file is as follows: 3E,10739,ORD,3830,DEC,4042,,0,CNC
 
 **Code Base**
 
-Our code has 6 important classes that all reside in the main project folder. The first class is Airports found in Airports.h. This class is is used as a coding/decoding process with the airports.txt file and the airport codes found in the routes.txt file. This will be used as an external storage process to simplify Graph. The second class is BFS found in BFS.h. This class provides a BFS traversal of the graph. The third class is the Edge class found in Edge.h. This class represents an edge. It maintains the start and end airport as well as the distance between them. The fourth and most important class is Graph found in Graph.h. This class is responsible for the graph constructor (parsing the routes.txt file and building every node and edge from each entry) and our implementaion of the Dijkstra Shortest Path algorithm. The fifth class is MapPrinter found in mapprinter.h. This class maintains all of the logic to print a shortest path onto a Mercator Projection Map. The last class is the Node class found in Node.h. This class is the definition of a node and maintains its own airport code, latitude, longitude, a list of all neighbors (Node*), and a list of all neighbors (int airport codes). 
+Our code has 6 important classes that all reside in the main project folder. The first class is Airports found in Airports.h. This class is is used as a coding/decoding process with the airports.txt file and the airport codes found in the routes.txt file. This will be used as an external storage process to simplify Graph. Airports stores two vectors; the first holds the names of the airports by airport code, and the second hold the latitude and longitude of the airports by airport code. 
+The second class is BFS found in BFS.h. This class provides a BFS traversal of the graph. BFS maintains a vector of booleans of visitied airports, a graph object, and a queue to use for traversal. 
+The third class is the Edge class found in Edge.h. This class represents an edge of the graph (a route between two airports). It maintains the start and end airport as well as the distance between them. 
+The fourth and most important class is Graph found in Graph.h. This class is responsible for the actual graph. This class holds the graph constructor (parsing the routes.txt file and building every node and edge from each entry) and our implementaion of the Dijkstra Shortest Path algorithm. Each graph holds a vector of Node* airports and a vector of Edges. 
+The fifth class is MapPrinter found in mapprinter.h. This class maintains all of the logic to print a shortest path onto a Mercator Projection Map. This class maintains a graph and a PNG for the map.
+The last class is the Node class found in Node.h. This class is the definition of a node that represents an airport. Nodes maintain its own airport code, latitude, longitude, a list of all neighbors (Node*), and a list of all neighbors (int airport codes). 
 
 **User Interaction** 
 
@@ -32,11 +37,18 @@ The user will only interact with main. To build our program, simply enter `make`
 
 **Input Directions** 
 
+The user has a choice to specify their dataset or to use default datasets. If the user decides to use their own dataset, the user is responsible for ensuring the following:
+  1. The filepaths specified are correct and complete (meaning that the computer will recognize where it is within the main project directory).
+  2. Both the airports and routes datasets match the formatting of the OpenFlights data sets uses to construct the project.
+  3. The airports and routes data correspond to each other (If there are routes with airport codes not included in the airports dataset, the program will crash).
+  
+As a result, it is typically easier to use the datasets provided; however, if you have datasets that match there criteria, feel free to use them!
+
 The user will have to input an integer airport code for the code to find the route. The full listing of possible integer airport codes is found in airports.txt, found in the dataset folder of our project. Here, like explained earlier, all airport codes and coresponding airport names are found. If you would like to search for a specific airport code for a certin airport, use your machines "Find on Page" feature. For Mac users, this will be Command + F. For Windows users, this will be Control + F. To search for the airport code for London Heathrow Airport, simply enter London Heathrow Airport. Also, due to the extra airport qualifiers in each entry, a search of United Kingdom will bring up all airports in the United Kingdom. Some airports included in the airports.txt file do not have any provided routes to or from itself in the routes.txt file. If you choose an airport without any routes, the system will tell you that there are no routes through this airport and that it is invalid. Please choose a different airport because we have no data on this airport to find the shortest path.
 
 **Output**
 
-Our code will output the names and airport codes of the list of airports representing the shortest path between the source and destination airports directly to the terminal. The user has a choice to specify a filename ending in .png for where they would like to have the map graphical output stored, or they can default to output.png. The green square represents the start airport, and the purple square represents the destination airport.
+Our code will output the names and airport codes of the list of airports representing the shortest path between the source and destination airports directly to the terminal. The user has a choice to specify a filename ending in .png for where they would like to have the map graphical output stored, or they can default to output.png. The purple square represents the start airport, and the green square represents the destination airport.
 
 **Test Suite**
 
