@@ -13,7 +13,7 @@
 
 bool isValidAirport(Airports airports, int airportCode, Graph graph) {
 
-    if (airportCode < 0) {
+    if (airportCode < 0 || airportCode > 14110) {
         return false;
     } else if (airports.latitude(airportCode) == -1000) {
         return false;
