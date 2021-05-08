@@ -2,7 +2,7 @@
 
 # Team Members: Giwon Jung, Krystyna Madel, and Zach Cacini
 
-** Our Project **
+**Our Project **
 
 README which describes: (1) The location of all major code, data, and results. (2) Full instructions on how to build and run your executable, including how to
 define the input data and output location for each method. (3) Full instructions how to build and run your test suite, including a general description on what 
