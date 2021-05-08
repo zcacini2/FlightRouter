@@ -18,10 +18,21 @@ An entry in the routes.txt file is as follows: 3E,10739,ORD,3830,DEC,4042,,0,CNC
 
 Our code has 6 important classes that all reside in the main project folder. The first class is Airports found in Airports.h. This class is is used as a coding/decoding process with the airports.txt file and the airport codes found in the routes.txt file. This will be used as an external storage process to simplify Graph. The second class is BFS found in BFS.h. This class provides a BFS traversal of the graph. The third class is the Edge class found in Edge.h. This class represents an edge. It maintains the start and end airport as well as the distance between them. The fourth and most important class is Graph found in Graph.h. This class is responsible for the graph constructor (parsing the routes.txt file and building every node and edge from each entry) and our implementaion of the Dijkstra Shortest Path algorithm. The fifth class is MapPrinter found in mapprinter.h. This class maintains all of the logic to print a shortest path onto a Mercator Projection Map. The last class is the Node class found in Node.h. This class is the definition of a node and maintains its own airport code, latitude, longitude, a list of all neighbors (Node*), and a list of all neighbors (int airport codes). 
 
+**User Interaction** 
 
+The user will only interact with main. To build our program, simply enter `make` into the main directory terminal. Once this command finishes, please then type `./finalproj` into the main directory terminal. The user should then be provided a seamless experience with directions to input their desired source airport and destination airport. 
 
-README which describes: (1) The location of all major code, data, and results. (2) Full instructions on how to build and run your executable, including how to
-define the input data and output location for each method. (3) Full instructions how to build and run your test suite, including a general description on what 
-tests you have created. It is in your best interest to make the instructions (and the running of your executables and tests) as simple and straightforward as 
-possible.
+**Input Directions** 
+
+The user will have to input an integer airport code for the code to find the route. The full listing of possible integer airport codes is found in airports.txt, found in the dataset folder of our project. Here, like explained earlier, all airport codes and coresponding airport names are found. If you would like to search for a specific airport code for a certin airport, use your machines "Find on Page" feature. For Mac users, this will be Command + F. For Windows users, this will be BLANK. To search for the airport code for London Heathrow Airport, simply enter London Heathrow Airport. Also, due to the extra airport qualifiers in each entry, a search of United Kingdom will bring up all airports in the United Kingdom. Some airports included in the airports.txt file do not have any provided routes to or from itself in the routes.txt file. If you choose an airport without any routes, the system will tell you that there are no routes through this airport and that it is invalid. Please choose a different airport because we have no data on this airport to find the shortest path.
+
+**Output**
+
+Our code will output the names and airport codes of the list of airports representing the shortest path between the source and destination airports directly to the terminal. The user has a choice to specify a png for where they would like to have the map graphical output stored, or they can default to output.png. 
+
+**Test Suite**
+
+All of 
+
+README which describes: (1) The location of all major code, data, and results. (2) Full instructions on how to build and run your executable, including how to define the input data and output location for each method. (3) Full instructions how to build and run your test suite, including a general description on what tests you have created. It is in your best interest to make the instructions (and the running of your executables and tests) as simple and straightforward as possible.
 
