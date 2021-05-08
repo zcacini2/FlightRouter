@@ -1,1 +1,0 @@
-readFromFile.o: readFromFile.cpp

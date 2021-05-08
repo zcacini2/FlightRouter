@@ -352,14 +352,15 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 		cout << "vector1 " << vector1[i] << endl;
 	}*/
 	
-	Graph graph2("tests/smallRoutes2.txt", "tests/smallAirports2.txt");
-	BFS bfs2(graph2, graph2.getFirstNode());
+	Graph* graph2 = new Graph("tests/smallRoutes2.txt", "tests/smallAirports2.txt");
+	BFS bfs2(*graph2, graph2->getFirstNode());
 	vector<int> vector2 = bfs2.traverse();
 	vector<int> expected2{1, 2, 3, 4, 5, 6}; 
 	for (unsigned long i = 0; i < vector2.size(); i++) {
 		REQUIRE(expected2[i] == vector2[i]);
 	}
-	//delete graph2;
+	delete graph2;
+	graph2 = nullptr;
 	//delete bfs2;
 
 	std::cout << "BFS Traversal traverses through a Graph correctly" << std::endl;
