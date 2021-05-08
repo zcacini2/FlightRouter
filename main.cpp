@@ -53,17 +53,6 @@ bool isOneOrZero(int num) {
 
 int main() {
 
-    /*
-    // Initialize Graph and Airports. Provide prompt for user to specify data
-    std::cout << "Initializing..." << std::endl;
-    //Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
-    Graph graph("dataset/routes.txt", "dataset/airports.txt");
-    //Airports airports("tests/airportsDataMedium.txt");
-    Airports airports("dataset/airports.txt");
-    std::cout << "Initializion Complete." << std::endl;
-    std::cout << std::endl;
-    */
-
     std::cout << "Hello, and welcome to FlightRouter!" << std::endl;
     std::cout << "We are a flight routing platform that has access to over 10,000 airports and over 60,000 flight routes." << std::endl;
     std::cout << "Using this data, we are able to provide you with the shortest route between any two airports in the world! "; // << std::endl;
@@ -73,7 +62,7 @@ int main() {
     // Initialize Graph and Airports. Provide prompt for user to specify data
     std::cout << "Please specify an airports dataset to use for this program. Your input must correctly include the filepath as well." << std::endl;
     std::cout << "(Input 0 if you would like to default to the full dataset or 1 if you would like to use a shortened dataset)" << std::endl; 
-    std::cout << "NOTE: The program will likely seg fault if your data doesn't match the formatting of airports.txt" << std::endl;
+    std::cout << "WARNING: The program will likely seg fault if your data doesn't match the formatting of airports.txt" << std::endl;
     std::cout << std::endl;
 
     std::string filepath;
@@ -109,16 +98,6 @@ int main() {
         std::cout << "Airports initialization complete." << std::endl;
         std::cout << std::endl;
     }
-
-    /*
-    std::cout << "Initializing..." << std::endl;
-    //Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
-    Graph graph("dataset/routes.txt", "dataset/airports.txt");
-    //Airports airports("tests/airportsDataMedium.txt");
-    //Airports airports("dataset/airports.txt");
-    std::cout << "Initializion Complete." << std::endl;
-    std::cout << std::endl;
-    */
 
     // Initialize Graph. Provide prompt for user to specify data
     std::cout << "Please specify an routes dataset to use for this program. Your input must correctly include the filepath as well." << std::endl;
