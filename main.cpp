@@ -73,7 +73,6 @@ int main() {
     std::srand(time(NULL));
     int num = std::rand() % airports.size();
     int num2 = std::rand() % airports.size();
-    //int num3 = std::rand() % airports.size();
 
     while (!isValidAirportSuppressedOutput(airports, num, graph)) {
         num = std::rand() % airports.size();
@@ -185,11 +184,6 @@ int main() {
     }
     std::cout << airports.name(route[route.size() - 1]->airportCode()) << " (" << route[route.size() - 1]->airportCode() << ")" << std::endl;
     std::cout << std::endl;
-    /*
-    for (unsigned i = 0; i < route.size() - 1; i++) { 
-        std::cout << route[i]->() << " -> ";
-    }
-    */
 
     // Output route distance
     double distance = route[1]->getRouteDistance(route);
@@ -231,7 +225,6 @@ int main() {
     std::cout << "Thank you for using FlightRouter! If you would like to route another trip, please simply type in ./finalproj after this message!" << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-
 
     return 0;
 }
