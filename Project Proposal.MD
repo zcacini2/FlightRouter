@@ -7,7 +7,7 @@ Google Doc Link: https://docs.google.com/document/d/1cuo78FzsqoF4lvTw05_gfvHy_nq
 Leading Question: 
 
 We will create a routing search tool for flights using flight path data. Since June 2014, this data set has been updated with flight data from over 67,000 routes, 
-between over 3300 airports, and carried by over 500 different airlines. Additional data that is provided is airport coordinates. We hope to use this information to 
+between about 7000 airports and carried by over 500 different airlines. Additional data that is provided is airport coordinates. We hope to use this information to 
 weigh the different paths according to distance between airports. Using this weighting scheme, we would be able to find the shortest (physical distance) path 
 between any airport in the world. Secondarily, we will use the graph to construct a visual mapping of these routes. 
 
@@ -18,13 +18,13 @@ user input. The exact options and inputs are still to be determined.
 
 Dataset Acquisition and Processing: 
 
-We have chosen to use the OpenFlights Data Set (https://openflights.org/data.html). The website above provides raw 2017 data of about 14 000 airports as well as 
+We have chosen to use the OpenFlights Data Set (https://openflights.org/data.html). The website above provides raw 2017 data of about 7000 airports as well as 
 raw route data from 2014, which details source and destination airports for over 67 000 routes. The route data, along with the airport data, can be used to figure 
 out what real world connections exist between airports, as well as what their distances are.  This data comes in raw text form in a comma separated format. With 
 that in mind, we will have to process and organize the data into a database that will suit our needs and leave out the unnecessary details included. We are unsure 
 exactly what this final database will look like, but it will likely remain in some sort of comma-separated text format. The source website has some discrepancies 
 in terms of the data it provides; most notably, the airport data posted is from 2017 whereas the route data is from 2014, so there are bound to be situations 
-where there are airports with no routes  and routes with airports that may not exist anymore. We will have to implement checks into our code that output an error 
+where there are airports with no routes and routes with airports that may not exist anymore. We will have to implement checks into our code that output an error 
 message specific to these cases and any others we find on the way.
 
 Graph Algorithms: 
