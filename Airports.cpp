@@ -126,3 +126,6 @@ unsigned Airports::size() {
   return lat_long.size();
 }
 
+std::vector<std::string> Airports::getNames() {
+  return names;
+}
