@@ -17,7 +17,7 @@
 using namespace std;
 using namespace cs225;
 
-TEST_CASE("Verify that file_to_string works on a small example", "[readFile]") {
+TEST_CASE("Verify that file_to_string works on a small example", "[readFile][1]") {
 	std::string res = file_to_string("tests/smallSample.txt");
 	// always check "expected" == "actual" --> be consistent
 
@@ -25,7 +25,7 @@ TEST_CASE("Verify that file_to_string works on a small example", "[readFile]") {
 	REQUIRE("hello\nstudents\nof\ncs\n225\n!!!\n" == res);
 }
 
-TEST_CASE("Verify that file_to_vector works on a small example", "[readFile]") {
+TEST_CASE("Verify that file_to_vector works on a small example", "[readFile][2]") {
 	std::vector<std::string> res = file_to_vector("tests/smallSample.txt");
 	std::string expected[] = {"hello", "students", "of", "cs", "225", "!!!"};
 
@@ -42,7 +42,7 @@ TEST_CASE("Verify that file_to_vector works on a small example", "[readFile]") {
 	}
 }
 
-TEST_CASE("Check Airports ctor populates lat_long correctly", "[airports]") {
+TEST_CASE("Check Airports ctor populates lat_long correctly", "[airports][1]") {
 	Airports airports("tests/airportsDataSmall.txt");
 
 	REQUIRE(airports.latitude(1) == -6.081689834590001);
@@ -55,7 +55,7 @@ TEST_CASE("Check Airports ctor populates lat_long correctly", "[airports]") {
 	std::cout << "Airports class populates lat_long member variable correctly on small data set" << std::endl;
 }
 
-TEST_CASE("Check Airports ctor with full data", "[airports]") {
+TEST_CASE("Check Airports ctor with full data", "[airports][2]") {
 	Airports airports("dataset/airports.txt");
 
 	REQUIRE(airports.latitude(45) == 49.21080017089844);
@@ -69,7 +69,7 @@ TEST_CASE("Check Airports ctor with full data", "[airports]") {
 	std::cout << "Airports class populates lat_long member variable correctly on full data set" << std::endl;
 }
 
-TEST_CASE("Check Airports ctor populates names correctly", "[airports]") {
+TEST_CASE("Check Airports ctor populates names correctly", "[airports][3]") {
 	Airports airports("tests/airportsDataSmall.txt");
 
 	REQUIRE(airports.name(1) == "Goroka Airport");
@@ -79,7 +79,7 @@ TEST_CASE("Check Airports ctor populates names correctly", "[airports]") {
 	std::cout << "Airports class populates names member variable correctly on small data set" << std::endl;
 }
 
-TEST_CASE("Check Airports ctor populates names with full data", "[airports]") {
+TEST_CASE("Check Airports ctor populates names with full data", "[airports][4]") {
 	Airports airports("dataset/airports.txt");
 
 	REQUIRE(airports.name(45) == "Deer Lake Airport");
@@ -89,8 +89,17 @@ TEST_CASE("Check Airports ctor populates names with full data", "[airports]") {
 	std::cout << "Airports class populates names member variable correctly on full data set" << std::endl;
 }
 
+TEST_CASE("Check Airports ctor populates with correct size", "[airports][5]") {
+	Airports airports("dataset/airports.txt");
 
-TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)", "[edge]") {
+	// size should be equal to one greater than largest airport code
+	REQUIRE(airports.size() == 14111);
+
+	std::cout << "Airports class populates with correct size on full data set" << std::endl;
+}
+
+
+TEST_CASE("Check that Edge class calculates distance correctly (requires Node and Edge to work)", "[edge][1]") {
 	//sample lat long coordinates from google
 	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
 	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
@@ -120,7 +129,17 @@ TEST_CASE("Check that Edge class calculates distance correctly (requires Node an
 	std::cout << "Edge class calculates distance correctly" << std::endl;
 }
 
-TEST_CASE("Test functionality of areNeighbors", "[node]") {
+TEST_CASE("Edge populates with correct start and end nodes", "[edge][2]") {
+	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
+	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
+
+	Edge ORDtoJFK(ORD, JFK);
+
+	REQUIRE(ORDtoJFK.start() == ORD);
+	REQUIRE(ORDtoJFK.end() == JFK);
+}
+
+TEST_CASE("Test functionality of areNeighbors", "[node][1]") {
 	Node* node1 = new Node(123, 65.666, 34.44);
 	Node* node2 = new Node(345, -65.22, 90.4565);
 
@@ -135,7 +154,7 @@ TEST_CASE("Test functionality of areNeighbors", "[node]") {
 	std::cout << "Node::areNeighbors functions correctly" << std::endl;
 }
 
-TEST_CASE("testNodeDistance" , "[node]") {
+TEST_CASE("testNodeDistance" , "[node][2]") {
 	Node* ORD = new Node(3830, 41.9773, -87.8369); //chicago
 	Node* JFK = new Node(3797, 40.6413, -73.5581); //NY
 	Node* ICN = new Node(3930, 37.4602, 126.4407); //icheon
@@ -161,7 +180,7 @@ TEST_CASE("testNodeDistance" , "[node]") {
 	std::cout << "Node::distance() functions correctly" << std::endl;
 }
 
-TEST_CASE("Test sample data on Graph Ctor", "[graph]") {
+TEST_CASE("Test sample data on Graph Ctor", "[graph][1]") {
 	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges(); 
@@ -181,7 +200,7 @@ TEST_CASE("Test sample data on Graph Ctor", "[graph]") {
 	std::cout << "Graph constructor functions correctly on small data set" << std::endl;
 }
 
-TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[graph]") {
+TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[graph][2]") {
 
 	Graph graph("tests/routesSimpleDataSmall.txt", "tests/airportsDataSmall.txt");
 	vector<Node*> nodes = graph.getNodes();
@@ -212,7 +231,7 @@ TEST_CASE("Graph Ctor simple data maintains neighbors correctly", "[graph]") {
 	std::cout << "Graph Ctor simple data maintains neighbors correctly" << std::endl;
 }
 
-TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[graph]") {
+TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[graph][3]") {
 
 	/*routesDataMedium.txt
 	2B,410,AER,2965,KZN,2990,,0,CR2
@@ -269,7 +288,7 @@ TEST_CASE("Graph Ctor maintains propor neighbors medium complexity", "[graph]") 
 	std::cout << "Graph Ctor maintains propor neighbors correctly (medium complexity)" << std::endl;
 }
 
-TEST_CASE("Graph Ctor doesn't add repeat nodes", "[graph]") {
+TEST_CASE("Graph Ctor doesn't add repeat nodes", "[graph][4]") {
 	Graph graph("tests/routesRepeat.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 
@@ -288,7 +307,7 @@ TEST_CASE("Graph Ctor doesn't add repeat nodes", "[graph]") {
 	std::cout << "Graph Ctor doesn't add repeat nodes" << std::endl;
 }
 
-TEST_CASE("Graph Ctor does nothing with null or invalid airports", "[graph]") {
+TEST_CASE("Graph Ctor does nothing with null or invalid airports", "[graph][5]") {
 
 	/*
 	2B,410,AER,2965,KZN,2990,,0,CR2
@@ -321,7 +340,7 @@ TEST_CASE("Graph Ctor does nothing with null or invalid airports", "[graph]") {
 }
 
 
-TEST_CASE("Graph Ctor compiles on full data set", "[graph]") {
+TEST_CASE("Graph Ctor compiles on full data set", "[graph][6]") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 	vector<Edge> edges = graph.getEdges();
@@ -366,7 +385,7 @@ TEST_CASE("BFS Traversal traverses through a Graph correctly", "[bfs]") {
 	std::cout << "BFS Traversal traverses through a Graph correctly" << std::endl;
 }
 
-TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]") {
+TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter][1]") {
 	PNG background;
 	Graph graph;
 	background.readFromFile("background.png");
@@ -376,7 +395,7 @@ TEST_CASE("MapPrinter prints an input image with no modification", "[mapprinter]
 	std::cout << "MapPrinter prints an input image with no modification" << std::endl;
 }
 
-TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
+TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter][2]") {
 	PNG background;
 	Graph graph;
 	background.readFromFile("background.png");
@@ -387,7 +406,7 @@ TEST_CASE("MapPrinter prints points/nodes on the input image", "[mapprinter]") {
 	std::cout << "MapPrinter prints points/nodes on the input image" << std::endl;
 }
 
-TEST_CASE("MapPrinter prints a line", "[mapprinter][path]") {
+TEST_CASE("MapPrinter prints a line", "[mapprinter][path][3]") {
 	PNG background;
 	Graph graph;
 	Node* node1 = new Node(1, 50.0, 50.0);
@@ -404,7 +423,7 @@ TEST_CASE("MapPrinter prints a line", "[mapprinter][path]") {
 	std::cout << "MapPrinter prints a line correctly" << std::endl;
 }
 
-TEST_CASE("MapPrinter prints a route", "[mapprinter][route]") {
+TEST_CASE("MapPrinter prints a route", "[mapprinter][route][4]") {
 	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
 	vector<Node*> node = graph.getNodes();
 
@@ -426,7 +445,7 @@ TEST_CASE("MapPrinter prints a route", "[mapprinter][route]") {
 
 }
 
-TEST_CASE("Test Dijkstra test on small data", "[dijkstra]") {
+TEST_CASE("Test Dijkstra test on small data", "[dijkstra][1]") {
 	Graph graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
 	vector<Node*> node = graph.getNodes();
 
@@ -502,7 +521,7 @@ TEST_CASE("Test Dijkstra test on small data", "[dijkstra]") {
 
 }
 
-TEST_CASE("testDijkstraMedium", "[dijkstra]") {
+TEST_CASE("testDijkstraMedium", "[dijkstra][2]") {
 	
 	Graph graph1 = Graph("tests/routesDataMedium.txt", "tests/airportsDataMedium.txt");
 	vector<Node*> node = graph1.getNodes();
@@ -529,7 +548,7 @@ TEST_CASE("testDijkstraMedium", "[dijkstra]") {
 	std::cout << "Dijkstra test passes on medium data" << std::endl;
 }
 
-TEST_CASE("Easy Dijkstra test on full data", "[dijkstra]") {
+TEST_CASE("Easy Dijkstra test on full data", "[dijkstra][3]") {
 	Graph graph("dataset/routes.txt", "dataset/airports.txt");
 	vector<Node*> nodes = graph.getNodes();
 

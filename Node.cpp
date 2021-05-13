@@ -19,6 +19,7 @@ Node::Node() {
  */
 Node::~Node() {
     neighbors_.clear();
+    neighbors_code_.clear();
 }
 
 /**
@@ -101,7 +102,9 @@ list<Node*> Node::neighbors() {
     return neighbors_;
 }
 
-
+/**
+ * Overloaded Node equality operator
+ */
 bool Node::operator==(const Node &other) const {
 
     if (airportCode_ != other.airportCode_) {
