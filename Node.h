@@ -127,6 +127,9 @@ class Node {
          */
         double getRouteDistance(vector<Node*> route);
 
+        /**
+         * Overloaded Node equality operator
+         */
         bool operator==(const Node &other) const;
 
     private:
