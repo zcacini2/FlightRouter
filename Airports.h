@@ -69,8 +69,6 @@ class Airports {
          * @return string of the airport name for given airport code
          */
         std::string name(int code);
-
-        std::vector<std::string> getNames();
         
     private:
 

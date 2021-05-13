@@ -74,28 +74,6 @@ bool isOneOrZero(int num) {
 
 int main() {
 
-    Airports airports1("dataset/airports.txt");
-    ofstream fw("AIRPORT CODES.txt", std::ofstream::out);
-
-    std::vector<std::string> names = airports1.getNames();
-
-    if (fw.is_open())
-    {
-        fw << "AIRPORT CODE: AIRPORT NAME (Feel free to search this list for the code you are looking for using CTRL + F)" << "\n";
-        for (unsigned long i = 0; i < names.size(); i++) {
-            if (airports1.name(i) == "Name") {
-
-            } else {
-            fw << i << ": ";
-            fw << airports1.name(i) << "\n";
-            }
-        }
-        fw.close();
-    }
-    else cout << "Problem with opening file";
-
-    fw.close();
-
     std::cout << "Hello, and welcome to FlightRouter!" << std::endl;
     std::cout << "We are a flight routing platform that has access to over 10,000 airports and over 60,000 flight routes." << std::endl;
     std::cout << "Using this data, we are able to provide you with the shortest route between any two airports in the world! "; // << std::endl;
