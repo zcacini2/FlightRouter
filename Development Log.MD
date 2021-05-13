@@ -27,3 +27,14 @@ Our shortest path algorith is now fully functional, and we now have an elaborate
 This ties together all of our work into the final product, which is a route finder that the user interacts with by putting in their
 desired origin and destination airports to be given a graphical output of what they asked for. The console gives full user-friendly 
 messages to the user and has many protections built in at this time. The graphical representation of our final product is also fully complete and can now print airports and routes on a map of the world. A few extra tests were also added. At this point, we will just be polishing up a few extra things and working on our final deliverables.
+Responsibilities:
+-Krystyna: Implementing and inspecting graphical representation algorithm (including Bresenham drawing algorithm implementation), fix/rewrite devlog
+-Zach: Help finalize Dijkstra, Complete a base functional main(), test cases
+-Giwon: Finish Dijkstra's algorithm
+
+Week 5 (May 6 - May 12):
+This week was mostly used to polish off all of our code and create our final deliverables. We spent time further enhacing the user expereince. We added functionality to including airport names in all output, generate random, valid airport codes to use as origin or destination airports, and adding grouped test code filters like [dijkstra] to make it easier for the user to run our test suite. On top of this all code was scrubbed for unuse code and commented thoroughly. A proper ReadME file, results document, and presentation slide deck were all created.
+Responsibilities:
+-Krystyna: Make final fixes on graphical representation algorithm, fix/rewrite devlog, complete Results document (Final Report.MD), Clean Code
+-Zach: Added final main() functionalities, ReadME file, Clean Code
+-Giwon: Slide Deck and Presentation Prep, Clean Code
